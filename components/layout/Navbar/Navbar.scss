@@ -1,0 +1,32 @@
+.navbar {
+  padding-top: 30px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__brand {
+    img {
+      display: block;
+      height: 42px;
+      width: 42px;
+      object-fit: contain;
+      border: 1px solid $clr-primary;
+      border-radius: 50% 50%;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  &__menu-link {
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+  }
+}
