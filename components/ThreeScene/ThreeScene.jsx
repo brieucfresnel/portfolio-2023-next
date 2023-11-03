@@ -108,7 +108,23 @@ function makeShapeVariant1(cubeMap, globalUniforms) {
   });
 
   let o = new THREE.Mesh(g, m);
-  o.translateX(0);
+
+  return o;
+}
+
+function makeShapeVariant2() {
+  let g = new THREE.IcosahedronGeometry(1, 70);
+
+  let localUniforms = {
+    color1: { value: new THREE.Color(0xdf3838) },
+    color2: { value: new THREE.Color(444296) },
+  };
+
+  let m = new THREE.MeshStandardMaterial({
+    onBeforeCompile: (shader) => {},
+  });
+
+  let o = new THREE.Mesh(g, m);
 
   return o;
 }
@@ -266,7 +282,8 @@ function SceneManager() {
   };
 
   this.addMainShape = () => {
-    this.mainShape = makeShapeVariant1(this.cubeMap, this.globalUniforms);
+    // this.mainShape = makeShapeVariant1(this.cubeMap, this.globalUniforms);
+    this.mainShape = makeShapeVariant2();
     this.scene.add(this.mainShape);
   };
 
