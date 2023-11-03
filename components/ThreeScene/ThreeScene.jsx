@@ -11,9 +11,14 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
+import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
+import noise3D from "assets/shaders/noise-3D.glsl";
 import fragment from "assets/shaders/shape-1/fragment.glsl";
 import vertex from "assets/shaders/shape-1/vertex.glsl";
-import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
+import shape2FragmentMain from "assets/shaders/shape-2/fragment_main.glsl";
+import shape2FragmentPars from "assets/shaders/shape-2/fragment_pars.glsl";
+import shape2VertexMain from "assets/shaders/shape-2/vertex_main.glsl";
+import shape2VertexPars from "assets/shaders/shape-2/vertex_pars.glsl";
 // import noiseFS2 from "./shaders/noise-fs-2.glsl";
 
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
@@ -121,7 +126,37 @@ function makeShapeVariant2() {
   };
 
   let m = new THREE.MeshStandardMaterial({
-    onBeforeCompile: (shader) => {},
+    onBeforeCompile: (shader) => {
+      m.userData.shader = shader;
+      // uniforms
+      shader.uniforms.uTime = { value: 0 };
+
+      const parsVertexString = /* glsl */ `#include <displacementmap_pars_vertex>`;
+      shader.vertexShader = shader.vertexShader.replace(
+        parsVertexString,
+        parsVertexString + "\n" + shape2VertexPars
+      );
+
+      const mainVertexString = /* glsl */ `#include <displacementmap_vertex>`;
+      shader.vertexShader = shader.vertexShader.replace(
+        mainVertexString,
+        mainVertexString + "\n" + shape2VertexMain
+      );
+
+      const parsFragmentString = /* glsl */ `#include <bumpmap_pars_fragment>`;
+      shader.fragmentShader = shader.fragmentShader.replace(
+        parsFragmentString,
+        parsFragmentString + "\n" + shape2FragmentPars
+      );
+
+      const mainFragmentString = /* glsl */ `#include <normal_fragment_maps>`;
+      shader.fragmentShader = shader.fragmentShader.replace(
+        mainFragmentString,
+        mainFragmentString + "\n" + shape2FragmentMain
+      );
+
+      console.log(shader.fragmentShader);
+    },
   });
 
   let o = new THREE.Mesh(g, m);
@@ -131,7 +166,7 @@ function makeShapeVariant2() {
 
 function SceneManager() {
   this.init = () => {
-    this.enableOrbitControls = false;
+    this.enableOrbitControls = true;
     this.enableBloom = false;
 
     this.scene = new THREE.Scene();
@@ -182,8 +217,8 @@ function SceneManager() {
         uniforms: {
           baseTexture: { value: null },
         },
-        vertexShader: vertex,
-        fragmentShader: fragment,
+        // vertexShader: shape2Vertex,
+        // fragmentShader: shape2Fragment,
         defines: {},
       }),
       "baseTexture"
@@ -200,7 +235,7 @@ function SceneManager() {
 
     this.finalComposer = new EffectComposer(this.renderer);
     this.finalComposer.addPass(this.renderScene);
-    this.finalComposer.addPass(this.finalPass);
+    // this.finalComposer.addPass(this.finalPass);
   };
 
   this.start = () => {
