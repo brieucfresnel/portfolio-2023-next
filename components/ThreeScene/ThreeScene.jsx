@@ -21,8 +21,8 @@ import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
 function makeShapeVariant1(cubeMap, globalUniforms) {
   let g = new THREE.IcosahedronGeometry(1, 70);
   let localUniforms = {
-    color1: { value: new THREE.Color(0xff3232) },
-    color2: { value: new THREE.Color(0x0032ff) },
+    color1: { value: new THREE.Color(0xdf3838) },
+    color2: { value: new THREE.Color(444296) },
   };
 
   let m = new THREE.MeshStandardMaterial({
@@ -42,7 +42,7 @@ function makeShapeVariant1(cubeMap, globalUniforms) {
           return cnoise(vec4(p, time));
         }
         vec3 getPos(vec3 p){
-          return p * (4. + noise(p * 3.) * 2.);
+          return p * (4. + noise(p * 3.) * 3.);
         }
         ${shader.vertexShader}
       `
@@ -93,9 +93,9 @@ function makeShapeVariant1(cubeMap, globalUniforms) {
           `#include <dithering_fragment>
           
           //https://madebyevan.com/shaders/grid/
-          float coord = length(rPos) * 4.;
+          float coord = length(rPos) * 6.;
           float line = abs(fract(coord - 0.5) - 0.5) / fwidth(coord) / 1.25;
-          float grid = 1.0 - min(line, 1.0);
+          float grid = 1.0 - min(line, 0.6);
           //////////////////////////////////////
           
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0), bloom);
@@ -161,27 +161,6 @@ function SceneManager() {
 
     this.renderScene = new RenderPass(this.scene, this.camera);
 
-    const params = {
-      exposure: 1,
-      bloomStrength: 1,
-      bloomThreshold: 0,
-      bloomRadius: 0,
-    };
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.5,
-      0.4,
-      0.85
-    );
-    bloomPass.threshold = params.bloomThreshold;
-    bloomPass.strength = params.bloomStrength;
-    bloomPass.radius = params.bloomRadius;
-
-    this.bloomComposer = new EffectComposer(this.renderer);
-    this.bloomComposer.renderToScreen = false;
-    this.bloomComposer.addPass(this.renderScene);
-    this.bloomComposer.addPass(bloomPass);
-
     this.finalPass = new ShaderPass(
       new THREE.ShaderMaterial({
         uniforms: {
@@ -193,7 +172,10 @@ function SceneManager() {
       }),
       "baseTexture"
     );
+
     if (this.enableBloom) {
+      this.bloomComposer = this.makeBloomComposer();
+
       this.finalPass.material.uniforms.bloomTexture = {
         value: this.bloomComposer.renderTarget2.texture,
       };
@@ -243,7 +225,30 @@ function SceneManager() {
     });
   };
 
-  this.makeBloomPass = () => {};
+  this.makeBloomComposer = () => {
+    const params = {
+      exposure: 1,
+      bloomStrength: 1,
+      bloomThreshold: 0,
+      bloomRadius: 0,
+    };
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      1.5,
+      0.4,
+      0.85
+    );
+    bloomPass.threshold = params.bloomThreshold;
+    bloomPass.strength = params.bloomStrength;
+    bloomPass.radius = params.bloomRadius;
+
+    const bloomComposer = new EffectComposer(this.renderer);
+    bloomComposer.renderToScreen = false;
+    bloomComposer.addPass(this.renderScene);
+    bloomComposer.addPass(bloomPass);
+
+    return bloomComposer;
+  };
 
   this.addOrbitControls = () => {
     const controls = new OrbitControls(this.camera, this.renderer.domElement);
