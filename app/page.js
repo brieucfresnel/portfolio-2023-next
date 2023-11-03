@@ -1,5 +1,11 @@
+import Header from "@/components/Header/Header";
 import ThreeScene from "@/components/ThreeScene/ThreeScene";
 
 export default function Home() {
-  return <ThreeScene></ThreeScene>;
+  return (
+    <>
+      <Header></Header>
+      <ThreeScene></ThreeScene>
+    </>
+  );
 }

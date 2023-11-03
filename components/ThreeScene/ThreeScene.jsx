@@ -11,9 +11,9 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
-import fragment from "./shaders/fragment.glsl";
-import vertex from "./shaders/vertex.glsl";
-import noiseFS from "./shaders/noise-fs.glsl";
+import fragment from "assets/shaders/shape-1/fragment.glsl";
+import vertex from "assets/shaders/shape-1/vertex.glsl";
+import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
 // import noiseFS2 from "./shaders/noise-fs-2.glsl";
 
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
@@ -108,13 +108,16 @@ function makeShapeVariant1(cubeMap, globalUniforms) {
   });
 
   let o = new THREE.Mesh(g, m);
-  o.translateX(5);
+  o.translateX(0);
 
   return o;
 }
 
 function SceneManager() {
   this.init = () => {
+    this.enableOrbitControls = false;
+    this.enableBloom = false;
+
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
@@ -125,6 +128,7 @@ function SceneManager() {
     );
 
     this.camera.position.z = 20;
+    this.camera.position.x = -5;
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -139,12 +143,11 @@ function SceneManager() {
     this.renderer.toneMapping = THREE.ReinhardToneMapping;
 
     // this.renderer.setClearColor(0xffffff, 0.0);
-    // const bgTexture = new THREE.TextureLoader().load(
-    //   "/images/bg-gradient-noise.png"
-    // );
-    // this.scene.background = bgTexture;
+    const bgTexture = new THREE.TextureLoader().load(
+      "/images/bg-gradient-noise.png"
+    );
 
-    this.scene.background = null;
+    this.renderer.setClearColor(0, 0);
 
     this.cubeMap = this.createCubeMap();
 
@@ -156,15 +159,14 @@ function SceneManager() {
       aspect: { value: innerWidth / innerHeight },
     };
 
+    this.renderScene = new RenderPass(this.scene, this.camera);
+
     const params = {
       exposure: 1,
       bloomStrength: 1,
       bloomThreshold: 0,
       bloomRadius: 0,
     };
-
-    this.renderScene = new RenderPass(this.scene, this.camera);
-
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
       1.5,
@@ -184,7 +186,6 @@ function SceneManager() {
       new THREE.ShaderMaterial({
         uniforms: {
           baseTexture: { value: null },
-          bloomTexture: { value: this.bloomComposer.renderTarget2.texture },
         },
         vertexShader: vertex,
         fragmentShader: fragment,
@@ -192,6 +193,11 @@ function SceneManager() {
       }),
       "baseTexture"
     );
+    if (this.enableBloom) {
+      this.finalPass.material.uniforms.bloomTexture = {
+        value: this.bloomComposer.renderTarget2.texture,
+      };
+    }
     this.finalPass.needsSwap = true;
 
     this.finalComposer = new EffectComposer(this.renderer);
@@ -202,9 +208,42 @@ function SceneManager() {
   this.start = () => {
     this.addLights();
     this.addMainShape();
-    this.addOrbitControls();
+
+    if (this.enableOrbitControls) {
+      this.addOrbitControls();
+    }
+
     this.setRendererAnimationLoop();
   };
+
+  this.setRendererAnimationLoop = () => {
+    this.renderer.setAnimationLoop(() => {
+      let t = this.clock.getElapsedTime();
+      if (this.enableOrbitControls) {
+        this.controls.update();
+      }
+      this.globalUniforms.time.value = t * 0.1;
+      // renderer.setRenderTarget(rt);
+      // renderer.render(bScn, bCam);
+      this.renderer.setRenderTarget(null);
+
+      if (this.enableBloom) {
+        this.globalUniforms.bloom.value = 1;
+        this.bloomComposer.render();
+        this.globalUniforms.bloom.value = 0;
+      }
+      // scene.background = rt.texture;
+      // const bgTexture = new THREE.TextureLoader().load(
+      //   "/images/header-bg-gradient-2.png"
+      // );
+      // this.scene.background = bgTexture;
+
+      this.finalComposer.render();
+      //renderer.render(scene, camera);
+    });
+  };
+
+  this.makeBloomPass = () => {};
 
   this.addOrbitControls = () => {
     const controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -217,31 +256,13 @@ function SceneManager() {
     this.controls = controls;
   };
 
-  this.setRendererAnimationLoop = () => {
-    this.renderer.setAnimationLoop(() => {
-      let t = this.clock.getElapsedTime();
-      this.controls.update();
-      this.globalUniforms.time.value = t * 0.1;
-      // renderer.setRenderTarget(rt);
-      // renderer.render(bScn, bCam);
-      this.renderer.setRenderTarget(null);
-      this.globalUniforms.bloom.value = 1;
-      // this.bloomComposer.render();
-      // scene.background = rt.texture;
-
-      this.globalUniforms.bloom.value = 0;
-      this.finalComposer.render();
-      //renderer.render(scene, camera);
-    });
-  };
-
   this.bindListeners = () => {
     window.addEventListener("resize", () => this.handleResize());
   };
 
   this.addMainShape = () => {
-    const o = makeShapeVariant1(this.cubeMap, this.globalUniforms);
-    this.scene.add(o);
+    this.mainShape = makeShapeVariant1(this.cubeMap, this.globalUniforms);
+    this.scene.add(this.mainShape);
   };
 
   this.addLights = () => {
