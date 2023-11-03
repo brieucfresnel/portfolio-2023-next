@@ -107,10 +107,17 @@
       background: url("/images/header-pattern-6.png") center/cover no-repeat;
     }
 
+    &__inner {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
     &__title {
       font-size: 3.125rem;
-      transform: translateY(-50%);
-      margin: 0;
+      line-height: 1;
+      position: relative;
+      margin-top: -30px;
+      padding-bottom: 20px;
     }
 
     &__text {
