@@ -11,6 +11,13 @@ $clr-light: #ffe8ec;
 $clr-primary: #30313a;
 $clr-accent: #fe4a49;
 
+$z-indexes: (
+  three: 2,
+  overlay: 1,
+  title: 0,
+  introduction: 3
+);
+
 // :export {
 //   clr-light: $clr-light;
 //   clr-primary: $clr-primary;
