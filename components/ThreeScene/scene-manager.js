@@ -1,24 +1,14 @@
 import * as THREE from "three";
 import "./ThreeScene.scss";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { SavePass } from "three/examples/jsm/postprocessing/SavePass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { BlendShader } from "three/examples/jsm/shaders/BlendShader.js";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader.js";
 
-import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
-import noise3D from "assets/shaders/noise-3D.glsl";
-import fragment from "assets/shaders/shape-1/fragment.glsl";
-import vertex from "assets/shaders/shape-1/vertex.glsl";
-import shape2FragmentMain from "assets/shaders/shape-2/fragment_main.glsl";
-import shape2FragmentPars from "assets/shaders/shape-2/fragment_pars.glsl";
-import shape2VertexMain from "assets/shaders/shape-2/vertex_main.glsl";
-import shape2VertexPars from "assets/shaders/shape-2/vertex_pars.glsl";
+import ShapeVariant1 from "./shapes/shape-1";
+import ShapeVariant2 from "./shapes/shape-2";
 
 import {
   initEngine,
@@ -34,148 +24,12 @@ import {
 
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
 
-function makeShapeVariant1(cubeMap, globalUniforms) {
-  let g = new THREE.IcosahedronGeometry(1, 200);
-  let localUniforms = {
-    color1: { value: new THREE.Color(0xdf3838) },
-    color2: { value: new THREE.Color(444296) },
-  };
-
-  let m = new THREE.MeshStandardMaterial({
-    roughness: 0.125,
-    metalness: 0.875,
-    envMap: cubeMap,
-    onBeforeCompile: (shader) => {
-      shader.uniforms.bloom = globalUniforms.bloom;
-      shader.uniforms.color1 = localUniforms.color1;
-      shader.uniforms.color2 = localUniforms.color2;
-      shader.uniforms.uTime = { value: 0 };
-      shader.vertexShader = `
-        uniform float time;
-        varying vec3 rPos;
-        ${noiseFS}
-        float noise(vec3 p){
-          return cnoise(vec4(p, time));
-        }
-        vec3 getPos(vec3 p){
-          return p * (4. + noise(p * 3.) * 3.);
-        }
-        ${shader.vertexShader}
-      `
-        .replace(
-          `#include <beginnormal_vertex>`,
-          `#include <beginnormal_vertex>
-        
-          vec3 p0 = getPos(position);
-          
-          // https://stackoverflow.com/a/39296939/4045502
-          
-          float theta = .1; 
-          vec3 vecTangent = normalize(cross(p0, vec3(1.0, 0.0, 0.0)) + cross(p0, vec3(0.0, 1.0, 0.0)));
-          vec3 vecBitangent = normalize(cross(vecTangent, p0));
-          vec3 ptTangentSample = getPos(normalize(p0 + theta * normalize(vecTangent)));
-          vec3 ptBitangentSample = getPos(normalize(p0 + theta * normalize(vecBitangent)));
-          
-          objectNormal = normalize(cross(ptBitangentSample - p0, ptTangentSample - p0));
-          
-          ///////////////////////////////////////////////
-        `
-        )
-        .replace(
-          `#include <begin_vertex>`,
-          `#include <begin_vertex>
-          transformed = p0;
-          rPos = transformed;
-        `
-        );
-      //console.log(shader.vertexShader);
-      shader.fragmentShader = `
-        #define ss(a, b, c) smoothstep(a, b, c)
-        uniform float bloom;
-        uniform vec3 color1;
-        uniform vec3 color2;
-        varying vec3 rPos;
-        ${shader.fragmentShader}
-      `
-        .replace(
-          `vec4 diffuseColor = vec4( diffuse, opacity );`,
-          `
-        vec3 col = mix(color1, color2, ss(2., 6., length(rPos)));
-        vec4 diffuseColor = vec4( col, opacity );
-        `
-        )
-        .replace(
-          `#include <dithering_fragment>`,
-          `#include <dithering_fragment>
-          
-          //https://madebyevan.com/shaders/grid/
-          float coord = length(rPos) * 6.;
-          float line = abs(fract(coord - 0.5) - 0.5) / fwidth(coord) / 1.25;
-          float grid = 1.0 - min(line, 0.6);
-          //////////////////////////////////////
-          
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0), bloom);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, col * 2., grid);
-          
-        `
-        );
-      //console.log(shader.fragmentShader);
-    },
-  });
-
-  let o = new THREE.Mesh(g, m);
-
-  return o;
-}
-
-function makeShapeVariant2() {
-  this.geometry = new THREE.IcosahedronGeometry(2, 200);
-
-  this.material = new THREE.MeshStandardMaterial({
-    onBeforeCompile: (shader) => {
-      this.material.userData.shader = shader;
-      // uniforms
-      shader.uniforms.uTime = { value: 0 };
-
-      const parsVertexString = /* glsl */ `#include <displacementmap_pars_vertex>`;
-      shader.vertexShader = shader.vertexShader.replace(
-        parsVertexString,
-        parsVertexString + "\n" + shape2VertexPars
-      );
-
-      const mainVertexString = /* glsl */ `#include <displacementmap_vertex>`;
-      shader.vertexShader = shader.vertexShader.replace(
-        mainVertexString,
-        mainVertexString + "\n" + shape2VertexMain
-      );
-
-      const parsFragmentString = /* glsl */ `#include <bumpmap_pars_fragment>`;
-      shader.fragmentShader = shader.fragmentShader.replace(
-        parsFragmentString,
-        parsFragmentString + "\n" + shape2FragmentPars
-      );
-
-      const mainFragmentString = /* glsl */ `#include <normal_fragment_maps>`;
-      shader.fragmentShader = shader.fragmentShader.replace(
-        mainFragmentString,
-        mainFragmentString + "\n" + shape2FragmentMain
-      );
-    },
-    emissive: 0xffffff,
-    emissiveIntensity: 0.2,
-  });
-
-  this.mesh = new THREE.Mesh(this.geometry, this.material);
-
-  return this.mesh;
-}
-
 export function SceneManager() {
   this.init = async () => {
     this.scene = getScene();
-    // this.scene.background = new THREE.TextureLoader().load(
-    //   "images/bg-gradient-noise.png"
-    // );
+    this.scene.background = new THREE.TextureLoader().load(
+      "images/bg-gradient-noise.png"
+    );
     this.renderer = getRenderer();
     this.camera = getCamera();
     this.gui = getGui();
@@ -195,14 +49,20 @@ export function SceneManager() {
   };
 
   this.start = () => {
-    this.addLights();
     this.addMainShape();
-    this.applyPostProcessing();
+    this.addLights();
+
+    if (this.enableBloom) {
+      this.makeBloomComposer();
+    }
+    if (this.showHelpers) this.makeHelpers();
 
     if (this.enableOrbitControls) {
       this.addOrbitControls();
     }
     let i = 0;
+
+    this.applyPostProcessing();
 
     getTick(({ timestamp, timeDiff }) => {
       const time = timestamp / 10000;
@@ -211,32 +71,6 @@ export function SceneManager() {
   };
 
   this.applyPostProcessing = () => {
-    // this.renderer.setAnimationLoop(() => {
-    // let t = this.clock.getElapsedTime();
-    // if (this.enableOrbitControls) {
-    // this.controls.update();
-    // }
-    // this.globalUniforms.time.value = t * 0.1;
-
-    // renderer.setRenderTarget(rt);
-    // renderer.render(bScn, bCam);
-    // this.renderer.setRenderTarget(null);
-
-    // if (this.enableBloom) {
-    //   this.globalUniforms.bloom.value = 1;
-    //   this.bloomComposer.render();
-    //   this.globalUniforms.bloom.value = 0;
-    // }
-    // scene.background = rt.texture;
-    // const bgTexture = new THREE.TextureLoader().load(
-    //   "/images/header-bg-gradient-2.png"
-    // );
-    // this.scene.background = bgTexture;
-
-    // this.finalComposer.render();
-    //renderer.render(scene, camera);
-    // });
-
     const renderTargetParameters = {
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
@@ -251,7 +85,6 @@ export function SceneManager() {
         renderTargetParameters
       )
     );
-
     // blend pass
     const blendPass = new ShaderPass(BlendShader, "tDiffuse1");
     blendPass.uniforms["tDiffuse2"].value = savePass.renderTarget.texture;
@@ -265,15 +98,6 @@ export function SceneManager() {
     addPass(blendPass);
     addPass(savePass);
     addPass(outputPass);
-
-    // addPass(
-    //   new UnrealBloomPass(
-    //     new THREE.Vector2(this.width, this.height),
-    //     0.4,
-    //     0.4,
-    //     0.4
-    //   )
-    // );
   };
 
   this.makeGui = () => {
@@ -299,63 +123,49 @@ export function SceneManager() {
     bloomPass.strength = params.bloomStrength;
     bloomPass.radius = params.bloomRadius;
 
-    const bloomComposer = new EffectComposer(this.renderer);
-    bloomComposer.renderToScreen = false;
-    bloomComposer.addPass(this.renderScene);
-    bloomComposer.addPass(bloomPass);
-
-    return bloomComposer;
+    addPass(bloomPass);
   };
 
   this.makeHelpers = () => {
     if (this.dirLight1) {
       const dirLight1helper = new THREE.DirectionalLightHelper(this.dirLight1);
+      this.scene.add(dirLight1helper);
     }
 
     if (this.dirLight2) {
-      const dirLight2helper = new THREE.DirectionalLightHelper(dirLight2);
-      scene.add(dirLight2helper);
+      const dirLight2helper = new THREE.DirectionalLightHelper(this.dirLight2);
+      this.scene.add(dirLight2helper);
     }
 
     const gridHelper = new THREE.GridHelper(5, 5);
-    this.scene.add(gridHelper, dirLight1helper);
+    this.scene.add(gridHelper);
   };
-  // this.bindListeners = () => {
-  //   window.addEventListener("resize", () => this.handleResize());
-  // };
 
   this.addMainShape = () => {
     // this.mainShape = makeShapeVariant1(this.cubeMap, this.globalUniforms);
-    this.mainShape = new makeShapeVariant2();
+    this.mainShape = new ShapeVariant1(this.cubeMap);
 
     this.scene.add(this.mainShape);
   };
 
   this.addLights = () => {
-    // let light = new THREE.DirectionalLight(0xffffff, 1.75);
-    // light.position.setScalar(1);
+    let light = new THREE.DirectionalLight(0xffffff, 1.75);
 
     // this.scene.add(light, new THREE.AmbientLight(0xffffff, 0.25));
 
-    this.dirLight1 = new THREE.DirectionalLight("#C83030", 0.5);
-    this.dirLight1.position.set(0, 10, 0);
+    this.dirLight1 = new THREE.DirectionalLight("#222222", 0.4);
+    this.dirLight1.position.set(5, 5, 0);
     this.scene.add(this.dirLight1);
+
+    // this.dirLight2 = new THREE.DirectionalLight("#E26770", 0.4);
+    // this.dirLight2.position.set(-5, -5, 0);
+    // this.scene.add(this.dirLight2);
     // const dirLight2 = new THREE.DirectionalLight('#E26770', 0.6)
     // dirLight2.position.set(0, -15, 2)
 
-    this.ambientLight = new THREE.AmbientLight("#FFFFFF", 0.6);
+    this.ambientLight = new THREE.AmbientLight("#FFFFFF", 0.8);
     this.scene.add(this.ambientLight);
   };
-
-  // this.handleResize = () => {
-  //   this.camera.aspect = window.innerWidth / window.innerHeight;
-  //   this.renderer.setSize(window.innerWidth, window.innerHeight);
-  //   this.camera.updateProjectionMatrix();
-  //   this.bloomComposer.setSize(window.innerWidth, window.innerHeight);
-  //   this.finalComposer.setSize(window.innerWidth, window.innerHeight);
-  //   // rt.setSize(sceneRect.width, sceneRect.height);
-  //   this.globalUniforms.aspect.value = this.camera.aspect;
-  // };
 
   this.createCubeMap = () => {
     let images = [];
