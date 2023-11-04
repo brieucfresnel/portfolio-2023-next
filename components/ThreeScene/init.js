@@ -18,7 +18,7 @@ let scene,
   renderAspectRatio;
 const renderTickManager = new TickManager();
 
-export const initEngine = async () => {
+export const initEngine = async (containerRef) => {
   scene = new THREE.Scene();
 
   renderWidth = window.innerWidth;

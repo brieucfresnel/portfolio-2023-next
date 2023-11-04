@@ -3,7 +3,7 @@ const nextConfig = {
   sassOptions: {
     prependData: `@import "~/assets/scss/variables.scss"; @import "~/assets/scss/mixins.scss";`,
   },
-  // reactStrictMode: false,
+  reactStrictMode: false,
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,

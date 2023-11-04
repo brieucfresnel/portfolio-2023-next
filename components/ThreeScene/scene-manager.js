@@ -6,7 +6,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { SavePass } from "three/examples/jsm/postprocessing/SavePass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { BlendShader } from "three/examples/jsm/shaders/BlendShader.js";
+import { CopyShader } from "three/examples/jsm/shaders/CopyShader.js";
 
 import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
 import noise3D from "assets/shaders/noise-3D.glsl";
@@ -32,7 +35,7 @@ import {
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
 
 function makeShapeVariant1(cubeMap, globalUniforms) {
-  let g = new THREE.IcosahedronGeometry(1, 70);
+  let g = new THREE.IcosahedronGeometry(1, 200);
   let localUniforms = {
     color1: { value: new THREE.Color(0xdf3838) },
     color2: { value: new THREE.Color(444296) },
@@ -126,7 +129,7 @@ function makeShapeVariant1(cubeMap, globalUniforms) {
 }
 
 function makeShapeVariant2() {
-  this.geometry = new THREE.IcosahedronGeometry(2, 100);
+  this.geometry = new THREE.IcosahedronGeometry(2, 200);
 
   this.material = new THREE.MeshStandardMaterial({
     onBeforeCompile: (shader) => {
@@ -158,6 +161,8 @@ function makeShapeVariant2() {
         mainFragmentString + "\n" + shape2FragmentMain
       );
     },
+    emissive: 0xffffff,
+    emissiveIntensity: 0.2,
   });
 
   this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -169,7 +174,7 @@ export function SceneManager() {
   this.init = async () => {
     this.scene = getScene();
     // this.scene.background = new THREE.TextureLoader().load(
-    //   "bg-gradient-noise.png"
+    //   "images/bg-gradient-noise.png"
     // );
     this.renderer = getRenderer();
     this.camera = getCamera();
@@ -180,60 +185,19 @@ export function SceneManager() {
     this.showHelpers = true;
     // this.fontLoader = new FontLoader();
 
-    this.enableOrbitControls = true;
+    // this.enableOrbitControls = true;
     this.enableBloom = false;
 
     this.camera.position.z = 5;
     this.camera.position.x = 5;
 
     this.MOTION_BLUR_AMOUNT = 0.5;
-
-    // this.renderer = new THREE.WebGLRenderer({
-    //   antialias: true,
-    //   alpha: true,
-    // });
-    // this.renderer.setClearColor(0xffffff, 0.0);
-    // const bgTexture = new THREE.TextureLoader().load(
-    //   "/images/bg-gradient-noise.png"
-    // );
-
-    // this.renderer.setClearColor(0, 0);
-
-    // this.cubeMap = this.createCubeMap();
-
-    // this.clock = new THREE.Clock();
-
-    // this.renderScene = new RenderPass(this.scene, this.camera);
-
-    // this.finalPass = new ShaderPass(
-    //   new THREE.ShaderMaterial({
-    //     uniforms: {
-    //       baseTexture: { value: null },
-    //     },
-    //     // vertexShader: shape2Vertex,
-    //     // fragmentShader: shape2Fragment,
-    //     defines: {},
-    //   }),
-    //   "baseTexture"
-    // );
-
-    // if (this.enableBloom) {
-    //   this.bloomComposer = this.makeBloomComposer();
-
-    //   this.finalPass.material.uniforms.bloomTexture = {
-    //     value: this.bloomComposer.renderTarget2.texture,
-    //   };
-    // }
-    // this.finalPass.needsSwap = true;
-
-    // this.finalComposer = new EffectComposer(this.renderer);
-    // this.finalComposer.addPass(this.renderScene);
-    // this.finalComposer.addPass(this.finalPass);
   };
 
   this.start = () => {
     this.addLights();
     this.addMainShape();
+    this.applyPostProcessing();
 
     if (this.enableOrbitControls) {
       this.addOrbitControls();
@@ -302,14 +266,14 @@ export function SceneManager() {
     addPass(savePass);
     addPass(outputPass);
 
-    addPass(
-      new UnrealBloomPass(
-        new THREE.Vector2(this.width, this.height),
-        0.4,
-        0.4,
-        0.4
-      )
-    );
+    // addPass(
+    //   new UnrealBloomPass(
+    //     new THREE.Vector2(this.width, this.height),
+    //     0.4,
+    //     0.4,
+    //     0.4
+    //   )
+    // );
   };
 
   this.makeGui = () => {
@@ -343,20 +307,19 @@ export function SceneManager() {
     return bloomComposer;
   };
 
-  this.addOrbitControls = () => {
-    const controls = new OrbitControls(
-      this.mainShape,
-      this.renderer.domElement
-    );
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    controls.enableDamping = true;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed *= 0.25;
+  this.makeHelpers = () => {
+    if (this.dirLight1) {
+      const dirLight1helper = new THREE.DirectionalLightHelper(this.dirLight1);
+    }
 
-    this.controls = controls;
+    if (this.dirLight2) {
+      const dirLight2helper = new THREE.DirectionalLightHelper(dirLight2);
+      scene.add(dirLight2helper);
+    }
+
+    const gridHelper = new THREE.GridHelper(5, 5);
+    this.scene.add(gridHelper, dirLight1helper);
   };
-
   // this.bindListeners = () => {
   //   window.addEventListener("resize", () => this.handleResize());
   // };
@@ -374,14 +337,14 @@ export function SceneManager() {
 
     // this.scene.add(light, new THREE.AmbientLight(0xffffff, 0.25));
 
-    this.dirLight = new THREE.DirectionalLight("#5B51C9", 0.4);
-    this.dirLight.position.set(0, 0, 2);
-
+    this.dirLight1 = new THREE.DirectionalLight("#C83030", 0.5);
+    this.dirLight1.position.set(0, 10, 0);
+    this.scene.add(this.dirLight1);
     // const dirLight2 = new THREE.DirectionalLight('#E26770', 0.6)
     // dirLight2.position.set(0, -15, 2)
 
-    this.ambientLight = new THREE.AmbientLight("#FFFFFF", 0.15);
-    this.scene.add(this.dirLight, this.ambientLight);
+    this.ambientLight = new THREE.AmbientLight("#FFFFFF", 0.6);
+    this.scene.add(this.ambientLight);
   };
 
   // this.handleResize = () => {
