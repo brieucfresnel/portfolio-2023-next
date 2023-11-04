@@ -4,14 +4,26 @@ import shape2FragmentPars from "assets/shaders/shape-2/fragment_pars.glsl";
 import shape2VertexMain from "assets/shaders/shape-2/vertex_main.glsl";
 import shape2VertexPars from "assets/shaders/shape-2/vertex_pars.glsl";
 
-export default function ShapeVariant2(cubeMap) {
-  this.geometry = new THREE.IcosahedronGeometry(2, 200);
+export default function ShapeVariant2(bg = false) {
+  let size, side, quality;
+  if (bg) {
+    size = 7;
+    quality = 200;
+    side = THREE.BackSide;
+  } else {
+    size = 1;
+    quality = 200;
+    side = THREE.FrontSide;
+  }
+
+  this.geometry = new THREE.IcosahedronGeometry(size, quality);
 
   this.material = new THREE.MeshStandardMaterial({
     roughness: 0.125,
-    metalness: 0.875,
-    envMap: cubeMap,
+    metalness: 0.475,
+    // envMap: cubeMap,
     // color: 0xffffff,
+    side,
 
     onBeforeCompile: (shader) => {
       this.material.userData.shader = shader;
@@ -41,6 +53,8 @@ export default function ShapeVariant2(cubeMap) {
         mainFragmentString,
         mainFragmentString + "\n" + shape2FragmentMain
       );
+
+      console.log(shader.fragmentShader);
     },
     // emissive: 0xffffff,
     // emissiveIntensity: 0.2,

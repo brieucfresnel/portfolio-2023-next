@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <header className="header" ref={header}>
       <div>
-        <p className="header__subtitle">Brieuc Fresnel</p>
+        {/* <p className="header__subtitle">Brieuc Fresnel</p> */}
         <h1 className="header__title">Développeur WordPress & Front</h1>
       </div>
 

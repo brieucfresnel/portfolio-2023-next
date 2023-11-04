@@ -4,14 +4,17 @@ import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
 
 export default function ShapeVariant1(cubeMap) {
   let g = new THREE.IcosahedronGeometry(1, 200);
+  // color1: { value: new THREE.Color(0xdf3838) },
+  // color2: { value: new THREE.Color(0xc9d1ff) },
+
   let localUniforms = {
-    color1: { value: new THREE.Color(0xdf3838) },
-    color2: { value: new THREE.Color(0xc9d1ff) },
+    color1: { value: new THREE.Color(0x0d0b12) },
+    color2: { value: new THREE.Color(0xffe8ec) },
   };
 
   let m = new THREE.MeshStandardMaterial({
     roughness: 0.125,
-    metalness: 0.875,
+    metalness: 0.0,
     envMap: cubeMap,
     onBeforeCompile: (shader) => {
       m.userData.shader = shader;
@@ -38,14 +41,14 @@ export default function ShapeVariant1(cubeMap) {
         }
         
         float wave(vec3 position) {
-          return fit(smoothMod(position.y * 6.0, 1.0, 1.5), 0.35, 0.6, 0.0, 1.0);
+          return fit(smoothMod(position.y * 3.0, 1.0, 1.5), 0.35, 0.6, 0.0, 1.0);
         }
         
         float noise(vec3 p){
           return cnoise(vec4(p, uTime));
         }
         vec3 getPos(vec3 p){
-          return p * (4. + noise(p * 3.) * 2.);
+          return p * (4. + noise(p * 3.) * 1.5);
         }
 
         ${shader.vertexShader}
@@ -65,18 +68,7 @@ export default function ShapeVariant1(cubeMap) {
           vec3 ptBitangentSample = getPos(normalize(p0 + theta * normalize(vecBitangent)));
           
           objectNormal = normalize(cross(ptBitangentSample - p0, ptTangentSample - p0));
-
-          // position.y += uTime;
-          // vec3 noisePattern = vec3(noise(position / 1.5));
-          float pattern = wave(position + uTime);
-          
-          // varyings
-          vDisplacement = pattern;
-          
-          float displacement = vDisplacement / 3.0;
-
-          p0 += normalize(objectNormal) * displacement;
-          
+        
           
           ///////////////////////////////////////////////
         `
@@ -111,13 +103,17 @@ export default function ShapeVariant1(cubeMap) {
           `#include <dithering_fragment>
           
           //https://madebyevan.com/shaders/grid/
+
           float coord = length(rPos) * 6.;
           float line = abs(fract(coord - 0.3) - 0.5) / fwidth(coord) / 1.25;
           float grid = 1.0 - min(line, 0.6);
           //////////////////////////////////////
           
+          // gl_FragColor = vec4(normal, 1.0 );
+
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0), bloom);
           gl_FragColor.rgb = mix(gl_FragColor.rgb, col * 2., grid);
+
           
         `
         )
@@ -134,24 +130,23 @@ export default function ShapeVariant1(cubeMap) {
           `#include <bumpmap_pars_fragment>
           uniform float uTime;
 
-vec3 perturbNormalArb(vec3 surf_pos, vec3 surf_norm, vec2 dHdxy, float faceDirection) {
+          vec3 perturbNormalArb(vec3 surf_pos, vec3 surf_norm, vec2 dHdxy, float faceDirection) {
 
-  vec3 vSigmaX = dFdx(surf_pos.xyz);
-  vec3 vSigmaY = dFdy(surf_pos.xyz);
-  vec3 vN = surf_norm; // normalized
+            vec3 vSigmaX = dFdx(surf_pos.xyz);
+            vec3 vSigmaY = dFdy(surf_pos.xyz);
+            vec3 vN = surf_norm; // normalized
 
-  vec3 R1 = cross(vSigmaY, vN);
-  vec3 R2 = cross(vN, vSigmaX);
+            vec3 R1 = cross(vSigmaY, vN);
+            vec3 R2 = cross(vN, vSigmaX);
 
-  float fDet = dot(vSigmaX, R1) * faceDirection;
+            float fDet = dot(vSigmaX, R1) * faceDirection;
 
-  vec3 vGrad = sign(fDet) * (dHdxy.x * R1 + dHdxy.y * R2);
-  return normalize(abs(fDet) * surf_norm - vGrad);
+            vec3 vGrad = sign(fDet) * (dHdxy.x * R1 + dHdxy.y * R2);
+            return normalize(abs(fDet) * surf_norm - vGrad);
 
-}
+            }
            `
         );
-      console.log(shader.fragmentShader);
     },
   });
 

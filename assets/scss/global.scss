@@ -28,16 +28,27 @@ body {
   background-size: 150% 150%;
   animation: gradient-animation 18s ease infinite;
 
-  // &::before {
-  //   content: "";
-  //   background: url("../images/header-bg-gradient-2.png") center/cover;
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100vw;
-  //   height: 100vh;
-  //   object-fit: contain;
-  // }
+  &::before {
+    content: "";
+    background: #222;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    animation: move 10s infinite linear;
+  }
+}
+
+@keyframes move {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
 }
 
 .container {

@@ -27,7 +27,6 @@ export const initEngine = async (containerRef) => {
   renderAspectRatio = renderWidth / renderHeight;
 
   camera = new THREE.PerspectiveCamera(75, renderAspectRatio, 0.1, 100);
-  camera.position.z = 10;
 
   const canvas = document.querySelector("#scene");
 
