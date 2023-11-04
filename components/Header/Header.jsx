@@ -44,15 +44,19 @@ export default function Header() {
 
   return (
     <header className="header" ref={header}>
-      <h1 className="header__title">Développeur WordPress & Front</h1>
+      <div>
+        <p className="header__subtitle">Brieuc Fresnel</p>
+        <h1 className="header__title">Développeur WordPress & Front</h1>
+      </div>
+
       <div className="header__top-links">
         <a href="#">projets</a>
         <a href="#">contact</a>
       </div>
       <div className="header__introduction">
         <p>
-          Bonjour, je m’appelle Brieuc, et je développe des sites vitrines et
-          e-commerce. Ces deux dernières années, j’ai travaillé chez{" "}
+          Je suis Brieuc et je développe des sites vitrines et e-commerce. Ces
+          deux dernières années, j’ai travaillé chez{" "}
           <a href="https://studio-dot.fr" target="_blank">
             Studio DOT
           </a>
