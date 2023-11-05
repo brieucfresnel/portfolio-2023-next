@@ -13,8 +13,8 @@ export default function ShapeVariant1() {
   };
 
   let m = new THREE.MeshStandardMaterial({
-    roughness: 0.125,
-    metalness: 0.0,
+    // roughness: 0.125,
+    // metalness: 0.0,
     onBeforeCompile: (shader) => {
       m.userData.shader = shader;
 
@@ -115,16 +115,7 @@ export default function ShapeVariant1() {
 
           
         `
-        )
-        .replace(
-          `#include <normal_fragment_maps>`,
-          `#include <normal_fragment_maps>
-           normal = perturbNormalArb(- vViewPosition, normal, vec2(dFdx(vDisplacement), dFdy(vDisplacement)), faceDirection);
-
-           gl_FragColor = vec4(vec3(1, 1, 1), 1);
-          `
-        )
-        .replace(
+        ).replace(
           `#include <bumpmap_pars_fragment>`,
           `#include <bumpmap_pars_fragment>
           uniform float uTime;
@@ -145,7 +136,15 @@ export default function ShapeVariant1() {
 
             }
            `
-        );
+        ).replace(
+          `#include <normal_fragment_maps>`,
+          `#include <normal_fragment_maps>
+           normal = perturbNormalArb(- vViewPosition, normal, vec2(dFdx(vDisplacement), dFdy(vDisplacement)), faceDirection);
+
+           gl_FragColor = vec4(vec3(2.0, 1.0, 1.0), 0.4);
+          `
+        )
+
     },
   });
 

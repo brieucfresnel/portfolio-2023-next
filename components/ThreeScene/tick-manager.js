@@ -42,6 +42,7 @@ class TickManager extends EventTarget {
     let lastTimestamp = performance.now();
 
     const animate = (timestamp, frame) => {
+
       this.timestamp = timestamp ?? performance.now();
       this.timeDiff = timestamp - lastTimestamp;
 
@@ -61,8 +62,8 @@ class TickManager extends EventTarget {
         stats.update();
       }
 
-      // performance tracker end
-    };
+    }
+    // performance tracker end
 
     renderer.setAnimationLoop(animate);
   }
