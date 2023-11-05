@@ -1,129 +1,56 @@
 .header {
   position: relative;
+  z-index: 1;
   overflow: hidden;
+  padding: 70px;
+  height: 100vh;
+  color: #fff;
 
-  margin-top: 50px;
-  padding: 60px 30px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  &__bg-color {
-    content: "";
-    background: $clr-primary;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-
-    transform-origin: 0 0;
-    transform: scaleY(0.5);
-
-    z-index: -1;
-  }
-
-  &__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    background: url("/images/header-pattern-mobile-2.png") center/cover no-repeat;
-
-    path {
-      stroke: $clr-light;
-    }
-
-    &--2 {
-      left: 100%;
-    }
-  }
-
-  &__inner {
-    background-color: $clr-primary;
-
-    position: relative;
-    z-index: 1;
-
-    color: $clr-light;
-
-    border: 1px solid #514d5a;
-    padding: 10px;
-
-    transition: all 0.3s;
+  a {
+    color: #fff;
   }
 
   &__title {
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    font-size: 2rem;
+    margin: 0;
+    font-weight: 400;
+    font-size: 6rem;
+    line-height: 1;
+    color: $clr-light;
   }
 
-  &__text {
-    font-size: 1rem;
-    line-height: 1.5;
+  &__top-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    height: auto;
+  }
 
-    strong,
-    a {
-      font-weight: 500;
+  &__introduction {
+    p {
+      margin: 0;
+      font-size: 20px;
+      line-height: 150%;
     }
 
-    a {
-      text-decoration: none;
-      color: $clr-light;
-
-      position: relative;
-      display: inline-block;
-      transition: all 0.3s 0s cubic-bezier(0.65, 0, 0.35, 1);
-
-      &::before {
-        content: "";
-        background-color: $clr-accent;
-        position: absolute;
-        bottom: 4px;
-        left: 0;
-        width: 100%;
-        height: 7px;
-        z-index: -1;
-      }
-
-      &:hover {
-      }
+    strong {
+      font-weight: 700;
     }
   }
 
-  &__buttons {
-    margin-top: 10px;
+  &__introduction,
+  &__arrow-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  &__arrow-container {
+    align-items: flex-end;
   }
 
   @include media-up(md) {
-    padding: 160px 100px;
-    text-align: center;
-
-    &__background {
-      background: url("/images/header-pattern-6.png") center/cover no-repeat;
-    }
-
-    &__title {
-      font-size: 3.125rem;
-      transform: translateY(-50%);
-      margin: 0;
-    }
-
-    &__text {
-      font-size: 1.25rem;
-      max-width: 70%;
-      margin: 0 auto;
-    }
-
-    &__buttons {
-      transform: translateY(50%);
-      flex-direction: row;
-      justify-content: center;
-      gap: 20px;
-    }
   }
 }
