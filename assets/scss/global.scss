@@ -7,13 +7,7 @@
 body {
   margin: 0;
   max-width: 100%;
-  // background: linear-gradient(284deg, #ff4747, #444296, #0d4b39);
-
-  // background: linear-gradient(#2a2a2a, transparent), linear-gradient(90deg, #2e2e2e, transparent),
-  //   linear-gradient(-90deg, #2a2a2a, transparent);
-  // background-blend-mode: screen;
   background: #222;
-  overflow: hidden;
 
   &::before {
     content: "";
@@ -40,9 +34,8 @@ h3,
 h4,
 h5,
 h6 {
-  // font-family: ";
-
-  font-family: var(--pp-neue-machina-inktrap);
+  margin: 0;
+  font-weight: normal;
 }
 
 @keyframes move {
@@ -102,31 +95,10 @@ strong {
   font-weight: 500;
 }
 
-.footer {
-  margin-top: 120px;
-}
-
 .opacity-0 {
   opacity: 0;
 }
 
 .opacity-1 {
   opacity: 1;
-}
-
-.line {
-  position: relative;
-  width: fit-content !important;
-
-  &::before {
-    content: "";
-    background-color: $clr-accent;
-    position: absolute;
-    bottom: 2%;
-    left: 1px;
-    width: 0;
-    height: 35%;
-    z-index: -1;
-    transition: all 0.3s 0s cubic-bezier(0.85, 0, 0.15, 1);
-  }
 }
