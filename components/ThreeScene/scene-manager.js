@@ -22,7 +22,6 @@ import {
   addPass,
 } from "./init";
 // import noiseFS2 from "./shaders/noise-fs-2.glsl";
-
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
 
 export function SceneManager() {
@@ -44,25 +43,26 @@ export function SceneManager() {
 
     this.enableBloom = false;
 
-    let cameraDistance = 15;
-    this.camera.position.z = cameraDistance;
-
     this.MOTION_BLUR_AMOUNT = 0.5;
-  };
 
-  this.start = () => {
     this.addMainShape();
-    this.makeMainTitle();
+    // this.makeMainTitle();
     // this.createCubeBg();
     this.addLights();
 
     let cameraDistance = 16;
+    this.camera.translateX(-7.5)
     this.camera.position.z = cameraDistance;
-    this.dirLight1.position.set(3, 6, 0);
-    this.dirLight2.position.set(-3, 12, 0);
-    this.mainShape.translateX(7.5);
 
-    this.mainTitleMesh.translateX(7.5);
+    this.dirLight1.position.set(3, 6, 0);
+    // this.dirLight2.position.set(-3, 12, 0);
+  };
+
+  this.start = () => {
+
+    // this.mainShape.translateX(7.5);
+
+    // this.mainTitleMesh.translateX(7.5);
 
     if (this.enableBloom) {
       this.makeBloomComposer();
@@ -73,10 +73,15 @@ export function SceneManager() {
     this.applyPostProcessing();
 
     getTick(({ timestamp, timeDiff }) => {
-      const time = timestamp / 10000;
+      const time = timestamp / 5000;
       this.mainShape.material.userData.shader.uniforms.uTime.value = time;
-      this.mainShape.rotateY(0.001);
-      this.mainShape.rotateX(0.001);
+
+
+      //  * 0.00002)
+      this.orbit.rotateX(Math.cos(this.mouseAngle) * 0.005);
+      // this.orbit.rotateZ(this.mouseAngle * 0.00002);
+      this.orbit.rotateY(Math.sin(this.mouseAngle) * 0.005);
+      // this.mainShape.rotateX(0.001);
       // this.backgroundSphere.rotateX(0.1);
       // if (this.addBg) {
       //   this.mainShapeBg.material.userData.shader.uniforms.uTime.value = time;
@@ -187,38 +192,41 @@ export function SceneManager() {
 
     // this.mainShape.(5, 0, 0);
     const orbit = new THREE.Object3D();
-    orbit.rotation.order = "XYZ"; //this is important to keep level, so Z should be the last axis to rotate in order...
+    orbit.rotation.order = "YXZ" //this is important to keep level, so Z should be the last axis to rotate in order...
     orbit.position.copy(this.mainShape.position);
-    this.scene.add(orbit);
 
     //offset the camera and add it to the pivot
     //you could adapt the code so that you can 'zoom' by changing the z value in camera.position in a mousewheel event..
 
-    orbit.add(this.camera);
 
-    var ease = 0.00002;
-    let rotEase = 0.01;
+    let rotEase = 0.001;
+    const scale = 0.002;
+    const translateScale = 0.002;
+    const scale2 = 0.08;
+
+    // let direction =
+
+    const RAD2DEG = 180 / Math.PI;
+    this.mouseAngle = 0;
+    let x = 0,
+      y = 0;
 
     document.addEventListener("mousemove", (e) => {
-      let rotX, rotY;
+      let yDif = e.clientY - y,
+        xDif = e.clientX - x;
 
-      gsap.to(orbit.rotation, {
-        duration: 1,
-        // x: rotX,
-        // y: rotY,
-        modifiers: {
-          x: function (x) {
-            return orbit.rotation.y - e.movementX * -ease;
-          },
-          y: function (y) {
-            return orbit.rotation.x - e.movementY * -ease;
-          },
-        },
-        // z: "+=" + e.movementX * scale,
-      });
+      x = e.clientX;
+      y = e.clientY;
 
-      orbit.rotation.z = 0; //this is important to keep the camera level..
+      this.mouseAngle = Math.atan2(yDif, xDif) * RAD2DEG - 40
+
+      orbit.rotation.x = THREE.MathUtils.lerp(orbit.rotation.x, orbit.rotation.x + e.movementY * -scale2, 0.01)
+      orbit.rotation.y = THREE.MathUtils.lerp(orbit.rotation.y, orbit.rotation.y + e.movementX * -scale2, 0.01)
     });
+    this.orbit = orbit;
+    this.scene.add(orbit);
+
+    orbit.add(this.camera);
 
     //the camera rotation pivot
 
@@ -227,7 +235,8 @@ export function SceneManager() {
   };
 
   this.addLights = () => {
-    this.dirLight2 = new THREE.SpotLight(0xffffff, 1.75);
+    // this.dirLight2 = new THREE.DirectionalLight('#ffffff', 1.75);
+    // this.scene.add(this.dirLight2);
 
     // this.scene.add(light, new THREE.AmbientLight(0xffffff, 0.25));
 

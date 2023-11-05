@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { SceneManager } from "./scene-manager";
 import { initEngine, getRenderer } from "./init";
 
 export default function ThreeScene() {
   const containerRef = useRef(null);
+
+  const [sceneManager, setSceneManager] = useState(null);
+
+  const onSceneLoaded = () => {
+    // gsap.to(sceneManager?.mainShape.rotation, { duration: 20, y: Math.PI * 2, repeat: -1, ease: "none" });
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -14,7 +21,6 @@ export default function ThreeScene() {
       }
 
       const initSceneManager = async () => {
-        console.log("init()");
         const sceneManager = new SceneManager();
         await initEngine(containerRef.current);
 
@@ -23,6 +29,9 @@ export default function ThreeScene() {
 
         const renderer = getRenderer();
         containerRef.current.appendChild(renderer.domElement);
+
+        setSceneManager(sceneManager);
+        onSceneLoaded();
       };
 
       initSceneManager();
