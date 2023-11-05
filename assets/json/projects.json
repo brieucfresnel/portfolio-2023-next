@@ -16,6 +16,7 @@
     "team" : "Studio DOT",
     "type": "Festival de musique",
     "tech": ["WordPress", "GSAP"],
+    "link": "https://lemetronum.fr",
     "image": {
       "src": "/images/projects/rioloco-header.jpg",
       "alt": "Rio Loco"
@@ -27,6 +28,7 @@
     "team" : "Studio DOT",
     "type": "Coworwking",
     "tech": ["WordPress", "GSAP"],
+    "link": "https://rio-loco.org",
     "image": {
       "src": "/images/projects/athome-header.jpg",
       "alt": "At Home"
@@ -34,10 +36,23 @@
   },
   {
     "id": 3,
+    "title": "Circa",
+    "team" : "Studio DOT",
+    "type": "Cirque",
+    "tech": ["WordPress", "GSAP"],
+    "link": "https://https://amecote.com/",
+    "image": {
+      "src": "/images/projects/circa-header.png",
+      "alt": "Circas"
+    }
+  },
+  {
+    "id": 4,
     "title": "Amécoté",
     "team" : "Studio DOT",
     "type": "Aide aux assurances",
     "tech": ["WordPress", "GSAP"],
+    "link": "https://https://amecote.com/",
     "image": {
       "src": "/images/projects/athome-header.jpg",
       "alt": "Amécoté"
