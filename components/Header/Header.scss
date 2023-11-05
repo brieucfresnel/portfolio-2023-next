@@ -1,13 +1,16 @@
 .header {
   position: relative;
   overflow: hidden;
-  padding: 70px;
+  padding: 70px 0;
   height: 100vh;
   color: #fff;
   z-index: 2;
 
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  .container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: 100%;
+  }
 
   a {
     color: #fff;
@@ -21,6 +24,7 @@
     font-size: 6rem;
     line-height: 1;
     color: $clr-light;
+    z-index: map-get($z-indexes, title);
   }
 
   &__subtitle {

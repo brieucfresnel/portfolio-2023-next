@@ -19,8 +19,8 @@ export default function ShapeVariant2(bg = false) {
   this.geometry = new THREE.IcosahedronGeometry(size, quality);
 
   this.material = new THREE.MeshStandardMaterial({
-    roughness: 0.125,
-    metalness: 0.475,
+    // roughness: 0.125,
+    // metalness: 0.475,
     // envMap: cubeMap,
     // color: 0xffffff,
     side,

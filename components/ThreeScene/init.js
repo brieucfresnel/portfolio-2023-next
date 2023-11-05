@@ -19,6 +19,10 @@ let scene,
 const renderTickManager = new TickManager();
 
 export const initEngine = async (containerRef) => {
+  const enableStats = false;
+  const enableGui = false;
+  const enableControls = false;
+
   scene = new THREE.Scene();
 
   renderWidth = window.innerWidth;
@@ -52,13 +56,19 @@ export const initEngine = async (containerRef) => {
   const renderPass = new RenderPass(scene, camera);
   composer.addPass(renderPass);
 
-  stats = Stats();
-  document.body.appendChild(stats.dom);
+  if (enableStats) {
+    stats = Stats();
+    document.body.appendChild(stats.dom);
+  }
 
-  gui = new GUI();
+  if (enableGui) {
+    gui = new GUI();
+  }
 
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
+  if (enableControls) {
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+  }
 
   window.addEventListener(
     "resize",

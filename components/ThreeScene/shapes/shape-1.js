@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 import noiseFS from "assets/shaders/shape-1/noise-fs.glsl";
 
-export default function ShapeVariant1(cubeMap) {
+export default function ShapeVariant1() {
   let g = new THREE.IcosahedronGeometry(1, 200);
   // color1: { value: new THREE.Color(0xdf3838) },
   // color2: { value: new THREE.Color(0xc9d1ff) },
@@ -15,7 +15,6 @@ export default function ShapeVariant1(cubeMap) {
   let m = new THREE.MeshStandardMaterial({
     roughness: 0.125,
     metalness: 0.0,
-    envMap: cubeMap,
     onBeforeCompile: (shader) => {
       m.userData.shader = shader;
 

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from "gsap";
 import "./ThreeScene.scss";
 
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
@@ -12,7 +13,6 @@ import ShapeVariant1 from "./shapes/shape-1";
 import ShapeVariant2 from "./shapes/shape-2";
 
 import {
-  initEngine,
   getTick,
   getScene,
   getCamera,
@@ -76,6 +76,7 @@ export function SceneManager() {
       const time = timestamp / 10000;
       this.mainShape.material.userData.shader.uniforms.uTime.value = time;
       this.mainShape.rotateY(0.001);
+      this.mainShape.rotateX(0.001);
       // this.backgroundSphere.rotateX(0.1);
       // if (this.addBg) {
       //   this.mainShapeBg.material.userData.shader.uniforms.uTime.value = time;
@@ -188,36 +189,36 @@ export function SceneManager() {
     const orbit = new THREE.Object3D();
     orbit.rotation.order = "XYZ"; //this is important to keep level, so Z should be the last axis to rotate in order...
     orbit.position.copy(this.mainShape.position);
-    // this.scene.add(orbit);
+    this.scene.add(orbit);
 
     //offset the camera and add it to the pivot
     //you could adapt the code so that you can 'zoom' by changing the z value in camera.position in a mousewheel event..
 
-    // orbit.add(this.camera);
+    orbit.add(this.camera);
 
     var ease = 0.00002;
     let rotEase = 0.01;
 
-    // document.addEventListener("mousemove", (e) => {
-    // let rotX, rotY;
+    document.addEventListener("mousemove", (e) => {
+      let rotX, rotY;
 
-    // gsap.to(orbit.rotation, {
-    //   duration: 1,
-    //   // x: rotX,
-    //   // y: rotY,
-    //   modifiers: {
-    //     x: function (x) {
-    //       // return orbit.rotation.y - e.movementX * -ease;
-    //     },
-    //     y: function (y) {
-    //       // return orbit.rotation.x - e.movementY * -ease;
-    //     },
-    //   },
-    //   // z: "+=" + e.movementX * scale,
-    // });
+      gsap.to(orbit.rotation, {
+        duration: 1,
+        // x: rotX,
+        // y: rotY,
+        modifiers: {
+          x: function (x) {
+            return orbit.rotation.y - e.movementX * -ease;
+          },
+          y: function (y) {
+            return orbit.rotation.x - e.movementY * -ease;
+          },
+        },
+        // z: "+=" + e.movementX * scale,
+      });
 
-    // orbit.rotation.z = 0; //this is important to keep the camera level..
-    // });
+      orbit.rotation.z = 0; //this is important to keep the camera level..
+    });
 
     //the camera rotation pivot
 

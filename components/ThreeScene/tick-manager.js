@@ -49,13 +49,17 @@ class TickManager extends EventTarget {
 
       // performance tracker start
 
-      controls.update();
+      if (controls) {
+        controls.update();
+      }
 
       composer.render();
 
       this.tick(timestamp, timeDiffCapped, frame);
 
-      stats.update();
+      if (stats) {
+        stats.update();
+      }
 
       // performance tracker end
     };
