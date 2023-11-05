@@ -1,5 +1,5 @@
 import Header from "@/components/Header/Header";
-import ProjectsList from "@/components/ProjectsList/ProjectsList";
+import Projects from "@/components/Projects/Projects";
 import ThreeScene from "@/components/ThreeScene/ThreeScene";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Header></Header>
       <ThreeScene></ThreeScene>
-      <ProjectsList></ProjectsList>
+      <Projects></Projects>
     </>
   );
 }
