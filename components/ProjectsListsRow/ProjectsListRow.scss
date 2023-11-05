@@ -1,0 +1,38 @@
+.projects-list-row {
+  position: relative;
+
+  padding-bottom: 10px;
+  margin-bottom: 70px;
+  border-bottom: 2px solid $clr-light;
+  color: $clr-light;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  a {
+    color: $clr-light;
+    text-decoration: none;
+  }
+
+  &__title {
+    font-size: 2rem;
+    line-height: 1;
+    transition: transform 0.2s;
+
+    --skew: -16deg;
+
+    &:hover {
+      -webkit-transform: skewX(var(--skew));
+      -moz-transform: skewX(var(--skew));
+      -o-transform: skewX(var(--skew));
+      transform: skewX(var(--skew));
+    }
+  }
+
+  @include media-up(md) {
+    &__title {
+      font-size: 4rem;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 0,
+    "title": "Le Metronum",
+    "team" : "Studio DOT",
+    "type": "Salle de concerts",
+    "tech": ["WordPress", "GSAP"],
+    "image": {
+      "src": "/images/projects/lemetronum-header.jpg",
+      "alt": "Le Metronum"
+    }
+  },
+  {
+    "id": 1,
+    "title": "Rio Loco",
+    "team" : "Studio DOT",
+    "type": "Festival de musique",
+    "tech": ["WordPress", "GSAP"],
+    "image": {
+      "src": "/images/projects/rioloco-header.jpg",
+      "alt": "Rio Loco"
+    }
+  },
+  {
+    "id": 2,
+    "title": "At Home",
+    "team" : "Studio DOT",
+    "type": "Coworwking",
+    "tech": ["WordPress", "GSAP"],
+    "image": {
+      "src": "/images/projects/athome-header.jpg",
+      "alt": "At Home"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Amécoté",
+    "team" : "Studio DOT",
+    "type": "Aide aux assurances",
+    "tech": ["WordPress", "GSAP"],
+    "image": {
+      "src": "/images/projects/athome-header.jpg",
+      "alt": "Amécoté"
+    }
+  }
+]
