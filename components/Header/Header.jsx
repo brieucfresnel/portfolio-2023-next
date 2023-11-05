@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import gsap from "gsap";
+import Container from "@/components/Container/Container";
 import "./Header.scss";
-import arrowDown from "@/assets/svg/arrow-down.svg";
 
 export default function Header() {
   const tl = useRef();
@@ -44,7 +43,7 @@ export default function Header() {
 
   return (
     <header className="header" ref={header}>
-      <div className="container">
+      <Container>
         <div>
           <h1 className="header__title">Développeur WordPress & Front</h1>
         </div>
@@ -82,7 +81,7 @@ export default function Header() {
             />
           </svg>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }
