@@ -1,16 +1,18 @@
 .header {
   position: relative;
-  z-index: 1;
   overflow: hidden;
   padding: 70px;
   height: 100vh;
   color: #fff;
+  z-index: 2;
 
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
   a {
     color: #fff;
+    text-decoration: none;
+    font-weight: 700;
   }
 
   &__title {
@@ -21,11 +23,21 @@
     color: $clr-light;
   }
 
+  &__subtitle {
+    margin: 0 0 100px 0;
+    font-size: 1rem;
+  }
+
   &__top-links {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
     height: auto;
+
+    a {
+      font-size: 1rem;
+      text-decoration: none;
+    }
   }
 
   &__introduction {
