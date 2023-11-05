@@ -1,0 +1,25 @@
+.projects-list {
+  padding: 70px 0;
+  position: relative;
+
+  &__title {
+    font-size: 32px;
+    margin-bottom: 80px;
+    line-height: 1;
+    color: $clr-light;
+  }
+
+  &__image-wrapper {
+    position: fixed;
+    width: 50vw;
+    height: 50vw;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+
+    img {
+      object-fit: contain;
+      opacity: 0;
+    }
+  }
+}
