@@ -10,6 +10,7 @@ body {
   margin: 0;
   max-width: 100%;
   background: $clr-dark;
+  color: $clr-light;
 
   &::before {
     content: "";
@@ -86,11 +87,12 @@ h6 {
 }
 
 .container {
-  padding: 0 5%;
+  margin: 0 5%;
 }
 
 a {
-  text-underline-offset: 2px;
+  color: $clr-light;
+  text-decoration: none;
 }
 
 strong {
