@@ -17,40 +17,33 @@ function ProjectsList({ projects }) {
 
   const wrapperRef = useRef(null);
   const imageRef = useRef(null);
-
   const mousePosition = useMousePosition();
-
-  const [currentImage, setCurrentImage] = useState(projects[0]?.image);
+  const [currentImageData, setCurrentImageData] = useState(projects[0]?.image);
 
   useEffect(() => {
     const moveImage = () => {
       if (!(mousePosition.x && mousePosition.y)) return;
-
       gsap.to(imageRef.current, {
-        left: mousePosition.x,
-        top: mousePosition.y
+        top: mousePosition.y,
+        left: `calc(${mousePosition.x}px + 3vw)`,
       });
+
     }
     moveImage();
   }, [mousePosition])
 
   useLayoutEffect(() => {
-    if (!window.matchMedia('').matches) {
-
-    }
     let ctx = gsap.context(() => {
-      // Translate image
       gsap.set(imageRef.current, { y: "-50%" });
 
-      // Set triggers
       gsap.fromTo(imageRef.current, {
-        opacity: 0
+        opacity: 0,
       }, {
-        opacity: 0.85,
+        opacity: 1,
         ease: "power3.inOut",
         scrollTrigger: {
           trigger: wrapperRef.current,
-          start: "top 50%",
+          start: "top 30%",
           toggleActions: "play reverse play reverse",
           markers: true
         }
@@ -61,13 +54,16 @@ function ProjectsList({ projects }) {
 
   return (
     <section className="projects-list" ref={wrapperRef}>
+      <div className="projects-list__image-wrapper">
+        <Image className="projects-list__image" src={currentImageData?.src} alt={currentImageData?.alt} fill={true} ref={imageRef} sizes={''}></Image>
+      </div>
       <Container>
-        <div className="projects-list__image-wrapper">
-          <Image className="projects-list__image" src={currentImage?.src} alt={currentImage?.alt} fill={true} ref={imageRef} sizes={''}></Image>
-        </div>
+
         <h2 className="projects-list__title">Références</h2>
-        {projects.map((project, i) => <ProjectsListRow key={i} {...project} setCurrentImage={setCurrentImage}></ProjectsListRow>)}
       </Container>
+      <div className="projects-list__rows">
+        {projects.sort().map((project, i) => <ProjectsListRow key={i} {...project} setCurrentImageData={setCurrentImageData}></ProjectsListRow>)}
+      </div>
     </section>
   )
 }
