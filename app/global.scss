@@ -1,3 +1,5 @@
+@import "../common//scss/animations.scss";
+
 *,
 *::before,
 *::after {
@@ -7,7 +9,7 @@
 body {
   margin: 0;
   max-width: 100%;
-  background: #222;
+  background: $clr-dark;
 
   &::before {
     content: "";

@@ -1,5 +1,5 @@
 import { ppNeueMachina, ppNeueMachinaInktrap } from "./fonts";
-import "@/assets/scss/global.scss";
+import "./global.scss";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 
 export const metadata = {

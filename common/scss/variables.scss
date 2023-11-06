@@ -1,3 +1,5 @@
+@import "./animations.scss";
+
 $breakpoints: (
   xs: 36em,
   sm: 48em,
@@ -16,7 +18,8 @@ $min-xxl: "(min-width: #{map-get($breakpoints, xxl)})";
 $min-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
 $clr-light: #ffe8ec;
-$clr-primary: #30313a;
+$clr-primary: #161616;
+$clr-dark: #161616;
 $clr-accent: #fe4a49;
 
 $z-indexes: (
