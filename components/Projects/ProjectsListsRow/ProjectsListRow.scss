@@ -24,8 +24,8 @@
     text-decoration: none;
     display: block;
     width: fit-content;
-    padding-top: 100px;
-    padding-bottom: 10px;
+    padding-top: 110px;
+    padding-bottom: 30px;
 
     display: grid;
     width: 100%;
@@ -36,7 +36,7 @@
       content: "";
       height: 2px;
       width: 100%;
-      background-color: $clr-light;
+      background-color: rgba($clr-light, 0.2);
       transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
 
       position: absolute;
