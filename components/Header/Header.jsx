@@ -48,9 +48,8 @@ export default function Header() {
           <h1 className="header__title">Développeur WordPress & Front</h1>
         </div>
 
-        <div className="header__top-links">
-          <a href="#">projets</a>
-          <a href="#">contact</a>
+        <div className="header__email-wrapper">
+          <a className="header__email" href="mailto:fresnel.brieuc@gmail.com">fresnel.brieuc@gmail.com</a>
         </div>
 
         <div className="header__introduction">
