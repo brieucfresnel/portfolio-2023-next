@@ -1,11 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
+import cn from 'classnames';
 import Pill from '@/components/Pill/Pill'
 import './ProjectsSlide.scss'
 
-export default function ProjectSlide({ title, type, year, team, image, tech, link }) {
+export default function ProjectSlide({ title, type, year, team, image, tech, link, isActive }) {
+  // const [isActive, setIsActive] = useState(props.isActive);
+
   return (
-    <div className="projects-slide">
+    <div className={cn('projects-slide', isActive && 'active')}>
       <div className="projects-slide__header">
         <div>
           <h3 className="projects-slide__title">{title}</h3>

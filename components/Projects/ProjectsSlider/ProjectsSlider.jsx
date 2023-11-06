@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import Image from 'next/image';
+import React, { useRef, forwardRef, useState, useEffect, useLayoutEffect } from 'react';
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 import Container from '@/components/Container/Container';
-import Pill from '@/components/Pill/Pill';
 import ProjectSlide from '../ProjectSlide/ProjectSlide';
 
 import './ProjectsSlider.scss';
@@ -14,7 +12,21 @@ import './ProjectsSlider.scss';
 function ProjectsSlider({ projects }) {
   gsap.registerPlugin(ScrollTrigger);
 
+
+  const slidesLength = projects.length;
+  const [slidesRefs, setSlidesRefs] = useState([]);
+  const [currSlideIndex, setCurrSlideIndex] = useState(0);
+
   const el = useRef(null);
+
+  // useEffect(() => {
+  //   // add or remove refs
+  //   setElRefs((slidesRefs) =>
+  //     Array(slidesLength)
+  //       .fill()
+  //       .map((_, i) => slidesRefs[i] || createRef()),
+  //   );
+  // }, [slidesLength]);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -36,7 +48,7 @@ function ProjectsSlider({ projects }) {
     <section className="projects-section" ref={el}>
       <Container>
         <div className="projects-section__slider">
-          {projects.map((project, i) => <ProjectSlide {...project} key={i} />)}
+          {projects.map((project, i) => <ProjectSlide isActive={currSlideIndex === i} key={i} {...project} />)}
         </div>
 
       </Container>

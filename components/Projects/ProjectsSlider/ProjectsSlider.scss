@@ -1,7 +1,8 @@
 .projects-section {
+  position: relative;
   margin-top: 50px;
-
   color: $clr-light;
+  overflow: hidden;
 
   .container {
     display: flex;
