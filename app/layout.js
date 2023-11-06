@@ -1,4 +1,4 @@
-import { ppNeueMachina, ppNeueMachinaInktrap } from "./fonts";
+import { ppNeueMachina } from "./fonts";
 import "./global.scss";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 
@@ -8,6 +8,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="fr" className={`${ppNeueMachina.className}`}>
       <body>
