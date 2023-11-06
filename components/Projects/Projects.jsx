@@ -1,5 +1,7 @@
 import React from 'react'
 import ProjectsList from './ProjectsList/ProjectsList';
+import ProjectsSection from './ProjectsSection/ProjectsSection';
+
 import { promises as fs } from 'fs';
 
 export default async function Projects() {
@@ -7,6 +9,9 @@ export default async function Projects() {
   const projects = JSON.parse(file);
 
   return (
-    <ProjectsList projects={projects}></ProjectsList>
+    <>
+      <ProjectsList projects={projects}></ProjectsList>
+      <ProjectsSection projects={projects}></ProjectsSection>
+    </>
   )
 }
