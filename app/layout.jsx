@@ -1,6 +1,7 @@
+import { LenisScroller } from "@/components/LenisScroller";
+import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { ppNeueMachina } from "./fonts";
 import "./global.scss";
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
 
 export const metadata = {
   title: "Brieuc",
@@ -8,13 +9,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="fr" className={`${ppNeueMachina.className}`}>
       <body>
         <PageWrapper>
           {children}
         </PageWrapper>
+        <LenisScroller />
       </body>
     </html>
   );
