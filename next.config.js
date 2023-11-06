@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   sassOptions: {
-    prependData: `@import "~/assets/scss/variables.scss"; @import "~/assets/scss/mixins.scss";`,
+    prependData: `@import "~/common/scss/variables.scss"; @import "~/common/scss/mixins.scss";`,
   },
   reactStrictMode: false,
   webpack: (config, options) => {
