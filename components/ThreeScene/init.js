@@ -23,16 +23,18 @@ export const initEngine = async (containerRef) => {
   const enableGui = false;
   const enableControls = false;
 
+  const canvas = document.querySelector("#scene");
+
   scene = new THREE.Scene();
 
   renderWidth = window.innerWidth;
-  renderHeight = window.innerHeight;
+  renderHeight = canvas.clientHeight;
+
 
   renderAspectRatio = renderWidth / renderHeight;
 
   camera = new THREE.PerspectiveCamera(75, renderAspectRatio, 0.1, 100);
 
-  const canvas = document.querySelector("#scene");
 
   renderer = new THREE.WebGLRenderer({
     antialias: true,

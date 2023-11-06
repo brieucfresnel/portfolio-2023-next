@@ -51,7 +51,9 @@ export function SceneManager() {
     this.addLights();
 
     let cameraDistance = 16;
-    this.camera.translateX(-7.5)
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      this.camera.translateX(-7.5)
+    }
     this.camera.position.z = cameraDistance;
 
     this.dirLight1.position.set(3, 6, 0);
@@ -78,9 +80,9 @@ export function SceneManager() {
 
 
       //  * 0.00002)
-      this.orbit.rotateX(Math.cos(this.mouseAngle) * 0.005);
+      this.orbit.rotateX(0.001);
       // this.orbit.rotateZ(this.mouseAngle * 0.00002);
-      this.orbit.rotateY(Math.sin(this.mouseAngle) * 0.005);
+      this.orbit.rotateY(-0.005);
       // this.mainShape.rotateX(0.001);
       // this.backgroundSphere.rotateX(0.1);
       // if (this.addBg) {
