@@ -45,7 +45,7 @@ function ProjectsList({ projects }) {
           trigger: wrapperRef.current,
           start: "top 30%",
           toggleActions: "play reverse play reverse",
-          markers: true
+          // markers: true
         }
       })
     }, [imageRef, wrapperRef]);
