@@ -1,16 +1,11 @@
-.projects-section {
-  position: relative;
+.projects-slider {
   margin-top: 50px;
-  color: $clr-light;
-  overflow: hidden;
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 70px;
-    padding-bottom: 70px;
-
+  &__slider {
+    position: relative;
+    color: $clr-light;
+    overflow: hidden;
+    position: relative;
     height: 100vh;
   }
 
