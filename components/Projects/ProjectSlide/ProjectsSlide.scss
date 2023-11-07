@@ -1,30 +1,37 @@
 .projects-slide {
-  background: $clr-dark;
-  border-top: 2px solid rgba($clr-light, 0.2);
-  border-bottom: 2px solid rgba($clr-light, 0.2);
-  padding: 30px 0;
-
+  background: rgba($clr-dark, 0.7);
+  // border: 2px solid rgba($clr-light, 0.2);
+  // border-bottom: 2px solid rgba($clr-light, 0.2);
+  position: relative;
   // opacity: 0;
-  position: absolute;
-  left: 100%;
-  top: 0;
   width: 100%;
   height: 100%;
 
+  display: grid;
+  place-items: center;
+
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
-  opacity: 0;
+  .container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-left: 2.5%;
+    height: 100%;
+    display: grid;
+    // justify-items: space-between;
+  }
 
   &.active {
-    // left: 100%;
     opacity: 1;
-    left: 0;
   }
 
   &__header,
   &__footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   &__title {
@@ -38,16 +45,20 @@
   &__team {
   }
 
-  &__image-wrapper {
+  &__image-link {
     display: block;
-    position: relative;
-    width: 100%;
+    width: 50vw;
     height: 50vh;
-    margin: 14vh 0;
+    margin: 10vh auto;
+  }
+
+  &__image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
 
     img {
       object-fit: contain;
-      padding: 0 10vw;
     }
   }
 
