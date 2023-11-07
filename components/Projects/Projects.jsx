@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectsList from './ProjectsList/ProjectsList';
-import ProjectsSection from './ProjectsSection/ProjectsSection';
+import ProjectsSlider from './ProjectsSlider/ProjectsSlider';
 
 import { promises as fs } from 'fs';
 
@@ -10,8 +10,8 @@ export default async function Projects() {
 
   return (
     <>
-      <ProjectsList projects={projects}></ProjectsList>
-      <ProjectsSection projects={projects}></ProjectsSection>
+      {/* <ProjectsList projects={projects}></ProjectsList> */}
+      <ProjectsSlider projects={projects}></ProjectsSlider>
     </>
   )
 }

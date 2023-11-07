@@ -1,11 +1,8 @@
 'use client';
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation';
+import './PageWrapper.scss';
 
 export default function PageWrapper({ children }) {
-  const router = useRouter()
-
   return (
     <div className="wrapper">
       {children}
