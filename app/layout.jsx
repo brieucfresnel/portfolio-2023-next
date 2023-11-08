@@ -1,12 +1,11 @@
-import { LenisScroller } from "@/components/LenisScroller";
-// import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import { ppNeueMachina } from "./fonts";
-import "./global.scss";
+import { LenisScroller } from "@/components/LenisScroller"
+import { ppNeueMachina } from "@/common/utils/fonts"
+import "./global.scss"
 
 export const metadata = {
   title: "Brieuc",
   description: "Développeur Web",
-};
+}
 
 export default function RootLayout({ children }) {
   return (
@@ -18,5 +17,5 @@ export default function RootLayout({ children }) {
         <LenisScroller />
       </body>
     </html>
-  );
+  )
 }
