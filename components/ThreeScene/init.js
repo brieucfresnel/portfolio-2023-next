@@ -21,7 +21,7 @@ const renderTickManager = new TickManager()
 export const initEngine = async (containerRef) => {
   const enableStats = false
   const enableGui = false
-  const enableControls = false
+  const enableControls = true
 
   const canvas = document.querySelector("#scene")
 
@@ -68,13 +68,17 @@ export const initEngine = async (containerRef) => {
   if (enableControls) {
     controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
+    controls.enableZoom = false
+    controls.autoRotate = true
+    controls.autoRotateSpeed = 0.5
   }
 
   window.addEventListener(
     "resize",
     () => {
-      renderWidth = window.innerWidth
-      renderHeight = window.innerHeight
+      const rect = document.querySelector("#scene").getBoundingClientRect()
+      renderWidth = rect.width
+      renderHeight = rect.height
       renderAspectRatio = renderWidth / renderHeight
 
       renderer.setPixelRatio(window.devicePixelRatio * 1.5)
