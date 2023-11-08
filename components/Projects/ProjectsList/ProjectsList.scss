@@ -14,17 +14,29 @@
 
   &__image-wrapper {
     position: fixed;
-    width: 40vw;
-    height: 40vw;
+    width: 30vw;
+    height: 30vw;
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
 
     img {
       object-fit: contain;
       opacity: 0;
     }
+  }
+
+  &__rows {
+    position: relative;
+  }
+
+  &__item-hover-bg {
+    background: $clr-light;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
   }
 
   &__row--header {
