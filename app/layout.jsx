@@ -1,5 +1,5 @@
 import { LenisScroller } from "@/components/LenisScroller";
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
+// import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { ppNeueMachina } from "./fonts";
 import "./global.scss";
 
@@ -12,9 +12,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr" className={`${ppNeueMachina.className}`}>
       <body>
-        <PageWrapper>
-          {children}
-        </PageWrapper>
+        {/* <PageWrapper> */}
+        {children}
+        {/* </PageWrapper> */}
         <LenisScroller />
       </body>
     </html>
