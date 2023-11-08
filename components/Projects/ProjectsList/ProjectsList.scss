@@ -1,4 +1,6 @@
 .projects-list {
+  $border: 1px solid rgba($clr-light, 0.2);
+
   padding: 70px 0;
   position: relative;
   background: $clr-dark;
@@ -38,20 +40,29 @@
       margin-bottom: 80px;
     }
 
-    &__row {
-    }
-
     &__row--header {
       display: grid;
-      grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+      grid-template-columns: 7fr 4fr 4fr 3fr 2fr;
+
       grid-gap: 10px;
 
       padding-bottom: 30px;
       font-weight: bold;
       font-size: 1rem;
+
+      > span:nth-child(3) {
+        display: none;
+      }
     }
   }
 
   @include media-up(lg) {
+    &__row--header {
+      grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+
+      > span:nth-child(3) {
+        display: block;
+      }
+    }
   }
 }

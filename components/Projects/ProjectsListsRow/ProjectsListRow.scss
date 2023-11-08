@@ -20,8 +20,12 @@
 
   border-top: $border;
 
+  &::after {
+    content: "";
+  }
+
   // Empty span
-  > span:nth-child(4) {
+  > span:nth-child(3) {
     display: none;
     grid-area: blank;
   }
@@ -41,6 +45,8 @@
     margin-top: 15px;
     margin-bottom: 80px;
     grid-area: tech;
+    display: flex;
+    gap: 5px;
 
     > * {
       width: fit-content;
@@ -65,9 +71,8 @@
   }
 
   @include media-up(md) {
-    grid-template-areas: "title type tech blank team year";
-    grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
-
+    grid-template-areas: "title type tech team year";
+    grid-template-columns: 7fr 4fr 4fr 3fr 2fr;
     grid-gap: 10px;
 
     &__title {
@@ -80,13 +85,22 @@
       margin: 0;
     }
 
-    > span:nth-child(4) {
-      display: flex;
+    > span:nth-child(3) {
+      display: none;
     }
 
     > span {
       display: flex;
       align-items: center;
+    }
+  }
+
+  @include media-up(lg) {
+    grid-template-areas: "title type blank tech team year";
+    grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+
+    > span:nth-child(3) {
+      display: flex;
     }
   }
 }
