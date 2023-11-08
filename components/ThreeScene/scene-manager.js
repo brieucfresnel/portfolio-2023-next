@@ -1,5 +1,4 @@
 import * as THREE from "three"
-import { gsap } from "common/utils/gsap"
 import "./ThreeScene.scss"
 
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
@@ -24,14 +23,17 @@ import {
 // import noiseFS2 from "./shaders/noise-fs-2.glsl";
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
 
+// this.scene.background = new THREE.TextureLoader().load(
+//   "images/bg-gradient-noise.png"
+// );
+
 export function SceneManager() {
   this.init = async () => {
     this.scene = getScene()
-    // this.scene.background = new THREE.TextureLoader().load(
-    //   "images/bg-gradient-noise.png"
-    // );
+
     this.renderer = getRenderer()
     this.camera = getCamera()
+    this.cameraDistance = 16
     this.gui = getGui()
     const { width, height } = getRenderSize()
     this.width = width
@@ -50,14 +52,27 @@ export function SceneManager() {
     // this.createCubeBg();
     this.addLights()
 
-    let cameraDistance = 16
-    if (window.matchMedia("(min-width: 768px)").matches) {
-      this.camera.translateX(-3.0)
-    }
-    this.camera.position.z = cameraDistance
-
+    this.setCameraPosition()
     this.dirLight1.position.set(3, 6, 0)
     // this.dirLight2.position.set(-3, 12, 0);
+  }
+
+  this.setCameraPosition = () => {
+    this.camera.position.z = this.cameraDistance
+
+    const mediaQuery = window.matchMedia("(min-width: 64em)")
+
+    const handleScreenSizeChange = (e) => {
+      if (e.matches) {
+        // this.camera.translateX(-3.0)
+        this.camera.position.set(-5.0, 0.0, this.cameraDistance)
+      } else {
+        this.camera.position.set(0.0, 0.0, this.cameraDistance)
+      }
+    }
+
+    handleScreenSizeChange(mediaQuery)
+    mediaQuery.addEventListener("change", handleScreenSizeChange)
   }
 
   this.start = () => {
