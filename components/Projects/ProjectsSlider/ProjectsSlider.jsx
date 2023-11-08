@@ -1,10 +1,7 @@
 "use client"
 
 import React, { useRef, useState, useEffect, useLayoutEffect } from "react"
-import gsap from "gsap"
-import ScrollTrigger from "gsap/ScrollTrigger"
-import Observer from "gsap/Observer"
-import { throttle } from "lodash"
+import { gsap, ScrollTrigger, Observer } from "common/utils/gsap"
 
 import Container from "@/components/Container/Container"
 import ProjectSlide from "../ProjectSlide/ProjectSlide"
@@ -12,7 +9,6 @@ import ProjectSlide from "../ProjectSlide/ProjectSlide"
 import "./ProjectsSlider.scss"
 
 function ProjectsSlider({ projects }) {
-  gsap.registerPlugin(ScrollTrigger, Observer)
   const slidesLength = projects.length
   const el = useRef(null)
   const observer = useRef(null)

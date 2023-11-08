@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 import Image from "next/image"
 import Container from "@/components/Container/Container"
 import cn from "classnames"
-import gsap from "gsap"
+import { gsap } from "common/utils/gsap"
 import Pill from "@/components/Pill/Pill"
 import "./ProjectsSlide.scss"
 
