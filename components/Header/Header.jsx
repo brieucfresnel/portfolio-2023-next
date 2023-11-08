@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import React, { useRef, useLayoutEffect } from "react";
-import Container from "@/components/Container/Container";
-import "./Header.scss";
+import React, { useRef, useLayoutEffect } from "react"
+import Container from "@/components/Container/Container"
+import "./Header.scss"
 
 export default function Header() {
-  const tl = useRef();
-  const header = useRef();
+  const tl = useRef()
+  const header = useRef()
 
   useLayoutEffect(() => {
     // const ctx = gsap.context(() => {
@@ -39,7 +39,7 @@ export default function Header() {
     //     );
     // });
     // // Refs allow you to access DOM nodes
-  });
+  })
 
   return (
     <header className="header" ref={header}>
@@ -49,7 +49,9 @@ export default function Header() {
         </div>
 
         <div className="header__email-wrapper">
-          <a className="header__email" href="mailto:fresnel.brieuc@gmail.com">fresnel.brieuc@gmail.com</a>
+          <a className="header__email" href="mailto:fresnel.brieuc@gmail.com">
+            fresnel.brieuc@gmail.com
+          </a>
         </div>
 
         <div className="header__introduction">
@@ -59,11 +61,13 @@ export default function Header() {
             <a href="https://studio-dot.fr" target="_blank">
               Studio DOT
             </a>
-            , un studio digital toulousain. Là-bas, j’ai fait beaucoup de
-            WordPress et un peu d’Astro. Dans le même temps, j’étudiais Nest.js,
-            Docker, React, Vue et d&apos;autres. <br />
+            , un studio digital toulousain, où j’ai développé des sites
+            Wordpress (ma <a href="#">stack WordPress</a>). Dans le même temps,
+            j&apos;étudiais différentes technologies : React et Angular pour le
+            front, Nest pour le back, Next, Docker, NX pour le fullstack...
             <br />
-            En ce moment, je m’intéresse à Next.js, p5 et three.js.
+            J&apos;aime produire des interfaces claires et intuitives, avec
+            beaucoup d&apos;animation.
           </p>
         </div>
         <div className="header__arrow-container">
@@ -82,5 +86,5 @@ export default function Header() {
         </div>
       </Container>
     </header>
-  );
+  )
 }
