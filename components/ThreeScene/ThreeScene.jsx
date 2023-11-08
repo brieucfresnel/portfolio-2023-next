@@ -1,14 +1,13 @@
-"use client";
-
-import gsap from "gsap";
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import { SceneManager } from "./scene-manager";
-import { initEngine, getRenderer } from "./init";
+"use client"
+import { gsap } from "common/utils/gsap"
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react"
+import { SceneManager } from "./scene-manager"
+import { initEngine, getRenderer } from "./init"
 
 export default function ThreeScene() {
-  const containerRef = useRef(null);
+  const containerRef = useRef(null)
 
-  const [sceneManager, setSceneManager] = useState(null);
+  const [sceneManager, setSceneManager] = useState(null)
 
   const onSceneLoaded = () => {
     // gsap.to(sceneManager?.mainShape.rotation, { duration: 20, y: Math.PI * 2, repeat: -1, ease: "none" });
@@ -17,26 +16,26 @@ export default function ThreeScene() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (containerRef.current?.hasChildNodes()) {
-        return;
+        return
       }
 
       const initSceneManager = async () => {
-        const sceneManager = new SceneManager();
-        await initEngine(containerRef.current);
+        const sceneManager = new SceneManager()
+        await initEngine(containerRef.current)
 
-        await sceneManager.init();
-        sceneManager.start();
+        await sceneManager.init()
+        sceneManager.start()
 
-        const renderer = getRenderer();
-        containerRef.current.appendChild(renderer.domElement);
+        const renderer = getRenderer()
+        containerRef.current.appendChild(renderer.domElement)
 
-        setSceneManager(sceneManager);
-        onSceneLoaded();
-      };
+        setSceneManager(sceneManager)
+        onSceneLoaded()
+      }
 
-      initSceneManager();
+      initSceneManager()
     }
-  }, []);
+  }, [])
 
-  return <div className="scene" id="scene" ref={containerRef}></div>;
+  return <div className="scene" id="scene" ref={containerRef}></div>
 }
