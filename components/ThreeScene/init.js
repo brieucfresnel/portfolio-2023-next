@@ -27,7 +27,7 @@ export const initEngine = async (containerRef) => {
 
   scene = new THREE.Scene()
 
-  renderWidth = window.innerWidth
+  renderWidth = canvas.clientWidth
   renderHeight = canvas.clientHeight
 
   renderAspectRatio = renderWidth / renderHeight
