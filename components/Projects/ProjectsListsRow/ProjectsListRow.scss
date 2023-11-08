@@ -3,6 +3,17 @@
 
   position: relative;
   color: $clr-light;
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+  padding: 30px 0;
+
+  width: 100%;
+  border-top: 1px solid rgba($clr-light, 0.2);
+
+  &:last-child {
+    border-bottom: 1px solid rgba($clr-light, 0.2);
+  }
 
   &::before {
     content: "";
@@ -18,51 +29,50 @@
     height: 100%;
   }
 
-  a {
-    position: relative;
-    color: $clr-light;
-    text-decoration: none;
-    display: block;
-    width: fit-content;
-    padding-top: 110px;
-    padding-bottom: 30px;
-
-    display: grid;
-    width: 100%;
-    grid-template-columns: 3fr 2fr 1fr;
-    align-items: end;
-
-    ::before {
-      content: "";
-      height: 2px;
-      width: 100%;
-      background-color: rgba($clr-light, 0.2);
-      transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
-
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-    }
-  }
-
   &__title {
     font-size: 2rem;
-    line-height: 1;
+    position: relative;
     background-clip: text;
     -webkit-background-clip: text;
-    margin-bottom: -10px;
   }
 
-  &__tech {
+  > span {
     display: flex;
-    justify-content: flex-end;
-    text-align: right;
+    align-items: center;
   }
 
   @include media-up(md) {
-    &__title {
-      font-size: 4rem;
+    display: flex;
+    justify-content: space-between;
+
+    &__main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 30%;
+      column-gap: 20px;
     }
+
+    &__aside {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+    }
+
+    &__main,
+    &__aside {
+      width: 30%;
+      column-gap: 20px;
+
+      > * {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+    }
+
+    // &__tech,
+    // &__team,
+    // &__year {
+    //   justify-self: end;
+    // }
   }
 }

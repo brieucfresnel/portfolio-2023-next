@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react"
 import Image from "next/image"
-import gsap from "gsap"
-import ScrollTrigger from "gsap/ScrollTrigger"
+import { gsap } from "common/utils/gsap"
 
 import Container from "@/components/Container/Container"
 import ProjectsListRow from "@/components/Projects/ProjectsListsRow/ProjectsListRow"
@@ -54,28 +53,39 @@ function ProjectsList({ projects }) {
 
   return (
     <section className="projects-list" ref={wrapperRef}>
-      <div className="projects-list__image-wrapper">
-        <Image
-          className="projects-list__image"
-          src={currentImageData?.src}
-          alt={currentImageData?.alt}
-          fill={true}
-          ref={imageRef}
-          sizes={""}
-        ></Image>
-      </div>
       <Container>
+        <div className="projects-list__image-wrapper">
+          <Image
+            className="projects-list__image"
+            src={currentImageData?.src}
+            alt={currentImageData?.alt}
+            fill={true}
+            ref={imageRef}
+            sizes={""}
+          ></Image>
+        </div>
         <h2 className="projects-list__title">Références</h2>
+        <div className="projects-list__header">
+          <div className="projects-list__header-main">
+            <span>Client</span>
+            <span>Type</span>
+          </div>
+          <div className="projects-list__header-aside">
+            <span>Tech</span>
+            <span>By</span>
+            <span>Year</span>
+          </div>
+        </div>
+        <div className="projects-list__rows">
+          {projects.sort().map((project, i) => (
+            <ProjectsListRow
+              key={i}
+              {...project}
+              setCurrentImageData={setCurrentImageData}
+            ></ProjectsListRow>
+          ))}
+        </div>
       </Container>
-      <div className="projects-list__rows">
-        {projects.sort().map((project, i) => (
-          <ProjectsListRow
-            key={i}
-            {...project}
-            setCurrentImageData={setCurrentImageData}
-          ></ProjectsListRow>
-        ))}
-      </div>
     </section>
   )
 }

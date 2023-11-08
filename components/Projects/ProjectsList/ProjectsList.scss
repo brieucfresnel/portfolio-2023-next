@@ -1,6 +1,7 @@
 .projects-list {
   padding: 70px 0;
   position: relative;
+  background: $clr-dark;
 
   &__title {
     font-size: 32px;
@@ -21,6 +22,31 @@
     img {
       object-fit: contain;
       opacity: 0;
+    }
+  }
+
+  &__header {
+    margin-bottom: 30px;
+  }
+
+  @include media-up(md) {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__header-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 20px;
+      width: 30%;
+    }
+
+    &__header-aside {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      column-gap: 20px;
+      width: 30%;
     }
   }
 }
