@@ -57,11 +57,37 @@
     "team" : "Studio DOT",
     "type": "Aide aux assurances",
     "tech": ["WordPress", "GSAP"],
-    "year": "2023",
+    "year": "2022",
     "link": "https://https://amecote.com/",
     "image": {
       "src": "/images/projects/athome-header.jpg",
       "alt": "Amécoté"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Lutherie Denat",
+    "team" : "Studio DOT",
+    "type": "Lutherie à Montréal",
+    "tech": ["WordPress", "GSAP"],
+    "year": "2021",
+    "link": "https://https://lutheriedenatmontreal.com/",
+    "image": {
+      "src": "/images/projects/lutheriedenat-header.png",
+      "alt": "Lutherie Denat Montréal"
+    }
+  },
+  {
+    "id": 6,
+    "title": "The Lords of Light",
+    "team" : "Studio DOT",
+    "type": "Jeux de cartes NFT",
+    "tech": ["WordPress", "GSAP"],
+    "year": "2022",
+    "link": "https://rtlol.com/",
+    "image": {
+      "src": "/images/projects/raini-header.png",
+      "alt": "The header of The lords"
     }
   }
 ]
