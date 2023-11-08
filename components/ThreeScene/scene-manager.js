@@ -1,5 +1,4 @@
 import * as THREE from "three"
-import { gsap } from "common/utils/gsap"
 import "./ThreeScene.scss"
 
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
@@ -20,18 +19,22 @@ import {
   getRenderer,
   getRenderSize,
   addPass,
+  getControls,
 } from "./init"
 // import noiseFS2 from "./shaders/noise-fs-2.glsl";
 // import bgGradientNoise from "@/public/images/bg-gradient-noise.png";
 
+// this.scene.background = new THREE.TextureLoader().load(
+//   "images/bg-gradient-noise.png"
+// );
+
 export function SceneManager() {
   this.init = async () => {
     this.scene = getScene()
-    // this.scene.background = new THREE.TextureLoader().load(
-    //   "images/bg-gradient-noise.png"
-    // );
+
     this.renderer = getRenderer()
     this.camera = getCamera()
+    this.cameraDistance = 16
     this.gui = getGui()
     const { width, height } = getRenderSize()
     this.width = width
@@ -39,6 +42,8 @@ export function SceneManager() {
     this.showHelpers = false
     this.shapeVariant = 1
     this.addBg = false
+
+    this.controls = getControls()
     // this.fontLoader = new FontLoader();
 
     this.enableBloom = false
@@ -50,14 +55,29 @@ export function SceneManager() {
     // this.createCubeBg();
     this.addLights()
 
-    let cameraDistance = 16
-    if (window.matchMedia("(min-width: 768px)").matches) {
-      this.camera.translateX(-3.0)
-    }
-    this.camera.position.z = cameraDistance
-
+    this.setCameraPosition()
     this.dirLight1.position.set(3, 6, 0)
     // this.dirLight2.position.set(-3, 12, 0);
+  }
+
+  this.setCameraPosition = () => {
+    this.camera.position.z = this.cameraDistance
+
+    const mediaQuery = window.matchMedia("(min-width: 64em)")
+
+    const handleScreenSizeChange = (e) => {
+      if (e.matches) {
+        // this.camera.translateX(-3.0)
+        this.camera.position.set(-5.0, 0.0, this.cameraDistance)
+        this.controls.update()
+      } else {
+        this.camera.position.set(0.0, 0.0, this.cameraDistance)
+        this.controls.update()
+      }
+    }
+
+    handleScreenSizeChange(mediaQuery)
+    mediaQuery.addEventListener("change", handleScreenSizeChange)
   }
 
   this.start = () => {
@@ -76,16 +96,7 @@ export function SceneManager() {
     getTick(({ timestamp, timeDiff }) => {
       const time = timestamp / 5000
       this.mainShape.material.userData.shader.uniforms.uTime.value = time
-
-      //  * 0.00002)
-      this.orbit.rotateX(0.001)
-      // this.orbit.rotateZ(this.mouseAngle * 0.00002);
-      this.orbit.rotateY(-0.005)
-      // this.mainShape.rotateX(0.001);
-      // this.backgroundSphere.rotateX(0.1);
-      // if (this.addBg) {
-      //   this.mainShapeBg.material.userData.shader.uniforms.uTime.value = time;
-      // }
+      this.controls.update()
     })
   }
 
@@ -189,53 +200,6 @@ export function SceneManager() {
       // this.mainShapeBg = new ShapeVariant2(true);
       // }
     }
-
-    // this.mainShape.(5, 0, 0);
-    const orbit = new THREE.Object3D()
-    orbit.rotation.order = "YXZ" //this is important to keep level, so Z should be the last axis to rotate in order...
-    orbit.position.copy(this.mainShape.position)
-
-    //offset the camera and add it to the pivot
-    //you could adapt the code so that you can 'zoom' by changing the z value in camera.position in a mousewheel event..
-
-    let rotEase = 0.001
-    const scale = 0.002
-    const translateScale = 0.002
-    const scale2 = 0.08
-
-    // let direction =
-
-    const RAD2DEG = 180 / Math.PI
-    this.mouseAngle = 0
-    let x = 0,
-      y = 0
-
-    document.addEventListener("mousemove", (e) => {
-      let yDif = e.clientY - y,
-        xDif = e.clientX - x
-
-      x = e.clientX
-      y = e.clientY
-
-      this.mouseAngle = Math.atan2(yDif, xDif) * RAD2DEG - 40
-
-      orbit.rotation.x = THREE.MathUtils.lerp(
-        orbit.rotation.x,
-        orbit.rotation.x + e.movementY * -scale2,
-        0.01
-      )
-      orbit.rotation.y = THREE.MathUtils.lerp(
-        orbit.rotation.y,
-        orbit.rotation.y + e.movementX * -scale2,
-        0.01
-      )
-    })
-    this.orbit = orbit
-    this.scene.add(orbit)
-
-    orbit.add(this.camera)
-
-    //the camera rotation pivot
 
     this.scene.add(this.mainShape)
     // this.scene.add(this.mainShapeBg);
