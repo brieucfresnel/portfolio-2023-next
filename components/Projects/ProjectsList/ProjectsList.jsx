@@ -65,20 +65,20 @@ function ProjectsList({ projects }) {
           ></Image>
         </div>
         <h2 className="projects-list__title">Références</h2>
-        <div className="projects-list__header">
-          <div className="projects-list__header-main">
+
+        <div className="projects-list__rows">
+          <div className="projects-list__row projects-list__row--header">
             <span>Client</span>
             <span>Type</span>
-          </div>
-          <div className="projects-list__header-aside">
             <span>Tech</span>
+            <span></span>
             <span>By</span>
             <span>Year</span>
           </div>
-        </div>
-        <div className="projects-list__rows">
+
           {projects.sort().map((project, i) => (
             <ProjectsListRow
+              className="projects-list__row"
               key={i}
               {...project}
               setCurrentImageData={setCurrentImageData}

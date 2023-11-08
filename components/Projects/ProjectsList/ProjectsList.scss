@@ -4,8 +4,8 @@
   background: $clr-dark;
 
   &__title {
+    margin-bottom: 20px;
     font-size: 32px;
-    margin-bottom: 80px;
     line-height: 1;
     color: $clr-light;
   }
@@ -25,28 +25,28 @@
     }
   }
 
+  &__row--header {
+    display: none;
+  }
+
   &__header {
     margin-bottom: 30px;
   }
 
   @include media-up(md) {
-    &__header {
-      display: flex;
-      justify-content: space-between;
+    &__title {
+      margin-bottom: 80px;
     }
 
-    &__header-main {
+    &__row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 20px;
-      width: 30%;
+      grid-template-columns: 8fr 8fr 8fr 20fr 5fr 2fr;
     }
 
-    &__header-aside {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      column-gap: 20px;
-      width: 30%;
+    &__row--header {
+      padding-bottom: 30px;
+      font-weight: bold;
+      font-size: 1rem;
     }
   }
 }

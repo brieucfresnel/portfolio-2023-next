@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect } from "react"
 import { gsap } from "common/utils/gsap"
-import Container from "@/components/Container/Container"
+import cn from "classnames"
 
 import "./ProjectsListRow.scss"
 
@@ -13,6 +13,7 @@ function ProjectsListRow({
   image,
   year,
   setCurrentImageData,
+  className,
 }) {
   const el = useRef(null)
   const tl = useRef(null)
@@ -31,18 +32,19 @@ function ProjectsListRow({
     <a
       href="/"
       ref={el}
-      className="projects-list-row"
+      className={cn(className, "projects-list-row")}
       onMouseOver={() => setCurrentImageData(image)}
     >
-      <div className="projects-list-row__main">
-        <h3 className="projects-list-row__title">{title}</h3>
-        <span className="projects-list-row__type">{type}</span>
-      </div>
-      <div className="projects-list-row__aside">
-        <span className="projects-list-row__tech">{tech.join(" / ")}</span>
-        <span className="projects-list-row__team">{team}</span>
-        <span className="projects-list-row__year">{year}</span>
-      </div>
+      <h3 className="projects-list-row__title">{title}</h3>
+      <span className="projects-list-row__type">{type}</span>
+      <span className="projects-list-row__tech">
+        {tech.map((tech, i) => (
+          <span key={i}>{tech}</span>
+        ))}
+      </span>
+      <span></span>
+      <span className="projects-list-row__team">{team}</span>
+      <span className="projects-list-row__year">{year}</span>
     </a>
   )
 }
