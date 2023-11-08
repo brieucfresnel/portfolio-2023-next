@@ -88,11 +88,15 @@ function ProjectsList({ projects }) {
                   color: "#070707",
                   duration: 0.5,
                 },
-                "- 3"
+                "<-=3"
               )
-              .to(c(".projects-list-row__tech > span"), {
-                borderColor: "#070707",
-              })
+              .to(
+                c(".projects-list-row__tech > span"),
+                {
+                  borderColor: "#070707",
+                },
+                "<-=3"
+              )
           }
           const onMouseOut = (e) => {
             const c = gsap.utils.selector(e.target)
@@ -104,13 +108,21 @@ function ProjectsList({ projects }) {
                 duration: 0.3,
                 ease: "power2.out",
               })
-              .to(c(".projects-list-row__cell"), {
-                color: "#ffe8ec",
-                duration: 0.5,
-              })
-              .to(c(".projects-list-row__tech > span"), {
-                borderColor: "#ffe8ec",
-              })
+              .to(
+                c(".projects-list-row__cell"),
+                {
+                  color: "#ffe8ec",
+                  duration: 0.5,
+                },
+                "<-=3"
+              )
+              .to(
+                c(".projects-list-row__tech > span"),
+                {
+                  borderColor: "#ffe8ec",
+                },
+                "<-=5"
+              )
           }
 
           item.addEventListener("mouseenter", onMouseHover)
