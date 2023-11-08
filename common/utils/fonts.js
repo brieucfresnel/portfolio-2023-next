@@ -1,43 +1,27 @@
 import localFont from "next/font/local"
 
-export const ppNeueMachina = localFont({
-  variable: "--pp-neue-machina",
+export const chivo = localFont({
+  variable: "--chivo",
   src: [
     {
-      path: "../../assets/fonts/PPNeueMachina-PlainRegular.otf",
+      path: "../../assets/fonts/Chivo/Chivo-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../assets/fonts/PPNeueMachina-PlainRegularItalic.otf",
-      weight: "400",
+      path: "../../assets/fonts/Chivo/Chivo-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../assets/fonts/Chivo/Chivo-Thin.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../assets/fonts/Chivo/Chivo-Bold.woff2",
+      weight: "700",
       style: "italic",
-    },
-    {
-      path: "../../assets/fonts/PPNeueMachina-PlainUltraBold.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../assets/fonts/PPNeueMachina-PlainUltraBoldItalic.otf",
-      weight: "700",
-      style: "italic",
-    },
-  ],
-})
-
-export const ppNeueMachinaInktrap = localFont({
-  variable: "--pp-neue-machina-inktrap",
-  src: [
-    {
-      path: "../../assets/fonts/PPNeueMachina-InktrapRegular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../assets/fonts/PPNeueMachina-InktrapUltraBold.otf",
-      weight: "700",
-      style: "normal",
     },
   ],
 })

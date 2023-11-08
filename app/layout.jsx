@@ -1,5 +1,5 @@
 import { LenisScroller } from "@/components/LenisScroller"
-import { ppNeueMachina } from "@/common/utils/fonts"
+import { chivo } from "@/common/utils/fonts"
 import "./global.scss"
 
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${ppNeueMachina.className}`}>
+    <html lang="fr" className={`${chivo.className}`}>
       <body>
         {/* <PageWrapper> */}
         {children}
