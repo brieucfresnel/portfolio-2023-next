@@ -9,26 +9,9 @@
 body {
   margin: 0;
   max-width: 100%;
-  background: $clr-dark;
+  overflow-x: hidden;
   color: $clr-light;
-
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
-    // background-repeat: repeat;
-    // animation: bg-animation 0.8s infinite;
-    opacity: 0.9;
-    z-index: map-get($z-indexes, overlay);
-    visibility: visible;
-    pointer-events: none;
-  }
+  background: $clr-dark url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
 }
 
 h1,
@@ -42,12 +25,6 @@ h6 {
 }
 
 @keyframes move {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 100% 0;
-  }
 }
 
 @keyframes bg-animation {
@@ -87,7 +64,8 @@ h6 {
 }
 
 .container {
-  margin: 0 5%;
+  margin: 0 auto;
+  max-width: 95%;
 }
 
 a {
