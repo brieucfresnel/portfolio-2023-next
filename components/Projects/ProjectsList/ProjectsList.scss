@@ -39,14 +39,19 @@
     }
 
     &__row {
-      display: grid;
-      grid-template-columns: 8fr 8fr 8fr 20fr 5fr 2fr;
     }
 
     &__row--header {
+      display: grid;
+      grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+      grid-gap: 10px;
+
       padding-bottom: 30px;
       font-weight: bold;
       font-size: 1rem;
     }
+  }
+
+  @include media-up(lg) {
   }
 }

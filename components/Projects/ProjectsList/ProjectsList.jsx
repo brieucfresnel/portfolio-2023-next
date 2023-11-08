@@ -70,8 +70,8 @@ function ProjectsList({ projects }) {
           <div className="projects-list__row projects-list__row--header">
             <span>Client</span>
             <span>Type</span>
-            <span>Tech</span>
             <span></span>
+            <span>Tech</span>
             <span>By</span>
             <span>Year</span>
           </div>

@@ -23,6 +23,7 @@
   // Empty span
   > span:nth-child(4) {
     display: none;
+    grid-area: blank;
   }
 
   &__title {
@@ -64,13 +65,28 @@
   }
 
   @include media-up(md) {
+    grid-template-areas: "title type tech blank team year";
+    grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+
+    grid-gap: 10px;
+
     &__title {
       position: relative;
       top: -2px;
     }
 
+    &__type,
+    &__tech {
+      margin: 0;
+    }
+
     > span:nth-child(4) {
-      display: block;
+      display: flex;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
     }
   }
 }
