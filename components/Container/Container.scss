@@ -1,0 +1,8 @@
+.container {
+  margin: 0 auto;
+  max-width: 90%;
+
+  @include media-up(md) {
+    max-width: 95%;
+  }
+}
