@@ -38,6 +38,7 @@ export default forwardRef(function ProjectsListRow(
           {year}
         </span>
       </div>
+      <div className="projects-list-row__border"></div>
     </a>
   )
 })

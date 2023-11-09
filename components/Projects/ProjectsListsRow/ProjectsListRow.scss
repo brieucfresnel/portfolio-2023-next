@@ -42,7 +42,6 @@
     bottom: 0;
     width: 100%;
     transform: scaleX(1.2);
-    // z-index: -1;
     height: 0;
     background-color: $clr-light;
   }
@@ -58,6 +57,7 @@
 
   &__cell {
     position: relative;
+    font-size: 1.2rem;
   }
 
   // Empty span
@@ -68,8 +68,10 @@
 
   &__title {
     grid-area: title;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 3rem;
+    letter-spacing: -0.02ch;
+    position: relative;
   }
 
   &__type {
@@ -109,7 +111,7 @@
   @include media-up(md) {
     &__content {
       grid-template-areas: "title type tech team year";
-      grid-template-columns: 7fr 4fr 4fr 3fr 2fr;
+      grid-template-columns: 8fr 4fr 4fr 3fr 2fr;
       grid-column-gap: 10px;
       grid-row-gap: 0;
     }
@@ -137,7 +139,7 @@
   @include media-up(lg) {
     &__content {
       grid-template-areas: "title type blank tech team year";
-      grid-template-columns: 6fr 4fr 4fr 3fr 3fr 2fr;
+      grid-template-columns: 7fr 4fr 3fr 4fr 3fr 2fr;
     }
 
     &__cell:nth-child(3) {

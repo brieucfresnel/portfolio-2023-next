@@ -9,6 +9,7 @@ import React, {
 } from "react"
 import Image from "next/image"
 import { gsap, ScrollTrigger } from "common/utils/gsap"
+import { chivo } from "@/common/utils/fonts"
 
 import Container from "@/components/Container/Container"
 import ProjectsListRow from "@/components/Projects/ProjectsListsRow/ProjectsListRow"
@@ -112,6 +113,13 @@ function ProjectsList({ projects }) {
                   },
                   "content"
                 )
+                .to(
+                  c(".projects-list-row__title"),
+                  {
+                    fontWeight: 700,
+                  },
+                  "content"
+                )
             }
           }
 
@@ -154,6 +162,13 @@ function ProjectsList({ projects }) {
                   },
                   "content"
                 )
+                .to(
+                  c(".projects-list-row__title"),
+                  {
+                    fontWeight: 400,
+                  },
+                  "content"
+                )
             }
           }
 
@@ -179,7 +194,9 @@ function ProjectsList({ projects }) {
             sizes={""}
           ></Image>
         </div>
-        <h2 className="projects-list__title">Références</h2>
+        <h2 className={`projects-list__title ${chivo.className}`}>
+          Références
+        </h2>
         <div className="projects-list__row projects-list__row--header">
           <span>Client</span>
           <span>Type</span>

@@ -1,4 +1,7 @@
 import localFont from "next/font/local"
+import { Trispace } from "next/font/google"
+
+export const trispace = Trispace({ subsets: ["latin"] })
 
 export const chivo = localFont({
   variable: "--chivo",

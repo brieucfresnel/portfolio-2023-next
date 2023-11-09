@@ -2,6 +2,7 @@
   min-height: 100vh;
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
@@ -11,7 +12,12 @@
   z-index: map-get($z-indexes, three);
 
   @include media-up(md) {
-    left: calc(100% / 3);
-    width: calc(100% / 3 * 2);
+    left: 40%;
+    width: 50%;
+
+    > canvas {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
