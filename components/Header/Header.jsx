@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect } from "react"
 import Container from "@/components/Container/Container"
 import "./Header.scss"
+import { chivo } from "@/common/utils/fonts"
 
 export default function Header() {
   const tl = useRef()
@@ -42,10 +43,12 @@ export default function Header() {
   })
 
   return (
-    <header className="header" ref={header}>
+    <header className={`header`} ref={header}>
       <Container>
         <div>
-          <h1 className="header__title">Développeur WordPress & Front</h1>
+          <h1 className={`header__title ${chivo.className}`}>
+            Développeur WordPress & Front
+          </h1>
         </div>
 
         <div className="header__email-wrapper">
