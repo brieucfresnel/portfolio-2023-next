@@ -1,5 +1,5 @@
 import { LenisScroller } from "@/components/LenisScroller"
-import { chivo } from "@/common/utils/fonts"
+import { trispace } from "@/common/utils/fonts"
 import "./global.scss"
 
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${chivo.className}`}>
+    <html lang="fr" className={`${trispace.className}`}>
       <body>
         {/* <PageWrapper> */}
         {children}
