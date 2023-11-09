@@ -42,7 +42,6 @@
     bottom: 0;
     width: 100%;
     transform: scaleX(1.2);
-    // z-index: -1;
     height: 0;
     background-color: $clr-light;
   }
@@ -58,6 +57,7 @@
 
   &__cell {
     position: relative;
+    font-size: 1.2rem;
   }
 
   // Empty span

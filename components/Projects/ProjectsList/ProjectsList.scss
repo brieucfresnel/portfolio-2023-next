@@ -6,8 +6,8 @@
   background: $clr-dark;
 
   &__title {
-    margin-bottom: 20px;
-    font-size: 32px;
+    margin-bottom: 1.25rem;
+    font-size: 2rem;
     line-height: 1;
     color: $clr-light;
   }
@@ -45,7 +45,7 @@
   }
 
   &__header {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
   }
 
   @include media-up(md) {
@@ -56,9 +56,9 @@
     &__row--header {
       display: grid;
       grid-template-columns: 8fr 4fr 4fr 3fr 2fr;
-      grid-column-gap: 10px;
+      grid-column-gap: 0.625rem;
 
-      padding-bottom: 30px;
+      padding-bottom: 1.875rem;
       font-weight: bold;
       font-size: 1rem;
 
