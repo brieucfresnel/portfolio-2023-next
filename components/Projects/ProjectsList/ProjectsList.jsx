@@ -69,6 +69,10 @@ function ProjectsList({ projects }) {
           let animation = null
           let isHovering = false
 
+          const clrBorderLight = "#393435"
+          const clrDark = "#070707"
+          const clrLight = "#ffe8ec"
+
           const onMouseEnter = (e) => {
             isHovering = true
 
@@ -89,19 +93,22 @@ function ProjectsList({ projects }) {
                   ease: "power2.out",
                 })
                 .add("content")
+                .to(item, {
+                  borderColor: clrLight,
+                })
                 .to(
                   c(".projects-list-row__cell"),
                   {
-                    color: "#070707",
-                    duration: 0.5,
+                    color: clrDark,
+                    duration: 0.3,
                   },
                   "content"
                 )
                 .to(
                   c(".projects-list-row__tech > span"),
                   {
-                    borderColor: "#070707",
-                    color: "#070707",
+                    borderColor: clrDark,
+                    color: clrDark,
                   },
                   "content"
                 )
@@ -125,25 +132,25 @@ function ProjectsList({ projects }) {
                 .to(c(".projects-list-row__bg"), {
                   height: "0",
                   duration: 0.3,
-                  delay: 0.1,
                   ease: "power2.out",
                 })
                 .add("content")
+                .to(item, {
+                  borderColor: clrBorderLight,
+                })
                 .to(
-                  c(
-                    ".projects-list-row__cell, .projects-list-row__tech > span"
-                  ),
+                  c(".projects-list-row__cell"),
                   {
-                    color: "#ffe8ec",
-                    duration: 0.5,
+                    color: clrLight,
+                    duration: 0.3,
                   },
                   "content"
                 )
                 .to(
                   c(".projects-list-row__tech > span"),
                   {
-                    color: "#ffe8ec",
-                    borderColor: "#ffe8ec",
+                    color: clrLight,
+                    borderColor: clrLight,
                   },
                   "content"
                 )
