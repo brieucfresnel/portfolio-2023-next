@@ -39,9 +39,6 @@ function ProjectsList({ projects }) {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      const q = gsap.utils.selector(wrapperRef.current)
-      const rowsContainer = q(".projects-list__rows")
-
       let lastHoveredProject = null
       let currentHoveredProject = null
 
@@ -52,16 +49,14 @@ function ProjectsList({ projects }) {
           opacity: 0,
         })
       }
+      wrapperRef.current.addEventListener("mouseleave", hideMouseHovers)
 
       const showMouseHovers = () => {
-        console.log("show mouse hovers")
         gsap.to([imageRef.current, itemBgRef.current], {
           opacity: 1,
         })
       }
-
       wrapperRef.current.addEventListener("mouseenter", showMouseHovers)
-      wrapperRef.current.addEventListener("mouseleave", hideMouseHovers)
 
       const setupImage = () => {
         gsap.set(imageRef.current, { y: "-50%" })
@@ -70,63 +65,93 @@ function ProjectsList({ projects }) {
 
       const setupHoveredImageBg = () => {
         listItemsRefs.current.forEach((item) => {
-          const onMouseHover = (e) => {
-            lastHoveredProject = currentHoveredProject
-            currentHoveredProject = item
-            const c = gsap.utils.selector(e.target)
+          const c = gsap.utils.selector(item)
+          let animation = null
+          let isHovering = false
 
-            gsap
-              .timeline()
-              .to(c(".projects-list-row__bg"), {
-                height: "100%",
-                duration: 0.3,
-                ease: "power2.out",
-              })
-              .to(
-                c(".projects-list-row__cell"),
-                {
-                  color: "#070707",
-                  duration: 0.5,
-                },
-                "<-=3"
-              )
-              .to(
-                c(".projects-list-row__tech > span"),
-                {
-                  borderColor: "#070707",
-                },
-                "<-=3"
-              )
-          }
-          const onMouseOut = (e) => {
-            const c = gsap.utils.selector(e.target)
+          const onMouseEnter = (e) => {
+            isHovering = true
 
-            gsap
-              .timeline()
-              .to(c(".projects-list-row__bg"), {
-                height: "0",
-                duration: 0.3,
-                ease: "power2.out",
-              })
-              .to(
-                c(".projects-list-row__cell"),
-                {
-                  color: "#ffe8ec",
-                  duration: 0.5,
-                },
-                "<-=3"
-              )
-              .to(
-                c(".projects-list-row__tech > span"),
-                {
-                  borderColor: "#ffe8ec",
-                },
-                "<-=5"
-              )
+            if (!animation) {
+              animation = gsap
+                .timeline({
+                  onComplete: () => {
+                    animation = null
+                    if (!isHovering) {
+                      onMouseLeave()
+                    }
+                  },
+                })
+                .add("background")
+                .to(c(".projects-list-row__bg"), {
+                  height: "100%",
+                  duration: 0.3,
+                  ease: "power2.out",
+                })
+                .add("content")
+                .to(
+                  c(".projects-list-row__cell"),
+                  {
+                    color: "#070707",
+                    duration: 0.5,
+                  },
+                  "content"
+                )
+                .to(
+                  c(".projects-list-row__tech > span"),
+                  {
+                    borderColor: "#070707",
+                    color: "#070707",
+                  },
+                  "content"
+                )
+            }
           }
 
-          item.addEventListener("mouseenter", onMouseHover)
-          item.addEventListener("mouseleave", onMouseOut)
+          const onMouseLeave = (e) => {
+            isHovering = false
+
+            if (!animation) {
+              animation = gsap
+                .timeline({
+                  onComplete: () => {
+                    animation = null
+                    if (isHovering) {
+                      onMouseEnter()
+                    }
+                  },
+                })
+                .add("background")
+                .to(c(".projects-list-row__bg"), {
+                  height: "0",
+                  duration: 0.3,
+                  delay: 0.1,
+                  ease: "power2.out",
+                })
+                .add("content")
+                .to(
+                  c(
+                    ".projects-list-row__cell, .projects-list-row__tech > span"
+                  ),
+                  {
+                    color: "#ffe8ec",
+                    duration: 0.5,
+                  },
+                  "content"
+                )
+                .to(
+                  c(".projects-list-row__tech > span"),
+                  {
+                    color: "#ffe8ec",
+                    borderColor: "#ffe8ec",
+                  },
+                  "content"
+                )
+            }
+          }
+
+          item.addEventListener("mouseenter", onMouseEnter)
+          item.addEventListener("mouseleave", onMouseLeave)
         })
       }
       setupHoveredImageBg()
