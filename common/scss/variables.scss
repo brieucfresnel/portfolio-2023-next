@@ -17,6 +17,9 @@ $min-xl: "(min-width: #{map-get($breakpoints, xl)})";
 $min-xxl: "(min-width: #{map-get($breakpoints, xxl)})";
 $min-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
+$container-pd-mobile: 4%;
+$container-pd-desktop: 2.5%;
+
 $clr-light: #ffe8ec;
 $clr-primary: #161616;
 $clr-dark: #070707;
