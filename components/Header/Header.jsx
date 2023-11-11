@@ -67,8 +67,6 @@ export default function Header() {
             e-commerce chez Redcat Studio. Dans le même temps, j’étudiais le
             développement full-stack à Ynov Toulouse et Digital Campus Paris.
           </p>
-
-          <div className="header__cta">Bon, on regarde quelques projets ?</div>
         </div>
 
         <div className="header__aside">
@@ -85,7 +83,6 @@ export default function Header() {
           width={24}
           height={24}
           alt=""
-          objectFit={"contain"}
         ></Image>
       </Container>
     </header>
