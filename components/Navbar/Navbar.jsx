@@ -10,7 +10,7 @@ export default function Navbar() {
           Brieuc
         </a>
         <div className="navbar__menu">
-          <a className="navbar__link" href="#">
+          <a className="navbar__link" href="mailto:fresnel.brieuc@gmail.com">
             Contact
           </a>
         </div>
