@@ -78,8 +78,8 @@ export default function Header() {
         <div className="header__aside">
           <p className="header__side-text">
             En ce moment, je m&lsquo;intéresse à p5, three, et au creative
-            coding. Je teste aussi différentes différents frameworks fullstack
-            comme Next, Remix et Nuxt.
+            coding. Je teste aussi différents frameworks fullstack comme Next,
+            Remix et Nuxt.
           </p>
         </div>
 
