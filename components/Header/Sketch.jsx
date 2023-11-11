@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import dynamic from "next/dynamic"
+import { isFunction } from "lodash"
 
 const ReactP5Wrapper = dynamic(
   () =>
@@ -17,11 +18,10 @@ function sketch(p5) {
   let canvasRect, width, height
 
   let particles = []
-  const num = 1000
-
-  const noiseScale = 0.03
-
-  let drawCount = 0
+  const num = 800
+  const maxRenders = 1500
+  let renders = 0
+  const noiseScale = 0.035
 
   const calculateCanvasSize = () => {
     canvasRect = canvas.getBoundingClientRect()
@@ -51,18 +51,20 @@ function sketch(p5) {
     particles = makeParticles()
     // For a cool effect try uncommenting this line
     // And comment out the background() line in draw
-    p5.stroke(255, 220, 226, 75)
+    p5.stroke(255, 220, 226, 50)
     p5.strokeWeight(0.95)
     p5.clear()
   }
 
   p5.draw = () => {
-    drawCount++
-    if (drawCount > 1000) {
+    // Loop
+    renders++
+    if (renders > maxRenders) {
       p5.clear()
-      drawCount = 0
+      renders = 0
       particles = makeParticles()
     }
+
     // p5.background(0, 10)
     p5.translate(-width / 2, -height / 2)
 
@@ -79,6 +81,8 @@ function sketch(p5) {
       p.x += p5.cos(a)
       p.y += p5.sin(a)
 
+      p = checkBoundaries(p)
+
       if (!onScreen(p)) {
         p.x = p5.random(width)
         p.y = p5.random(height)
@@ -88,6 +92,22 @@ function sketch(p5) {
 
   p5.mouseReleased = () => {
     p5.noiseSeed(p5.millis())
+  }
+
+  const checkBoundaries = (p) => {
+    if (p.x > width) {
+      p.x = 0
+    } else if (p.x < 0) {
+      p.x = width
+    }
+
+    if (p.y > height) {
+      p.y = 0
+    } else if (p.y < 0) {
+      p.y = height
+    }
+
+    return p
   }
 
   function onScreen(v) {
