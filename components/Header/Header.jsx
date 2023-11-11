@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect } from "react"
 import Container from "@/components/Container/Container"
 import "./Header.scss"
 import { chivo } from "@/common/utils/fonts"
+import { Sketch } from "./Sketch"
 
 export default function Header() {
   const tl = useRef()
@@ -44,19 +45,18 @@ export default function Header() {
 
   return (
     <header className={`header`} ref={header}>
+      <Sketch />
       <Container>
         <div>
           <h1 className={`header__title ${chivo.className}`}>
             Développeur WordPress & Front
           </h1>
         </div>
-
         <div className="header__email-wrapper">
           <a className="header__email" href="mailto:fresnel.brieuc@gmail.com">
             fresnel.brieuc@gmail.com
           </a>
         </div>
-
         <div className="header__introduction">
           <p>
             Je développe des sites vitrines et e-commerce. Ces deux dernières
