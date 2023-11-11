@@ -19,24 +19,9 @@ import "./ProjectsList.scss"
 
 function ProjectsList({ projects }) {
   const wrapperRef = useRef(null)
-  const imageRef = useRef(null)
   const itemBgRef = useRef(null)
   const listItemsRefs = useRef([])
   const mousePosition = useMousePosition()
-  const [currentImageData, setCurrentImageData] = useState(projects[0]?.image)
-  // const [currentHoveredProject, setCurrentHoveredProject] = useState(null)
-
-  useEffect(() => {
-    const moveImage = () => {
-      if (!(mousePosition.x && mousePosition.y)) return
-
-      gsap.to(imageRef.current, {
-        top: mousePosition.y,
-        left: `calc(${mousePosition.x}px + 3vw)`,
-      })
-    }
-    moveImage()
-  }, [mousePosition])
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -45,14 +30,14 @@ function ProjectsList({ projects }) {
       const hideMouseHovers = () => {
         currentHoveredProject = null
 
-        gsap.to([itemBgRef.current], {
+        gsap.to(itemBgRef.current, {
           opacity: 0,
         })
       }
       wrapperRef.current.addEventListener("mouseleave", hideMouseHovers)
 
       const showMouseHovers = () => {
-        gsap.to([itemBgRef.current], {
+        gsap.to(itemBgRef.current, {
           opacity: 1,
         })
       }
@@ -107,7 +92,6 @@ function ProjectsList({ projects }) {
                   },
                   "background"
                 )
-                .to(c(".projects-list-row__title"), {}, "background")
             }
           }
 
@@ -158,7 +142,7 @@ function ProjectsList({ projects }) {
         })
       }
       setupHoveredImageBg()
-    }, [imageRef, wrapperRef, listItemsRefs])
+    }, [wrapperRef, listItemsRefs])
     return () => ctx.revert() // cleanup
   }, [])
 
