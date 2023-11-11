@@ -1,37 +1,20 @@
-import React from "react";
-import Image from "next/image";
-import "./Navbar.scss";
+import React from "react"
+import "./Navbar.scss"
+import Container from "@/components/Container/Container"
 
 export default function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="container">
+    <div className="navbar">
+      <Container>
         <a className="navbar__brand" href="/">
-          <div></div>
-          <Image
-            src="/images/brieuc_fresnel.png"
-            width="42"
-            height="42"
-            alt=""
-          />
+          Brieuc
         </a>
         <div className="navbar__menu">
-          <a
-            className="navbar__menu-link link--external"
-            href="https://www.linkedin.com/in/brieuc-fresnel/"
-            target="_blank"
-          >
-            LinkedIn
-          </a>
-          <a
-            className="navbar__menu-link link--external"
-            href="https://github.com/brieucfresnel"
-            target="_blank"
-          >
-            GitHub
+          <a className="navbar__link" href="#">
+            Contact
           </a>
         </div>
-      </div>
-    </nav>
-  );
+      </Container>
+    </div>
+  )
 }
