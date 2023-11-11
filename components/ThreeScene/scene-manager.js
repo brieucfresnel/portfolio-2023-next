@@ -34,7 +34,7 @@ export function SceneManager() {
 
     this.renderer = getRenderer()
     this.camera = getCamera()
-    this.cameraDistance = 16
+    this.cameraDistance = 25
     this.gui = getGui()
     const { width, height } = getRenderSize()
     this.width = width
@@ -61,18 +61,16 @@ export function SceneManager() {
   }
 
   this.setCameraPosition = () => {
-    this.camera.position.z = this.cameraDistance
-
     const mediaQuery = window.matchMedia("(min-width: 64em)")
 
     const handleScreenSizeChange = (e) => {
       if (e.matches) {
         // this.camera.translateX(-3.0)
         this.camera.position.set(-5.0, 0.0, this.cameraDistance)
-        this.controls.update()
+        this.controls?.update()
       } else {
         this.camera.position.set(0.0, 0.0, this.cameraDistance)
-        this.controls.update()
+        this.controls?.update()
       }
     }
 
@@ -96,7 +94,7 @@ export function SceneManager() {
     getTick(({ timestamp, timeDiff }) => {
       const time = timestamp / 5000
       this.mainShape.material.userData.shader.uniforms.uTime.value = time
-      this.controls.update()
+      this.controls?.update()
     })
   }
 

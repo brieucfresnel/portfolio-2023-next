@@ -1,8 +1,8 @@
 .container {
   margin: 0 auto;
-  max-width: 90%;
+  padding: 0 $container-pd-mobile;
 
   @include media-up(md) {
-    max-width: 95%;
+    padding: 0 $container-pd-desktop;
   }
 }

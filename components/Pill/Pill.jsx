@@ -1,9 +1,16 @@
+import React from "react"
+import "./Pill.scss"
+import cn from "classnames"
 
-import React from 'react';
-import './Pill.scss'
-
-export default function Pill({ label, bgColor }) {
-  return (
-    <span className={`pill pill--${bgColor}`}>{label}</span>
+export default function Pill({ children, bgColor, size = "sm", href = false }) {
+  return href ? (
+    <a
+      href={href}
+      className={cn("pill", bgColor ? `pill--${bgColor}` : "", `pill--${size}`)}
+    >
+      {children}
+    </a>
+  ) : (
+    <span className={`pill pill--${bgColor}`}>{children}</span>
   )
 }
