@@ -8,7 +8,6 @@ export default function Home() {
     <>
       <Navbar></Navbar>
       <Header></Header>
-      {/* <ThreeScene></ThreeScene> */}
       <Projects></Projects>
       <Footer></Footer>
     </>
