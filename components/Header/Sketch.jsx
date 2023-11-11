@@ -1,6 +1,5 @@
 import * as React from "react"
 
-import "./sketch.scss"
 import dynamic from "next/dynamic"
 
 const ReactP5Wrapper = dynamic(
