@@ -5,18 +5,11 @@ import cn from "classnames"
 import "./ProjectsListRow.scss"
 
 export default forwardRef(function ProjectsListRow(
-  { id, title, team, type, tech, image, year, setCurrentImageData, className },
+  { title, team, type, tech, year, className },
   ref
 ) {
-  const tl = useRef(null)
-
   return (
-    <a
-      href="/"
-      ref={ref}
-      className={cn(className, "projects-list-row")}
-      onMouseOver={() => setCurrentImageData(image)}
-    >
+    <a href="/" ref={ref} className={cn(className, "projects-list-row")}>
       <div className="projects-list-row__bg"></div>
       <div className="projects-list-row__content">
         <h3 className="projects-list-row__cell projects-list-row__title">

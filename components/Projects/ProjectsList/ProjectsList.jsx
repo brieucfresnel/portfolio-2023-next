@@ -40,29 +40,23 @@ function ProjectsList({ projects }) {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      let lastHoveredProject = null
       let currentHoveredProject = null
 
       const hideMouseHovers = () => {
         currentHoveredProject = null
 
-        gsap.to([imageRef.current, itemBgRef.current], {
+        gsap.to([itemBgRef.current], {
           opacity: 0,
         })
       }
       wrapperRef.current.addEventListener("mouseleave", hideMouseHovers)
 
       const showMouseHovers = () => {
-        gsap.to([imageRef.current, itemBgRef.current], {
+        gsap.to([itemBgRef.current], {
           opacity: 1,
         })
       }
       wrapperRef.current.addEventListener("mouseenter", showMouseHovers)
-
-      const setupImage = () => {
-        gsap.set(imageRef.current, { y: "-50%" })
-      }
-      setupImage()
 
       const setupHoveredImageBg = () => {
         listItemsRefs.current.forEach((item) => {
@@ -73,6 +67,7 @@ function ProjectsList({ projects }) {
           const clrBorderLight = "#393435"
           const clrDark = "#070707"
           const clrLight = "#ffe8ec"
+          const clrBgLight = ""
 
           const onMouseEnter = (e) => {
             isHovering = true
@@ -93,7 +88,6 @@ function ProjectsList({ projects }) {
                   duration: 0.3,
                   ease: "power2.out",
                 })
-                .add("content")
                 .to(item, {
                   borderColor: clrLight,
                 })
@@ -103,7 +97,7 @@ function ProjectsList({ projects }) {
                     color: clrDark,
                     duration: 0.3,
                   },
-                  "content"
+                  "background"
                 )
                 .to(
                   c(".projects-list-row__tech > span"),
@@ -111,15 +105,9 @@ function ProjectsList({ projects }) {
                     borderColor: clrDark,
                     color: clrDark,
                   },
-                  "content"
+                  "background"
                 )
-                .to(
-                  c(".projects-list-row__title"),
-                  {
-                    fontWeight: 700,
-                  },
-                  "content"
-                )
+                .to(c(".projects-list-row__title"), {}, "background")
             }
           }
 
@@ -142,7 +130,6 @@ function ProjectsList({ projects }) {
                   duration: 0.3,
                   ease: "power2.out",
                 })
-                .add("content")
                 .to(item, {
                   borderColor: clrBorderLight,
                 })
@@ -152,7 +139,7 @@ function ProjectsList({ projects }) {
                     color: clrLight,
                     duration: 0.3,
                   },
-                  "content"
+                  "background"
                 )
                 .to(
                   c(".projects-list-row__tech > span"),
@@ -160,15 +147,9 @@ function ProjectsList({ projects }) {
                     color: clrLight,
                     borderColor: clrLight,
                   },
-                  "content"
+                  "background"
                 )
-                .to(
-                  c(".projects-list-row__title"),
-                  {
-                    fontWeight: 400,
-                  },
-                  "content"
-                )
+                .to(c(".projects-list-row__title"), {}, "background")
             }
           }
 
@@ -184,37 +165,15 @@ function ProjectsList({ projects }) {
   return (
     <section className="projects-list" ref={wrapperRef}>
       <Container>
-        <div className="projects-list__image-wrapper">
-          <Image
-            className="projects-list__image"
-            src={currentImageData?.src}
-            alt={currentImageData?.alt}
-            fill={true}
-            ref={imageRef}
-            sizes={""}
-          ></Image>
-        </div>
-        <h2 className={`projects-list__title ${chivo.className}`}>
-          Références
-        </h2>
-        <div className="projects-list__row projects-list__row--header">
-          <span>Client</span>
-          <span>Type</span>
-          <span></span>
-          <span>Tech</span>
-          <span>By</span>
-          <span>Year</span>
-        </div>
+        <h2 className={`projects-list__title`}>Références</h2>
         <div className="projects-list__rows">
           <div className="projects-list__item-hover-bg" ref={itemBgRef}></div>
-
           {projects.map((project, i) => (
             <ProjectsListRow
               ref={(el) => (listItemsRefs.current[i] = el)}
               className="projects-list__row"
               key={i}
               {...project}
-              setCurrentImageData={setCurrentImageData}
             ></ProjectsListRow>
           ))}
         </div>

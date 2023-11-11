@@ -1,13 +1,17 @@
 .projects-list {
   $border: 1px solid rgba($clr-light, 0.2);
 
-  padding: 70px 0;
+  padding-bottom: 4.375rem;
   position: relative;
   background: $clr-dark;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-top: 80px;
 
   &__title {
     margin-bottom: 1.25rem;
-    font-size: 2rem;
+    font-size: 1.25rem;
+    font-weight: 400;
     line-height: 1;
     color: $clr-light;
   }
@@ -49,10 +53,6 @@
   }
 
   @include media-up(md) {
-    &__title {
-      margin-bottom: 80px;
-    }
-
     &__row--header {
       display: grid;
       grid-template-columns: 8fr 4fr 4fr 3fr 2fr;
