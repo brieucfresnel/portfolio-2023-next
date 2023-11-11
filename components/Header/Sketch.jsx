@@ -51,7 +51,7 @@ function sketch(p5) {
     particles = makeParticles()
     // For a cool effect try uncommenting this line
     // And comment out the background() line in draw
-    p5.stroke(255, 220, 226, 100)
+    p5.stroke(255, 220, 226, 75)
     p5.strokeWeight(0.95)
     p5.clear()
   }
