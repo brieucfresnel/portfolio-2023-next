@@ -14,29 +14,56 @@ const ReactP5Wrapper = dynamic(
 )
 
 function sketch(p5) {
-  const width = window.innerWidth
-  const height = window.innerHeight
+  const canvas = document.querySelector("#sketch-container")
+  let canvasRect, width, height
 
   let particles = []
   const num = 1000
 
   const noiseScale = 0.03
 
-  p5.setup = () => {
-    p5.pixelDensity(1)
-    p5.createCanvas(width, height, p5.WEBGL)
+  let drawCount = 0
+
+  const calculateCanvasSize = () => {
+    canvasRect = canvas.getBoundingClientRect()
+    width = canvasRect.width
+    height = canvasRect.height
+  }
+
+  window.addEventListener("resize", () => {
+    calculateCanvasSize()
+    p5.resizeCanvas(width, height)
+  })
+
+  calculateCanvasSize()
+
+  const makeParticles = () => {
+    const particles = []
     for (let i = 0; i < num; i++) {
       particles.push(p5.createVector(p5.random(width), p5.random(height)))
     }
+    return particles
+  }
 
+  p5.setup = () => {
+    p5.pixelDensity(1)
+    p5.createCanvas(width, height, p5.WEBGL)
+
+    particles = makeParticles()
     // For a cool effect try uncommenting this line
     // And comment out the background() line in draw
     p5.stroke(255, 220, 226, 50)
-    p5.strokeWeight(0.9)
+    p5.strokeWeight(0.95)
     p5.clear()
   }
 
   p5.draw = () => {
+    drawCount++
+    if (drawCount > 1000) {
+      p5.clear()
+      drawCount = 0
+      particles = makeParticles()
+    }
     // p5.background(0, 10)
     p5.translate(-width / 2, -height / 2)
 
