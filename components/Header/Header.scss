@@ -39,17 +39,24 @@
   }
 
   &__main,
-  &__aside {
+  &__aside,
+  &__go-down {
     z-index: 1;
   }
 
   &__title {
-    margin: 0 0 30px 0;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 1.3rem;
     line-height: 1.25;
 
     color: $clr-light;
+  }
+
+  &__subtitle {
+    margin: 0 0 30px 0;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    font-weight: 300;
   }
 
   &__introduction {
@@ -58,6 +65,7 @@
     margin: 0;
     font-size: 1rem;
     line-height: 1.5;
+    margin-bottom: 0.625rem;
 
     strong {
       font-weight: 700;
@@ -70,14 +78,54 @@
     }
   }
 
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  &__school {
+    margin-top: 30px;
+    list-style: none;
+    padding: 0;
+
+    > li {
+      width: fit-content;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba($clr-light, 0.2);
+      font-size: 0.875rem;
+      line-height: 1.2;
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
   &__side-text {
     color: $clr-light;
     font-size: 1rem;
     line-height: 1.5;
   }
 
+  &__cta {
+    position: absolute;
+    bottom: 30px;
+    left: $container-pd-mobile;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    color: $clr-light;
+  }
+
   @include media-up(md) {
     padding-top: 0;
+
+    .container {
+      &::before {
+        display: none;
+      }
+    }
 
     .container {
       display: grid;
@@ -100,7 +148,7 @@
     }
 
     &__title {
-      font-size: 1.9rem;
+      font-size: 2.1rem;
     }
 
     &__introduction {
@@ -128,10 +176,7 @@
       margin-left: auto;
     }
 
-    &__go-down {
-      z-index: 2;
-      position: absolute;
-      bottom: 30px;
+    &__cta {
       left: $container-pd-desktop;
     }
   }

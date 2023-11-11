@@ -53,20 +53,26 @@ export default function Header() {
           <Sketch />
         </div>
         <div className="header__main">
-          <h1 className="header__title">
-            Hello ! je suis <b>Brieuc</b>, développeur web spécialiste{" "}
-            <b>front-end et WordPress</b>.
-          </h1>
+          <h1 className="header__title">Brieuc Fresnel</h1>
+          <div className="header__subtitle">
+            Développeur web front-end & WordPress junior
+          </div>
           <p className="header__introduction">
-            Ces deux dernières années, j’ai travaillé chez Studio DOT, un studio
-            digital toulousain. J’y ai appris l’utilisation de GSAP et le goût
-            du motion design, et y ai aussi créé et maintenu un{" "}
-            <Pill href="https://github.com/brieucfresnel">thème</Pill> et un{" "}
-            <Pill href="https://github.com/brieucfresnel">plug-in</Pill> pour
-            nos sites WordPress. Avant ça, je faisais des sites vitrines et
-            e-commerce chez Redcat Studio. Dans le même temps, j’étudiais le
-            développement full-stack à Ynov Toulouse et Digital Campus Paris.
+            Mes études et mes expériences professionnelles m&apos;ont conduites
+            à travailler en agence (Studio DOT / Redcat Studio) comme en
+            free-lance.
           </p>
+          <br />
+          <div className="header__pills">
+            <Pill size={"sm"}>#WordPress</Pill>
+            <Pill size={"sm"}>#ACF</Pill>
+            <Pill size={"sm"}>#React</Pill>
+            <Pill size={"sm"}>#GSAP</Pill>
+          </div>
+          <ul className="header__school">
+            <li>Master Développement Full-Stack @ YNOV Toulouse</li>
+            <li>Bachelor Développement Web @ Digital Campus Paris</li>
+          </ul>
         </div>
 
         <div className="header__aside">
@@ -77,13 +83,10 @@ export default function Header() {
           </p>
         </div>
 
-        <Image
-          className="header__go-down"
-          src={chevronDown}
-          width={24}
-          height={24}
-          alt=""
-        ></Image>
+        <div className="header__cta">
+          <Image src={chevronDown} width={16} height={16} alt="" />
+          {/* Références */}
+        </div>
       </Container>
     </header>
   )
