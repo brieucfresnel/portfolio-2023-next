@@ -11,9 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr" className={`${trispace.className}`}>
       <body>
-        {/* <PageWrapper> */}
         {children}
-        {/* </PageWrapper> */}
         <LenisScroller />
       </body>
     </html>
