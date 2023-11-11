@@ -11,6 +11,10 @@ export default function Pill({ children, bgColor, size = "sm", href = false }) {
       {children}
     </a>
   ) : (
-    <span className={`pill pill--${bgColor}`}>{children}</span>
+    <span
+      className={cn("pill", bgColor ? `pill--${bgColor}` : "", `pill--${size}`)}
+    >
+      {children}
+    </span>
   )
 }
