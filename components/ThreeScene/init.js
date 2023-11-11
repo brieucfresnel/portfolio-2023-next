@@ -21,7 +21,7 @@ const renderTickManager = new TickManager()
 export const initEngine = async (containerRef) => {
   const enableStats = false
   const enableGui = false
-  const enableControls = true
+  const enableControls = false
 
   const canvas = document.querySelector("#scene")
 
@@ -32,7 +32,7 @@ export const initEngine = async (containerRef) => {
 
   renderAspectRatio = renderWidth / renderHeight
 
-  camera = new THREE.PerspectiveCamera(75, renderAspectRatio, 0.1, 100)
+  camera = new THREE.PerspectiveCamera(50, renderAspectRatio, 0.1, 100)
 
   renderer = new THREE.WebGLRenderer({
     antialias: true,
@@ -69,8 +69,6 @@ export const initEngine = async (containerRef) => {
     controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
     controls.enableZoom = false
-    controls.autoRotate = true
-    controls.autoRotateSpeed = 0.5
   }
 
   window.addEventListener(
