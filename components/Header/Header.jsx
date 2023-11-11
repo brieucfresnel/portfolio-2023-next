@@ -1,10 +1,13 @@
 "use client"
 
 import React, { useRef, useLayoutEffect } from "react"
+import Image from "next/image"
 import Container from "@/components/Container/Container"
 import "./Header.scss"
 import { chivo } from "@/common/utils/fonts"
 import { Sketch } from "./Sketch"
+import Pill from "../Pill/Pill"
+import chevronDown from "@/assets/icons/chevron-down.svg"
 
 export default function Header() {
   const tl = useRef()
@@ -45,48 +48,45 @@ export default function Header() {
 
   return (
     <header className={`header`} ref={header}>
-      <Sketch />
       <Container>
-        <div>
-          <h1 className={`header__title ${chivo.className}`}>
-            Développeur WordPress & Front
+        <div className="header__background" id="sketch-container">
+          <Sketch />
+        </div>
+        <div className="header__main">
+          <h1 className="header__title">
+            Hello ! je suis <b>Brieuc</b>, développeur web spécialiste{" "}
+            <b>front-end et WordPress</b>.
           </h1>
+          <p className="header__introduction">
+            Ces deux dernières années, j’ai travaillé chez Studio DOT, un studio
+            digital toulousain. J’y ai appris l’utilisation de GSAP et le goût
+            du motion design, et y ai aussi créé et maintenu un{" "}
+            <Pill href="https://github.com/brieucfresnel">thème</Pill> et un{" "}
+            <Pill href="https://github.com/brieucfresnel">plug-in</Pill> pour
+            nos sites WordPress. Avant ça, je faisais des sites vitrines et
+            e-commerce chez Redcat Studio. Dans le même temps, j’étudiais le
+            développement full-stack à Ynov Toulouse et Digital Campus Paris.
+          </p>
+
+          <div className="header__cta">Bon, on regarde quelques projets ?</div>
         </div>
-        <div className="header__email-wrapper">
-          <a className="header__email" href="mailto:fresnel.brieuc@gmail.com">
-            fresnel.brieuc@gmail.com
-          </a>
-        </div>
-        <div className="header__introduction">
-          <p>
-            Je développe des sites vitrines et e-commerce. Ces deux dernières
-            années, j’ai travaillé chez{" "}
-            <a href="https://studio-dot.fr" target="_blank">
-              Studio DOT
-            </a>
-            , un studio digital toulousain, où j’ai développé des sites
-            Wordpress (ma <a href="#">stack WordPress</a>). Dans le même temps,
-            j&apos;étudiais différentes technologies : React et Angular pour le
-            front, Nest pour le back, Next, Docker, NX pour le fullstack...
-            <br />
-            J&apos;aime produire des interfaces claires et intuitives, avec
-            beaucoup d&apos;animation.
+
+        <div className="header__aside">
+          <p className="header__side-text">
+            En ce moment, je m&lsquo;intéresse à p5, three, et au creative
+            coding. Je teste aussi différentes libs React comme Framer Motion et
+            Fiber.
           </p>
         </div>
-        <div className="header__arrow-container">
-          <svg
-            width="30"
-            height="44"
-            viewBox="0 0 30 44"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M13.5858 43.4142C14.3668 44.1953 15.6332 44.1953 16.4142 43.4142L29.1421 30.6863C29.9232 29.9052 29.9232 28.6389 29.1421 27.8579C28.3611 27.0768 27.0948 27.0768 26.3137 27.8579L15 39.1716L3.68629 27.8579C2.90524 27.0768 1.63891 27.0768 0.857866 27.8579C0.076817 28.6389 0.0768171 29.9052 0.857866 30.6863L13.5858 43.4142ZM13 8.74227e-08L13 42L17 42L17 -8.74227e-08L13 8.74227e-08Z"
-              fill="#FFDCE2"
-            />
-          </svg>
-        </div>
+
+        <Image
+          className="header__go-down"
+          src={chevronDown}
+          width={24}
+          height={24}
+          alt=""
+          objectFit={"contain"}
+        ></Image>
       </Container>
     </header>
   )
