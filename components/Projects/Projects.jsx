@@ -14,6 +14,7 @@ export default async function Projects() {
   return (
     <>
       <ProjectsList projects={projects}></ProjectsList>
+      {/* <ProjectsSlider projects={projects}></ProjectsSlider> */}
     </>
   )
 }
