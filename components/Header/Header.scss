@@ -4,6 +4,7 @@
   width: 100%;
   color: #fff;
   z-index: map-get($z-indexes, header);
+  background: $clr-dark;
 
   .container {
     display: flex;
