@@ -2,9 +2,8 @@
   $border: 1px solid rgba($clr-light, 0.2);
 
   position: relative;
-  background: $clr-dark;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   padding-top: 80px;
 
   &__title {
@@ -49,31 +48,5 @@
 
   &__header {
     margin-bottom: 1.875rem;
-  }
-
-  @include media-up(md) {
-    &__row--header {
-      display: grid;
-      grid-template-columns: 8fr 4fr 4fr 3fr 2fr;
-      grid-column-gap: 0.625rem;
-
-      padding-bottom: 1.875rem;
-      font-weight: bold;
-      font-size: 1rem;
-
-      > span:nth-child(3) {
-        display: none;
-      }
-    }
-  }
-
-  @include media-up(lg) {
-    &__row--header {
-      grid-template-columns: 7fr 4fr 3fr 4fr 3fr 2fr;
-
-      > span:nth-child(3) {
-        display: block;
-      }
-    }
   }
 }
