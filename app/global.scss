@@ -15,6 +15,9 @@ html {
 
 body {
   color: $clr-light;
+}
+
+.bg-noise {
   background: $clr-dark url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
 }
 
@@ -28,58 +31,16 @@ h6 {
   font-weight: normal;
 }
 
-@keyframes move {
-}
-
-@keyframes bg-animation {
-  0% {
-    transform: translate(0, 0);
-  }
-  10% {
-    transform: translate(-5%, -5%);
-  }
-  20% {
-    transform: translate(-10%, 5%);
-  }
-  30% {
-    transform: translate(5%, -10%);
-  }
-  40% {
-    transform: translate(-5%, 15%);
-  }
-  50% {
-    transform: translate(-10%, 5%);
-  }
-  60% {
-    transform: translate(15%, 0);
-  }
-  70% {
-    transform: translate(0, 10%);
-  }
-  80% {
-    transform: translate(-15%, 0);
-  }
-  90% {
-    transform: translate(10%, 5%);
-  }
-  100% {
-    transform: translate(5%, 0);
-  }
-}
-
 a {
   color: $clr-light;
   text-decoration: none;
 }
 
-strong {
-  font-weight: 500;
+ul {
+  list-style: 0;
+  padding: 0;
 }
 
-.opacity-0 {
-  opacity: 0;
-}
-
-.opacity-1 {
-  opacity: 1;
+p {
+  margin: 0;
 }
