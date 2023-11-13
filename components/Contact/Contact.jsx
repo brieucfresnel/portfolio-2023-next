@@ -2,8 +2,8 @@ import React from "react"
 import Image from "next/image"
 import Container from "@/components/Container/Container"
 import "./Contact.scss"
-import iconGithub from "@/assets/icons/github.svg"
-import iconLinkedin from "@/assets/icons/linkedin.svg"
+import IconGithub from "../Icons/IconGithub"
+import IconLinkedin from "../Icons/IconLinkedin"
 
 function Contact() {
   return (
@@ -20,24 +20,14 @@ function Contact() {
               target="_blank"
               className="contact__social"
             >
-              <Image
-                src={iconGithub}
-                width={14}
-                height={15}
-                alt="GitHub"
-              ></Image>
+              <IconGithub />
             </a>
             <a
               href="https://linkedin.com/in/brieuc-fresnel"
               target="_blank"
               className="contact__social"
             >
-              <Image
-                src={iconLinkedin}
-                width={14}
-                height={15}
-                alt="LinkedIn"
-              ></Image>
+              <IconLinkedin />
             </a>
           </div>
         </div>
