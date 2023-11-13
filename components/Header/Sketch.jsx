@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import dynamic from "next/dynamic"
-import { isFunction } from "lodash"
 
 const ReactP5Wrapper = dynamic(
   () =>
@@ -19,7 +18,6 @@ function sketch(p5) {
 
   let particles = []
   const num = 800
-  const maxRenders = 1500
   let renders = 0
   const noiseScale = 0.035
 
@@ -27,6 +25,8 @@ function sketch(p5) {
     canvasRect = canvas.getBoundingClientRect()
     width = canvasRect.width
     height = canvasRect.height
+
+    console.log(canvasRect);
   }
 
   window.addEventListener("resize", () => {
@@ -46,28 +46,17 @@ function sketch(p5) {
 
   p5.setup = () => {
     p5.pixelDensity(1)
-    p5.createCanvas(width, height, p5.WEBGL)
+    p5.createCanvas(width, height, p5.P2D)
 
     particles = makeParticles()
     // For a cool effect try uncommenting this line
     // And comment out the background() line in draw
-    p5.stroke(255, 220, 226, 50)
-    p5.strokeWeight(0.95)
+    p5.stroke(255, 220, 226, 20)
     p5.clear()
   }
 
   p5.draw = () => {
     // Loop
-    renders++
-    if (renders > maxRenders) {
-      p5.clear()
-      renders = 0
-      particles = makeParticles()
-    }
-
-    // p5.background(0, 10)
-    p5.translate(-width / 2, -height / 2)
-
     for (let i = 0; i < num; i++) {
       let p = particles[i]
       p5.point(p.x, p.y)
