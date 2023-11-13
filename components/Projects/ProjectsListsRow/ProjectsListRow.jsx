@@ -1,7 +1,10 @@
-import React, { useRef, useLayoutEffect } from "react"
+import React, { useRef, useLayoutEffect, useCallback } from "react"
+import Image from "next/image"
 import { gsap } from "common/utils/gsap"
 import cn from "classnames"
 import { useMediaQuery } from "@/common/utils/media-queries"
+import cornerDownLeft from "@/assets/icons/corner-down-left.svg"
+import cornerDownRight from "@/assets/icons/corner-down-right.svg"
 
 import "./ProjectsListRow.scss"
 
@@ -11,27 +14,28 @@ export default function ProjectsListRow({
   type,
   tech,
   year,
+  link,
   className,
 }) {
   const ref = useRef(null)
 
+  const isDesktopScreen = useMediaQuery("md")
+
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
+      const c = gsap.utils.selector(ref.current)
+
+      let animation = null
+      let isHovering = false
+
+      const clrBorderLight = "#393435"
+      const clrDark = "#070707"
+      const clrLight = "#ffe8ec"
+
       const setupHoverEffect = () => {
-        const c = gsap.utils.selector(ref.current)
-        const bg = c(".projects-list-row__bg")
-        const cells = c(".projects-list-row__cell")
-        const techItems = c(".projects-list-row__tech > span")
-
-        let animation = null
-        let isHovering = false
-
-        const clrBorderLight = "#393435"
-        const clrDark = "#070707"
-        const clrLight = "#ffe8ec"
-
         const onMouseEnter = (e) => {
           isHovering = true
+          console.log("mouseenter")
 
           if (!animation) {
             animation = gsap
@@ -43,30 +47,32 @@ export default function ProjectsListRow({
                   }
                 },
               })
-              .add("background")
-              .to(bg, {
-                height: "100%",
-                duration: 0.3,
-                ease: "power2.out",
-              })
+              .add("main")
               .to(ref.current, {
-                borderColor: clrLight,
+                boxShadow: "0px 1px 0 0 #ffe8ec, 0px -1px 0 0 #ffe8ec",
               })
               .to(
-                cells,
+                c(".projects-list-row__content"),
                 {
-                  color: clrDark,
+                  paddingLeft: "50px",
                   duration: 0.3,
                 },
-                "background"
+                "main"
               )
               .to(
-                techItems,
+                c(".projects-list-row__icon--left"),
                 {
-                  borderColor: clrDark,
-                  color: clrDark,
+                  x: "15px",
+                  yPercent: -50,
+                  duration: 0.3,
+                  opacity: 1,
                 },
-                "background"
+                "main"
+              )
+              .to(
+                c(".projects-list-row__icon--right"),
+                { x: 0, yPercent: -50, opacity: 1 },
+                "main"
               )
           }
         }
@@ -84,30 +90,30 @@ export default function ProjectsListRow({
                   }
                 },
               })
-              .add("background")
-              .to(bg, {
-                height: "0",
-                duration: 0.3,
-                ease: "power2.out",
-              })
+              .add("main")
               .to(ref.current, {
-                borderColor: clrBorderLight,
+                boxShadow: "0px 1px 0 0 #393435, 0px -1px 0 0 #393435",
               })
               .to(
-                cells,
+                c(".projects-list-row__content"),
                 {
-                  color: clrLight,
-                  duration: 0.3,
+                  paddingLeft: "0",
                 },
-                "background"
+                "main"
               )
               .to(
-                techItems,
+                c(".projects-list-row__icon--left"),
                 {
-                  color: clrLight,
-                  borderColor: clrLight,
+                  x: "-100%",
+                  opacity: 0,
                 },
-                "background"
+                "main"
+              )
+              .to(
+                c(".projects-list-row__icon--right"),
+
+                { x: "100%", y: "-50%", opacity: 0 },
+                "main"
               )
           }
         }
@@ -122,37 +128,63 @@ export default function ProjectsListRow({
           ref.current.removeEventListener("mouseenter", onMouseEnter)
         }
 
-        addListeners()
+        if (isDesktopScreen) {
+          console.log("addListeners")
+          addListeners()
+        } else {
+          console.log("removeListeners")
+          removeListeners()
+        }
       }
       setupHoverEffect()
     }, ref)
     return () => ctx.revert() // cleanup
-  }, [])
+  }, [isDesktopScreen])
 
   return (
-    <a href="/" ref={ref} className={cn(className, "projects-list-row")}>
-      <div className="projects-list-row__bg"></div>
+    <a
+      href={link}
+      target="_blank"
+      ref={ref}
+      className={cn(className, "projects-list-row")}
+    >
+      <Image
+        className="projects-list-row__icon projects-list-row__icon--left"
+        src={cornerDownRight}
+        width={24}
+        height={24}
+        alt=""
+      />
       <div className="projects-list-row__content">
-        <h3 className="projects-list-row__cell projects-list-row__title">
-          {title}
-        </h3>
-        <span className="projects-list-row__cell projects-list-row__type">
-          {type}
-        </span>
-        <span className="projects-list-row__cell"></span>
-        <span className="projects-list-row__cell projects-list-row__tech">
-          {tech.map((tech, i) => (
-            <span key={i}>{tech}</span>
-          ))}
-        </span>
-        <span className="projects-list-row__cell projects-list-row__team">
-          {team}
-        </span>
-        <span className="projects-list-row__cell projects-list-row__year">
-          {year}
-        </span>
+        <div className="projects-list-row__main">
+          <h3 className="projects-list-row__cell projects-list-row__title">
+            {title}
+          </h3>
+          <span className="projects-list-row__cell projects-list-row__type">
+            {type}
+          </span>
+        </div>
+        <div className="projects-list-row__aside">
+          <span className="projects-list-row__cell projects-list-row__tech">
+            {tech.map((tech, i) => (
+              <span key={i}>{tech}</span>
+            ))}
+          </span>
+          <span className="projects-list-row__cell projects-list-row__team">
+            {team}
+          </span>
+          <span className="projects-list-row__cell projects-list-row__year">
+            {year}
+          </span>
+        </div>
       </div>
-      <div className="projects-list-row__border"></div>
+      {/* <Image
+        className="projects-list-row__icon projects-list-row__icon--right"
+        src={cornerDownLeft}
+        width={24}
+        height={24}
+        alt=""
+      /> */}
     </a>
   )
 }

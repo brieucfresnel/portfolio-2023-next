@@ -12,16 +12,12 @@ import "./ProjectsList.scss"
 
 function ProjectsList({ projects }) {
   const wrapperRef = useRef(null)
-  const itemBgRef = useRef(null)
-  const mousePosition = useMousePosition()
-  const isDesktopScreen = useMediaQuery("md")
 
   return (
     <section className="projects-list bg-noise" ref={wrapperRef}>
       <Container>
         <h2 className={`projects-list__title`}>Références</h2>
         <div className="projects-list__rows">
-          <div className="projects-list__item-hover-bg" ref={itemBgRef}></div>
           {projects.map((project, i) => (
             <ProjectsListRow
               className="projects-list__row"
