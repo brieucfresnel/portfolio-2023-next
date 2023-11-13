@@ -47,7 +47,7 @@ export default function Header() {
   })
 
   return (
-    <header className={`header`} ref={header}>
+    <header className={`header bg-noise`} ref={header}>
       <Container>
         <div className="header__background" id="sketch-container">
           <Sketch />
