@@ -113,22 +113,9 @@
       margin: 0;
     }
 
-    &__cell:nth-child(3) {
-      display: none;
-    }
-
     &__cell {
       display: flex;
       align-items: center;
-    }
-  }
-
-  @include media-up(lg) {
-    &__content {
-    }
-
-    &__cell:nth-child(3) {
-      display: flex;
     }
   }
 }

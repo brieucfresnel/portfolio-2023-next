@@ -69,11 +69,11 @@ export default function ProjectsListRow({
                 },
                 "main"
               )
-              .to(
-                c(".projects-list-row__icon--right"),
-                { x: 0, yPercent: -50, opacity: 1 },
-                "main"
-              )
+            // .to(
+            //   c(".projects-list-row__icon--right"),
+            //   { x: 0, yPercent: -50, opacity: 1 },
+            //   "main"
+            // )
           }
         }
 
@@ -109,12 +109,12 @@ export default function ProjectsListRow({
                 },
                 "main"
               )
-              .to(
-                c(".projects-list-row__icon--right"),
+            // .to(
+            //   c(".projects-list-row__icon--right"),
 
-                { x: "100%", y: "-50%", opacity: 0 },
-                "main"
-              )
+            //   { x: "100%", y: "-50%", opacity: 0 },
+            //   "main"
+            // )
           }
         }
 
@@ -129,10 +129,8 @@ export default function ProjectsListRow({
         }
 
         if (isDesktopScreen) {
-          console.log("addListeners")
           addListeners()
         } else {
-          console.log("removeListeners")
           removeListeners()
         }
       }

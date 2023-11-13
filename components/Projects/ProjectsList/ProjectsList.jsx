@@ -14,7 +14,7 @@ function ProjectsList({ projects }) {
   const wrapperRef = useRef(null)
 
   return (
-    <section className="projects-list bg-noise" ref={wrapperRef}>
+    <section className="projects-list" ref={wrapperRef}>
       <Container>
         <h2 className={`projects-list__title`}>Références</h2>
         <div className="projects-list__rows">
