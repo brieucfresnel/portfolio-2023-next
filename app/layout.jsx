@@ -3,8 +3,8 @@ import { trispace } from "@/common/utils/fonts"
 import "./global.scss"
 
 export const metadata = {
-  title: "Brieuc",
-  description: "Développeur Web",
+  title: "Brieuc Fresnel",
+  description: "Développeur front-end & WordPress",
 }
 
 export default function RootLayout({ children }) {
