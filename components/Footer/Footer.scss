@@ -1,50 +1,20 @@
 .footer {
-  background: $clr-dark url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
+  background: $clr-dark;
   color: $clr-light;
+
+  padding: 1.875rem 0;
+  font-size: 0.875rem;
 
   .container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  &__main {
-    padding: 50px 0;
-  }
-
-  &__bot {
-    padding: 20px 0;
-  }
-
-  &__text,
-  &__link {
-    text-align: center;
-  }
-
-  &__text {
-    font-size: 1rem;
-    margin-bottom: 0.625rem;
-  }
-
-  &__link {
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-
-  &__bot {
-    display: flex;
     justify-content: space-between;
-    background: $clr-dark;
+  }
+
+  &__scrolltop {
+    cursor: pointer;
   }
 
   @include media-up(md) {
-    &__text {
-      // font-size: 2rem;
-      line-height: 1.1;
-    }
-
-    &__link {
-      font-size: 2rem;
-    }
+    padding: 2.5rem 0;
   }
 }

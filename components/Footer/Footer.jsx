@@ -1,27 +1,24 @@
 import React from "react"
+import Image from "next/image"
 import Container from "../Container/Container"
 import "./Footer.scss"
+import chevronUp from "@/assets/icons/chevron-up.svg"
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="footer__main">
-        <Container>
-          <div className="footer__text">Vous cherchez un développeur ?</div>
-          <a className="footer__link" href="mailto:fresnel.brieuc@gmail.com">
-            fresnel.brieuc@gmail.com
-          </a>
-        </Container>
-      </div>
-
-      <div className="footer__bot">
-        <Container>
-          <div className="footer__copyright">
-            © Brieuc Fresnel {new Date().getFullYear()}
-          </div>
-          <div className="footer__back-to-top back-to-top"></div>
-        </Container>
-      </div>
+      <Container>
+        <div className="footer__copyright">
+          © Brieuc Fresnel {new Date().getFullYear()}
+        </div>
+        <Image
+          className="footer__scrolltop"
+          src={chevronUp}
+          width={16}
+          height={16}
+          alt=""
+        />
+      </Container>
     </footer>
   )
 }
