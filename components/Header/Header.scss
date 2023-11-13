@@ -34,8 +34,6 @@
     width: 100%;
     height: 100%;
 
-    // clip-path: ellipse(50% 50% at 100% 50%);
-
     z-index: -2;
   }
 
@@ -133,6 +131,7 @@
     .container {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding-top: 0;
     }
 
     &__main {
@@ -185,6 +184,11 @@
   }
 
   @include media-up(lg) {
+    &__school {
+      > li {
+        font-size: 0.875rem;
+      }
+    }
     &__main {
       padding-left: 15%;
       padding-right: 20%;
