@@ -10,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr" className={`${trispace.className}`}>
-      <body>
+      <body className="bg-noise">
         {children}
         <LenisScroller />
       </body>
