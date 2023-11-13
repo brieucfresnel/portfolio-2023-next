@@ -18,8 +18,9 @@ function sketch(p5) {
 
   let particles = []
   const num = 800
-  let renders = 0
   const noiseScale = 0.035
+  let directionX = 1
+  let directionY = -1
 
   const calculateCanvasSize = () => {
     canvasRect = canvas.getBoundingClientRect()
@@ -53,6 +54,8 @@ function sketch(p5) {
     p5.clear()
   }
 
+  // const direction = -1;
+
   p5.draw = () => {
     // Loop
     for (let i = 0; i < num; i++) {
@@ -65,8 +68,8 @@ function sketch(p5) {
       )
 
       let a = p5.TAU * n
-      p.x += p5.cos(a)
-      p.y += p5.sin(a)
+      p.x += p5.cos(a) * directionX
+      p.y += p5.sin(a) * directionY
 
       p = checkBoundaries(p)
 
@@ -76,14 +79,15 @@ function sketch(p5) {
       }
     }
   }
-  window.addEventListener('click', (e) => {
+  window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
-      console.log('click');
-      p5.noiseSeed(p5.millis())
-      p5.clear();
+      console.log("click")
+      p5.noiseSeed(p5.random(1000))
+      directionX = p5.random([-1, 1])
+      directionY = p5.random([-1, 1])
+      p5.clear()
     }
   })
-
 
   const checkBoundaries = (p) => {
     if (p.x > width) {
