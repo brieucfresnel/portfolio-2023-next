@@ -5,37 +5,11 @@
     "team" : "Studio DOT",
     "type": "Salle de concerts",
     "tech": ["WordPress", "GSAP"],
-    "year": "2022",
+    "year": "2023",
     "link": "https://lemetronum.fr",
     "image": {
       "src": "/images/projects/lemetronum-header.jpg",
       "alt": "Le Metronum"
-    }
-  },
-  {
-    "id": 1,
-    "title": "Rio Loco",
-    "team" : "Studio DOT",
-    "type": "Festival de musique",
-    "tech": ["WordPress", "GSAP"],
-    "year": "2022",
-    "link": "https://lemetronum.fr",
-    "image": {
-      "src": "/images/projects/rioloco-header.jpg",
-      "alt": "Rio Loco"
-    }
-  },
-  {
-    "id": 2,
-    "title": "At Home",
-    "team" : "Studio DOT",
-    "type": "Coworking",
-    "tech": ["WordPress", "GSAP"],
-    "year": "2022",
-    "link": "https://rio-loco.org",
-    "image": {
-      "src": "/images/projects/athome-header.jpg",
-      "alt": "At Home"
     }
   },
   {
@@ -45,10 +19,36 @@
     "type": "Cirque",
     "tech": ["WordPress", "GSAP"],
     "year": "2023",
-    "link": "https://https://amecote.com/",
+    "link": "https://circa.auch.fr/",
     "image": {
       "src": "/images/projects/circa-header.png",
       "alt": "Circas"
+    }
+  },
+  {
+    "id": 2,
+    "title": "At Home",
+    "team" : "Studio DOT",
+    "type": "Coworking",
+    "tech": ["WordPress", "GSAP"],
+    "year": "2022",
+    "link": "https://athome-ecosysteme.fr/",
+    "image": {
+      "src": "/images/projects/athome-header.jpg",
+      "alt": "At Home"
+    }
+  },
+  {
+    "id": 1,
+    "title": "Rio Loco",
+    "team" : "Studio DOT",
+    "type": "Festival de musique",
+    "tech": ["WordPress", "GSAP"],
+    "year": "2022",
+    "link": "https://rio-loco.org",
+    "image": {
+      "src": "/images/projects/rioloco-header.jpg",
+      "alt": "Rio Loco"
     }
   },
   {
@@ -58,23 +58,10 @@
     "type": "Aide aux assurances",
     "tech": ["WordPress", "GSAP"],
     "year": "2022",
-    "link": "https://https://amecote.com/",
+    "link": "https://amecote.com/",
     "image": {
       "src": "/images/projects/athome-header.jpg",
       "alt": "Amécoté"
-    }
-  },
-  {
-    "id": 5,
-    "title": "Lutherie Denat",
-    "team" : "Studio DOT",
-    "type": "Lutherie à Montréal",
-    "tech": ["WordPress", "GSAP"],
-    "year": "2021",
-    "link": "https://https://lutheriedenatmontreal.com/",
-    "image": {
-      "src": "/images/projects/lutheriedenat-header.png",
-      "alt": "Lutherie Denat Montréal"
     }
   },
   {
@@ -88,6 +75,19 @@
     "image": {
       "src": "/images/projects/raini-header.png",
       "alt": "The header of The lords"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Lutherie Denat",
+    "team" : "Studio DOT",
+    "type": "Lutherie à Montréal",
+    "tech": ["WordPress", "GSAP"],
+    "year": "2021",
+    "link": "https://lutheriedenatmontreal.com/",
+    "image": {
+      "src": "/images/projects/lutheriedenat-header.png",
+      "alt": "Lutherie Denat Montréal"
     }
   }
 ]
