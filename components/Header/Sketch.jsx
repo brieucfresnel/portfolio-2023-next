@@ -25,8 +25,6 @@ function sketch(p5) {
     canvasRect = canvas.getBoundingClientRect()
     width = canvasRect.width
     height = canvasRect.height
-
-    console.log(canvasRect);
   }
 
   window.addEventListener("resize", () => {
@@ -78,10 +76,14 @@ function sketch(p5) {
       }
     }
   }
+  window.addEventListener('click', (e) => {
+    if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
+      console.log('click');
+      p5.noiseSeed(p5.millis())
+      p5.clear();
+    }
+  })
 
-  p5.mouseReleased = () => {
-    p5.noiseSeed(p5.millis())
-  }
 
   const checkBoundaries = (p) => {
     if (p.x > width) {
