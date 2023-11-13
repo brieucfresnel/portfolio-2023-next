@@ -52,9 +52,9 @@ export default function ProjectsListRow({
                 boxShadow: "0px 1px 0 0 #ffe8ec, 0px -1px 0 0 #ffe8ec",
               })
               .to(
-                c(".projects-list-row__content"),
+                c(".projects-list-row__title, .projects-list-row__type"),
                 {
-                  paddingLeft: "50px",
+                  x: "50px",
                   duration: 0.3,
                 },
                 "main"
@@ -95,9 +95,9 @@ export default function ProjectsListRow({
                 boxShadow: "0px 1px 0 0 #393435, 0px -1px 0 0 #393435",
               })
               .to(
-                c(".projects-list-row__content"),
+                c(".projects-list-row__title, .projects-list-row__type"),
                 {
-                  paddingLeft: "0",
+                  x: 0,
                 },
                 "main"
               )

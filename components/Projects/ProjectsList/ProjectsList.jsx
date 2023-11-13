@@ -6,7 +6,6 @@ import { useMediaQuery } from "@/common/utils/media-queries"
 
 import Container from "@/components/Container/Container"
 import ProjectsListRow from "@/components/Projects/ProjectsListsRow/ProjectsListRow"
-import useMousePosition from "@/hooks/useMousePosition"
 
 import "./ProjectsList.scss"
 
