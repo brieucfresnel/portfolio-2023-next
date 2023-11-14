@@ -81,7 +81,6 @@ function sketch(p5) {
   }
   window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
-      console.log("click")
       p5.noiseSeed(p5.random(1000))
       directionX = p5.random([-1, 1])
       directionY = p5.random([-1, 1])
