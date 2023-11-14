@@ -21,7 +21,8 @@
     "react-dom": "^18",
     "scrambling-text": "^1.2.0",
     "split-type": "^0.3.4",
-    "three": "^0.158.0"
+    "three": "^0.158.0",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "eslint": "^8",
