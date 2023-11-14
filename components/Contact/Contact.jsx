@@ -1,5 +1,4 @@
 import React from "react"
-import Image from "next/image"
 import Container from "@/components/Container/Container"
 import "./Contact.scss"
 import IconGithub from "../Icons/IconGithub"
@@ -7,7 +6,7 @@ import IconLinkedin from "../Icons/IconLinkedin"
 
 function Contact() {
   return (
-    <div className="contact">
+    <div id="contact" className="contact">
       <Container>
         <div className="contact__main">
           <div className="contact__tag">Open to work</div>
