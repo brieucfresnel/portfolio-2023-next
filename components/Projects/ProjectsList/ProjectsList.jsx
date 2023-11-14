@@ -1,8 +1,6 @@
 "use client"
 
-import React, { useRef, useLayoutEffect } from "react"
-import { gsap, ScrollTrigger } from "common/utils/gsap"
-import { useMediaQuery } from "@/common/utils/media-queries"
+import React, { useRef } from "react"
 
 import Container from "@/components/Container/Container"
 import ProjectsListRow from "@/components/Projects/ProjectsListsRow/ProjectsListRow"

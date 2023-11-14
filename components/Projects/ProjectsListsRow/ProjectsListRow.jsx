@@ -35,7 +35,6 @@ export default function ProjectsListRow({
       const setupHoverEffect = () => {
         const onMouseEnter = (e) => {
           isHovering = true
-          console.log("mouseenter")
 
           if (!animation) {
             animation = gsap

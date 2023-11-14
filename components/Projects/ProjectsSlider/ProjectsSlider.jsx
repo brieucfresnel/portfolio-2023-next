@@ -26,8 +26,6 @@ function ProjectsSlider({ projects }) {
     const q = gsap.utils.selector(el.current)
     const currentSlide = q(".projects-slide.active")
 
-    console.log(slideEls)
-
     const animateOut = () => {}
 
     const animateIn = () => {}
