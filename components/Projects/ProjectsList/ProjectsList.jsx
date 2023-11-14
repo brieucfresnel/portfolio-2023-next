@@ -25,7 +25,6 @@ function ProjectsList({ projects }) {
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top 70%",
-          markers: true,
         },
       })
     })
