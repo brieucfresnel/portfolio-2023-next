@@ -1,55 +1,91 @@
 "use client"
 
-import React, { useRef, useLayoutEffect } from "react"
+import React, { useState, useRef, useLayoutEffect } from "react"
 import Image from "next/image"
 import Container from "@/components/Container/Container"
 import "./Header.scss"
 import { Sketch } from "./Sketch"
 import Pill from "../Pill/Pill"
 import chevronDown from "@/assets/icons/chevron-down.svg"
+import { gsap } from "@/common/utils/gsap"
 
 export default function Header() {
-  const tl = useRef()
   const header = useRef()
+  const [isSketchPaused, setIsSketchPaused] = useState(true)
 
   useLayoutEffect(() => {
-    // const ctx = gsap.context(() => {
-    //   // then we can animate them like so...
-    //   tl.current = gsap
-    //     .timeline()
-    //     .to(".header__bg-color", {
-    //       scaleY: 1,
-    //       duration: 0.7,
-    //       ease: "power3.inOut",
-    //     })
-    //     .to(".header__inner", {
-    //       opacity: 1,
-    //       duration: 0.3,
-    //       ease: "power3.out",
-    //     })
-    //     .to(".header__background", {
-    //       opacity: 1,
-    //     })
-    //     .to(
-    //       ".header__background",
-    //       {
-    //         translateX: "-100%",
-    //         duration: 15,
-    //         ease: "linear",
-    //         repeat: -1,
-    //         repeatDelay: 0,
-    //       },
-    //       "-=1"
-    //     );
-    // });
-    // // Refs allow you to access DOM nodes
-  })
+    const ctx = gsap.context(() => {
+      // then we can animate them like so...
+      const q = gsap.utils.selector(header.current)
+
+      gsap
+        .timeline({
+          delay: 0.3,
+        })
+        .add("title")
+        .to(
+          q(".header__title"),
+          {
+            opacity: 1,
+            ease: "power3.in",
+          },
+          "title"
+        )
+        .to(
+          q(".header__subtitle"),
+          {
+            opacity: 1,
+            ease: "power3.in",
+          },
+          ">-0.4"
+        )
+        .add("content")
+        .to(
+          q(".header__introduction"),
+          {
+            opacity: 1,
+            ease: "power3.in",
+          },
+          "content"
+        )
+        .to(
+          q(".header__pills"),
+          {
+            opacity: 1,
+            ease: "power3.in",
+          },
+          "content"
+        )
+        .to(
+          q(".header__school"),
+          {
+            opacity: 1,
+            ease: "power3.in",
+            onComplete: () => {
+              setIsSketchPaused(false)
+            },
+          },
+          "content"
+        )
+        .add("end", " >-0.3")
+        .to(
+          q(".header__side-text, .header__cta"),
+          {
+            y: 0,
+            opacity: 1,
+            ease: "power3.in",
+          },
+          "end"
+        )
+    })
+    return () => ctx.revert()
+  }, [])
 
   return (
     <header className={`header bg-noise`} ref={header}>
       <Container>
         <div className="header__background" id="sketch-container">
-          <Sketch />
+          <Sketch isSketchPaused={isSketchPaused} />
         </div>
         <div className="header__main">
           <h1 className="header__title">Brieuc Fresnel</h1>
@@ -73,7 +109,6 @@ export default function Header() {
             <li>Bachelor Développement Web @ Digital Campus Paris</li>
           </ul>
         </div>
-
         <div className="header__aside">
           <p className="header__side-text">
             En ce moment, je m&lsquo;intéresse à p5, three, et au creative
@@ -81,10 +116,8 @@ export default function Header() {
             Remix et Nuxt.
           </p>
         </div>
-
         <div className="header__cta">
           <Image src={chevronDown} width={16} height={16} alt="" />
-          {/* Références */}
         </div>
       </Container>
     </header>

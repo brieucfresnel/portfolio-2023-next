@@ -13,7 +13,7 @@
     }
   },
   {
-    "id": 3,
+    "id": 1,
     "title": "Circa",
     "team" : "Studio DOT",
     "type": "Cirque",
@@ -39,7 +39,7 @@
     }
   },
   {
-    "id": 1,
+    "id": 3,
     "title": "Rio Loco",
     "team" : "Studio DOT",
     "type": "Festival de musique",
@@ -65,7 +65,7 @@
     }
   },
   {
-    "id": 6,
+    "id": 5,
     "title": "The Lords of Light",
     "team" : "Studio DOT",
     "type": "Jeux de cartes NFT",
@@ -78,7 +78,7 @@
     }
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "Lutherie Denat",
     "team" : "Studio DOT",
     "type": "Lutherie à Montréal",
