@@ -15,7 +15,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba($clr-dark, 0.4);
+    background: rgba($clr-dark, 0.8);
     z-index: -1;
   }
 
@@ -41,6 +41,16 @@
   &__aside,
   &__go-down {
     z-index: 1;
+  }
+
+  &__main > *,
+  &__aside > * {
+    opacity: 0;
+  }
+
+  &__cta {
+    opacity: 0;
+    transform: translateY(100%);
   }
 
   &__title {

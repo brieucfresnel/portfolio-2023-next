@@ -22,6 +22,14 @@ function sketch(p5) {
   let directionX = 1
   let directionY = -1
 
+  let state = {
+    isSketchPaused: null,
+  }
+
+  p5.updateWithProps = (props) => {
+    state = Object.assign(state, props)
+  }
+
   const calculateCanvasSize = () => {
     canvasRect = canvas.getBoundingClientRect()
     width = canvasRect.width
@@ -35,7 +43,7 @@ function sketch(p5) {
 
   calculateCanvasSize()
 
-  const makeParticles = () => {
+  function makeParticles() {
     const particles = []
     for (let i = 0; i < num; i++) {
       particles.push(p5.createVector(p5.random(width), p5.random(height)))
@@ -43,42 +51,50 @@ function sketch(p5) {
     return particles
   }
 
-  p5.setup = () => {
-    p5.pixelDensity(1)
-    p5.createCanvas(width, height, p5.P2D)
+  function setup(p5) {
+    return () => {
+      p5.pixelDensity(1)
+      p5.createCanvas(width, height, p5.P2D)
 
-    particles = makeParticles()
-    // For a cool effect try uncommenting this line
-    // And comment out the background() line in draw
-    p5.stroke(255, 220, 226, 20)
-    p5.clear()
+      particles = makeParticles()
+      // For a cool effect try uncommenting this line
+      // And comment out the background() line in draw
+      p5.stroke(255, 220, 226, 20)
+      p5.clear()
+    }
   }
 
-  // const direction = -1;
+  function draw(p5, props) {
+    return () => {
+      if (props.isSketchPaused === true) return
 
-  p5.draw = () => {
-    // Loop
-    for (let i = 0; i < num; i++) {
-      let p = particles[i]
-      p5.point(p.x, p.y)
-      let n = p5.noise(
-        p.x * noiseScale,
-        p.y * noiseScale,
-        p5.frameCount * noiseScale * noiseScale
-      )
+      // Loop
+      for (let i = 0; i < num; i++) {
+        let p = particles[i]
+        p5.point(p.x, p.y)
+        let n = p5.noise(
+          p.x * noiseScale,
+          p.y * noiseScale,
+          p5.frameCount * noiseScale * noiseScale
+        )
 
-      let a = p5.TAU * n
-      p.x += p5.cos(a) * directionX
-      p.y += p5.sin(a) * directionY
+        let a = p5.TAU * n
+        p.x += p5.cos(a) * directionX
+        p.y += p5.sin(a) * directionY
 
-      p = checkBoundaries(p)
+        p = checkBoundaries(p)
 
-      if (!onScreen(p)) {
-        p.x = p5.random(width)
-        p.y = p5.random(height)
+        if (!onScreen(p)) {
+          p.x = p5.random(width)
+          p.y = p5.random(height)
+        }
       }
     }
   }
+
+  p5.draw = draw(p5, state)
+  p5.setup = setup(p5)
+
   window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
       p5.noiseSeed(p5.random(1000))
@@ -109,10 +125,10 @@ function sketch(p5) {
   }
 }
 
-export function Sketch() {
+export function Sketch({ isSketchPaused }) {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <ReactP5Wrapper sketch={sketch} />
+      <ReactP5Wrapper sketch={sketch} isSketchPaused={isSketchPaused} />
     </React.Suspense>
   )
 }
