@@ -57,8 +57,8 @@ export default function Header() {
             Développeur web front-end & WordPress junior
           </div>
           <p className="header__introduction">
-            Mes études et mes expériences professionnelles m&apos;ont conduites
-            à travailler en agence (Studio DOT / Redcat Studio) comme en
+            Mes études et mes expériences professionnelles m&apos;ont conduit à
+            travailler en agence (Studio DOT / Redcat Studio) comme en
             free-lance.
           </p>
           <br />
