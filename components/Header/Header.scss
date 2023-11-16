@@ -95,14 +95,18 @@
       width: fit-content;
       padding: 6px 0;
       font-size: 0.75rem;
-      line-height: 1.2;
-      position: relative;
+      line-height: 1.5;
 
-      &::before {
+      .line {
+        position: relative;
+        width: fit-content !important;
+      }
+
+      .line::before {
         content: "";
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -1px;
         width: 100%;
         height: 1px;
         background-color: rgba($clr-light, 0.2);
@@ -121,13 +125,7 @@
   }
 
   &__cta {
-    position: absolute;
-    bottom: 30px;
-    left: $container-pd-mobile;
-
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
+    display: none;
   }
 
   @include media-up(md) {
@@ -189,6 +187,12 @@
     }
 
     &__cta {
+      position: absolute;
+      bottom: 30px;
+
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
       left: $container-pd-desktop;
     }
   }

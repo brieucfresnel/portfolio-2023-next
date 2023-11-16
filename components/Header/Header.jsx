@@ -8,6 +8,7 @@ import { Sketch } from "./Sketch"
 import Pill from "../Pill/Pill"
 import chevronDown from "@/assets/icons/chevron-down.svg"
 import { gsap } from "@/common/utils/gsap"
+import SplitType from "split-type"
 
 export default function Header() {
   const header = useRef()
@@ -17,6 +18,15 @@ export default function Header() {
     const ctx = gsap.context(() => {
       // then we can animate them like so...
       const q = gsap.utils.selector(header.current)
+
+      let splitSchoolEls
+
+      const splitAll = () => {
+        splitSchoolEls = new SplitType(q(".header__school li"))
+      }
+
+      splitAll()
+      window.addEventListener("resize", () => splitAll())
 
       gsap
         .timeline({
