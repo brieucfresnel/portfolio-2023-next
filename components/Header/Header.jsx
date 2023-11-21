@@ -19,7 +19,7 @@ export default function Header() {
       // then we can animate them like so...
       const q = gsap.utils.selector(header.current)
 
-      let splitSchoolEls
+      let splitSchoolEls = null
 
       const splitAll = () => {
         splitSchoolEls = new SplitType(q(".header__school li"))
