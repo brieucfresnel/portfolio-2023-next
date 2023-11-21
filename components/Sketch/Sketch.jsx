@@ -1,6 +1,8 @@
-import * as React from "react"
-
+import React, { useState } from "react"
 import dynamic from "next/dynamic"
+import "./Sketch.scss"
+
+import IconEraser from "@/components/Icons/IconEraser"
 
 const ReactP5Wrapper = dynamic(
   () =>
@@ -16,11 +18,17 @@ function sketch(p5) {
   const canvas = document.querySelector("#sketch-container")
   let canvasRect, width, height
 
+  const noiseScales = [0.0003, 0.1, 0.035]
+  let currNoiseScaleIdx = 0
+  let noiseScale = noiseScales[currNoiseScaleIdx]
+
   let particles = []
   const num = 800
-  let noiseScale = 0.035
-  let directionX = 1
-  let directionY = -1
+
+  // let periods = [1, 0.5, 5]
+  let period = 1
+  let directionX = period
+  let directionY = -period
 
   let state = {
     isSketchPaused: null,
@@ -67,6 +75,20 @@ function sketch(p5) {
   function draw(p5, props) {
     return () => {
       if (props.isSketchPaused === true) return
+      if (props.shouldClear === true) {
+        p5.clear()
+        particles = makeParticles()
+        currNoiseScaleIdx =
+          currNoiseScaleIdx + 1 < noiseScales.length ? currNoiseScaleIdx + 1 : 0
+
+        noiseScale = noiseScales[currNoiseScaleIdx]
+        // noiseScale = p5.random(0.0003, 0.1)
+        period = p5.random(0.1, 5)
+
+        console.log(noiseScale, period)
+
+        props.setShouldClear(false)
+      }
 
       // Loop
       for (let i = 0; i < num; i++) {
@@ -79,8 +101,8 @@ function sketch(p5) {
         )
 
         let a = p5.TAU * n
-        p.x += p5.cos(a) * directionX
-        p.y += p5.sin(a) * directionY
+        p.x += p5.cos(a) * directionX * period
+        p.y += p5.sin(a) * directionY * period
 
         p = checkBoundaries(p)
 
@@ -97,11 +119,9 @@ function sketch(p5) {
 
   window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
-      p5.noiseSeed(p5.random(1000))
+      p5.noiseSeed(p5.random(10000))
       noiseScale -= 0.01 * p5.random([-1, 1])
-      // directionX = p5.random([-1, 1])
       directionY = -directionY
-      // p5.clear()
     }
   })
 
@@ -127,9 +147,20 @@ function sketch(p5) {
 }
 
 export function Sketch({ isSketchPaused }) {
+  const [shouldClear, setShouldClear] = useState(false)
+
   return (
     <React.Suspense fallback={<div>...</div>}>
-      <ReactP5Wrapper sketch={sketch} isSketchPaused={isSketchPaused} />
+      <button className="sketch-button" onClick={() => setShouldClear(true)}>
+        <IconEraser />
+      </button>
+
+      <ReactP5Wrapper
+        sketch={sketch}
+        isSketchPaused={isSketchPaused}
+        shouldClear={shouldClear}
+        setShouldClear={setShouldClear}
+      ></ReactP5Wrapper>
     </React.Suspense>
   )
 }
