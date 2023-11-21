@@ -18,7 +18,7 @@ function sketch(p5) {
 
   let particles = []
   const num = 800
-  const noiseScale = 0.035
+  let noiseScale = 0.035
   let directionX = 1
   let directionY = -1
 
@@ -98,9 +98,10 @@ function sketch(p5) {
   window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
       p5.noiseSeed(p5.random(1000))
-      directionX = p5.random([-1, 1])
-      directionY = p5.random([-1, 1])
-      p5.clear()
+      noiseScale -= 0.01 * p5.random([-1, 1])
+      // directionX = p5.random([-1, 1])
+      directionY = -directionY
+      // p5.clear()
     }
   })
 
@@ -127,7 +128,7 @@ function sketch(p5) {
 
 export function Sketch({ isSketchPaused }) {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div>...</div>}>
       <ReactP5Wrapper sketch={sketch} isSketchPaused={isSketchPaused} />
     </React.Suspense>
   )
