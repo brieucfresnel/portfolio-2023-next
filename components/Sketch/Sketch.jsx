@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import dynamic from "next/dynamic"
 import "./Sketch.scss"
 
-import IconEraser from "@/components/Icons/IconEraser"
+import IconReturn from "@/components/Icons/IconReturn"
 
 const ReactP5Wrapper = dynamic(
   () =>
@@ -147,7 +147,7 @@ export function Sketch({ isSketchPaused }) {
   return (
     <React.Suspense fallback={<div>...</div>}>
       <button className="sketch-button" onClick={() => setShouldClear(true)}>
-        <IconEraser />
+        <IconReturn />
       </button>
 
       <ReactP5Wrapper
