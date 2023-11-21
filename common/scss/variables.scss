@@ -17,8 +17,8 @@ $min-xl: "(min-width: #{map-get($breakpoints, xl)})";
 $min-xxl: "(min-width: #{map-get($breakpoints, xxl)})";
 $min-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
-$container-pd-mobile: 4%;
-$container-pd-desktop: 4%;
+$container-pd-mobile: 4vw;
+$container-pd-desktop: 4vw;
 
 $clr-light: #ffe8ec;
 $clr-primary: #161616;
@@ -27,7 +27,8 @@ $clr-accent: #fe4a49;
 
 $z-indexes: (
   three: 3,
-  header: 2
+  header: 2,
+  sketch-buttons: 3
 );
 
 // :export {
