@@ -7,7 +7,7 @@ import "./Header.scss"
 import { Sketch } from "@/components/Sketch/Sketch"
 import Pill from "@/components/Pill/Pill"
 import chevronDown from "@/assets/icons/chevron-down.svg"
-import { gsap } from "@/common/utils/gsap"
+import { gsap, ScrollTrigger } from "@/common/utils/gsap"
 import SplitType from "split-type"
 
 export default function Header() {
@@ -19,14 +19,17 @@ export default function Header() {
       // then we can animate them like so...
       const q = gsap.utils.selector(header.current)
 
-      let splitSchoolEls = null
+      const splitSchoolItems = () => new SplitType(q(".header__school li"))
 
-      const splitAll = () => {
-        splitSchoolEls = new SplitType(q(".header__school li"))
-      }
+      window.addEventListener("resize", () => splitSchoolItems())
 
-      splitAll()
-      window.addEventListener("resize", () => splitAll())
+      new ScrollTrigger({
+        trigger: header.current,
+        markers: true,
+        end: "bottom 20%",
+        onLeave: () => setIsSketchPaused(true),
+        onEnterBack: () => setIsSketchPaused(false),
+      })
 
       gsap
         .timeline({
@@ -84,6 +87,13 @@ export default function Header() {
             y: 0,
             opacity: 1,
             ease: "power3.in",
+          },
+          "end"
+        )
+        .to(
+          q(".sketch-button"),
+          {
+            opacity: 1,
           },
           "end"
         )
