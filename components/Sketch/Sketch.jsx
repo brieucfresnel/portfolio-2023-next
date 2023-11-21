@@ -18,11 +18,17 @@ function sketch(p5) {
   const canvas = document.querySelector("#sketch-container")
   let canvasRect, width, height
 
+  const noiseScales = [0.0003, 0.1, 0.035]
+  let currNoiseScaleIdx = 0
+  let noiseScale = noiseScales[currNoiseScaleIdx]
+
   let particles = []
   const num = 800
-  let noiseScale = 0.035
-  let directionX = 1
-  let directionY = -1
+
+  // let periods = [1, 0.5, 5]
+  let period = 1
+  let directionX = period
+  let directionY = -period
 
   let state = {
     isSketchPaused: null,
@@ -71,8 +77,16 @@ function sketch(p5) {
       if (props.isSketchPaused === true) return
       if (props.shouldClear === true) {
         p5.clear()
-        makeParticles()
-        p5.noiseSeed()
+        particles = makeParticles()
+        currNoiseScaleIdx =
+          currNoiseScaleIdx + 1 < noiseScales.length ? currNoiseScaleIdx + 1 : 0
+
+        noiseScale = noiseScales[currNoiseScaleIdx]
+        // noiseScale = p5.random(0.0003, 0.1)
+        period = p5.random(0.5, 5)
+
+        console.log(noiseScale, period)
+
         props.setShouldClear(false)
       }
 
@@ -87,8 +101,8 @@ function sketch(p5) {
         )
 
         let a = p5.TAU * n
-        p.x += p5.cos(a) * directionX
-        p.y += p5.sin(a) * directionY
+        p.x += p5.cos(a) * directionX * period
+        p.y += p5.sin(a) * directionY * period
 
         p = checkBoundaries(p)
 
