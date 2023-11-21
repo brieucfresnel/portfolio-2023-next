@@ -1,5 +1,11 @@
 const IconLinkedin = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={17} height={19} fill="none">
+  <svg
+    className="icon icon--linkedin"
+    xmlns="http://www.w3.org/2000/svg"
+    width={17}
+    height={19}
+    fill="none"
+  >
     <path
       stroke="#FFDCE2"
       strokeLinecap="round"
