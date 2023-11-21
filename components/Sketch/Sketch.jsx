@@ -19,8 +19,7 @@ function sketch(p5) {
   let canvasRect, width, height
 
   const noiseScales = [0.0003, 0.1, 0.035]
-  let currNoiseScaleIdx = 0
-  let noiseScale = noiseScales[currNoiseScaleIdx]
+  let noiseScale = p5.random(noiseScales)
 
   let particles = []
   const num = 800
@@ -78,14 +77,9 @@ function sketch(p5) {
       if (props.shouldClear === true) {
         p5.clear()
         particles = makeParticles()
-        currNoiseScaleIdx =
-          currNoiseScaleIdx + 1 < noiseScales.length ? currNoiseScaleIdx + 1 : 0
 
-        noiseScale = noiseScales[currNoiseScaleIdx]
-        // noiseScale = p5.random(0.0003, 0.1)
+        noiseScale = p5.random(0.0003, 0.1)
         period = p5.random(0.1, 5)
-
-        console.log(noiseScale, period)
 
         props.setShouldClear(false)
       }
@@ -147,6 +141,7 @@ function sketch(p5) {
 }
 
 export function Sketch({ isSketchPaused }) {
+  const [paused, setPaused] = useState(isSketchPaused)
   const [shouldClear, setShouldClear] = useState(false)
 
   return (
@@ -160,6 +155,7 @@ export function Sketch({ isSketchPaused }) {
         isSketchPaused={isSketchPaused}
         shouldClear={shouldClear}
         setShouldClear={setShouldClear}
+        paused={paused}
       ></ReactP5Wrapper>
     </React.Suspense>
   )
