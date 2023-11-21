@@ -83,7 +83,7 @@ function sketch(p5) {
 
         noiseScale = noiseScales[currNoiseScaleIdx]
         // noiseScale = p5.random(0.0003, 0.1)
-        period = p5.random(0.5, 5)
+        period = p5.random(0.1, 5)
 
         console.log(noiseScale, period)
 
