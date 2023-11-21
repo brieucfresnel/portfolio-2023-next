@@ -1,6 +1,8 @@
-import * as React from "react"
-
+import React, { useState } from "react"
 import dynamic from "next/dynamic"
+import "./Sketch.scss"
+
+import IconEraser from "@/components/Icons/IconEraser"
 
 const ReactP5Wrapper = dynamic(
   () =>
@@ -67,6 +69,12 @@ function sketch(p5) {
   function draw(p5, props) {
     return () => {
       if (props.isSketchPaused === true) return
+      if (props.shouldClear === true) {
+        p5.clear()
+        makeParticles()
+        p5.noiseSeed()
+        props.setShouldClear(false)
+      }
 
       // Loop
       for (let i = 0; i < num; i++) {
@@ -97,11 +105,9 @@ function sketch(p5) {
 
   window.addEventListener("click", (e) => {
     if (e.pageX > canvasRect.x && e.pageY < canvasRect.y + canvasRect.height) {
-      p5.noiseSeed(p5.random(1000))
+      p5.noiseSeed(p5.random(10000))
       noiseScale -= 0.01 * p5.random([-1, 1])
-      // directionX = p5.random([-1, 1])
       directionY = -directionY
-      // p5.clear()
     }
   })
 
@@ -127,9 +133,20 @@ function sketch(p5) {
 }
 
 export function Sketch({ isSketchPaused }) {
+  const [shouldClear, setShouldClear] = useState(false)
+
   return (
     <React.Suspense fallback={<div>...</div>}>
-      <ReactP5Wrapper sketch={sketch} isSketchPaused={isSketchPaused} />
+      <button className="sketch-button" onClick={() => setShouldClear(true)}>
+        <IconEraser />
+      </button>
+
+      <ReactP5Wrapper
+        sketch={sketch}
+        isSketchPaused={isSketchPaused}
+        shouldClear={shouldClear}
+        setShouldClear={setShouldClear}
+      ></ReactP5Wrapper>
     </React.Suspense>
   )
 }
