@@ -25,7 +25,6 @@ export default function Header() {
 
       new ScrollTrigger({
         trigger: header.current,
-        markers: true,
         end: "bottom 20%",
         onLeave: () => setIsSketchPaused(true),
         onEnterBack: () => setIsSketchPaused(false),
