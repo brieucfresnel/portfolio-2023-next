@@ -1,42 +1,45 @@
 .sketch-button {
-  opacity: 0;
-
-  box-shadow: none;
-  border: 1px solid $clr-dark;
-
-  color: $clr-light;
-  background-color: rgba($clr-dark, 0.9);
-  padding: 12px;
-  border-radius: 50% 50%;
-
-  display: grid;
-  place-items: center;
-
-  position: absolute;
-  right: $container-pd-mobile;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: map-get($z-indexes, sketch-buttons);
-
-  cursor: pointer;
-  transition: all 0.3s;
-
-  > svg {
-    opacity: 0.6;
-
-    transition: all 0.3s;
-  }
-
-  &:hover {
-    background-color: $clr-dark;
-    border-color: rgba($clr-light, 0.5);
-
-    > svg {
-      opacity: 1;
-    }
-  }
+  display: none;
 
   @include media-up(md) {
+    display: block;
+
+    opacity: 0;
+
+    box-shadow: none;
+    border: 1px solid $clr-dark;
+
+    color: $clr-light;
+    background-color: rgba($clr-dark, 0.9);
+    padding: 12px;
+    border-radius: 50% 50%;
+
+    display: grid;
+    place-items: center;
+
+    position: absolute;
     right: $container-pd-desktop;
+
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: map-get($z-indexes, sketch-buttons);
+
+    cursor: pointer;
+    transition: all 0.3s;
+
+    > svg {
+      opacity: 0.6;
+
+      transition: all 0.3s;
+    }
+
+    &:hover {
+      background-color: $clr-dark;
+      border-color: rgba($clr-light, 0.5);
+
+      > svg {
+        opacity: 1;
+      }
+    }
   }
 }
