@@ -130,7 +130,7 @@ export default function Header() {
           </ul>
           <Link
             className="header__cv"
-            href="/FRESNEL_BRIEUC_CV.pdf"
+            href="/files/FRESNEL_BRIEUC_CV.pdf"
             rel="noopener noreferrer"
             target="_blank"
             locale={false}
