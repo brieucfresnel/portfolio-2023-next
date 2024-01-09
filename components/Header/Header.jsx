@@ -69,7 +69,7 @@ export default function Header() {
           "content"
         )
         .to(
-          q(".header__school"),
+          q(".header__school, .header__cv"),
           {
             opacity: 1,
             ease: "power3.in",
@@ -127,6 +127,9 @@ export default function Header() {
             <li>Master Développement Full-Stack @ YNOV Toulouse</li>
             <li>Bachelor Développement Web @ Digital Campus Paris</li>
           </ul>
+          <a href="/FRESNEL_BRIEUC_CV.pdf" className="header__cv">
+            Télécharger mon CV{" "}
+          </a>
         </div>
         <div className="header__aside">
           <p className="header__side-text">

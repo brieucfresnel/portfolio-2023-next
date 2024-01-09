@@ -117,6 +117,14 @@
     }
   }
 
+  &__cv {
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 70px;
+    border: 1px solid $clr-light;
+    font-size: 0.75rem;
+  }
+
   &__side-text {
     color: $clr-light;
     font-size: 0.9375rem;
