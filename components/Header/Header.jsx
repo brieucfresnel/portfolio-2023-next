@@ -109,7 +109,7 @@ export default function Header() {
         <div className="header__main">
           <h1 className="header__title">Brieuc Fresnel</h1>
           <div className="header__subtitle">
-            Développeur web front-end & WordPress junior
+            Développeur WordPress & front-end
           </div>
           <p className="header__introduction">
             Mes études et mes expériences professionnelles m&apos;ont conduit à
