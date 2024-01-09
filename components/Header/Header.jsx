@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useLayoutEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import Container from "@/components/Container/Container"
 import "./Header.scss"
 import { Sketch } from "@/components/Sketch/Sketch"
@@ -127,9 +128,15 @@ export default function Header() {
             <li>Master Développement Full-Stack @ YNOV Toulouse</li>
             <li>Bachelor Développement Web @ Digital Campus Paris</li>
           </ul>
-          <a href="/FRESNEL_BRIEUC_CV.pdf" className="header__cv">
-            Télécharger mon CV{" "}
-          </a>
+          <Link
+            className="header__cv"
+            href="/FRESNEL_BRIEUC_CV.pdf"
+            rel="noopener noreferrer"
+            target="_blank"
+            locale={false}
+          >
+            Télécharger mon CV
+          </Link>
         </div>
         <div className="header__aside">
           <p className="header__side-text">
