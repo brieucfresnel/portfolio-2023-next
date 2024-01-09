@@ -123,6 +123,13 @@
     border-radius: 70px;
     border: 1px solid $clr-light;
     font-size: 0.75rem;
+    color: $clr-light;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $clr-light;
+      color: $clr-dark;
+    }
   }
 
   &__side-text {
