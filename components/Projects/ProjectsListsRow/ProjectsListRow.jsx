@@ -48,7 +48,8 @@ export default function ProjectsListRow({
               })
               .add("main")
               .to(ref.current, {
-                boxShadow: "0px 1px 0 0 #ffe8ec, 0px -1px 0 0 #ffe8ec",
+                boxShadow:
+                  "0px 1px 0 0 #ffe8ec inset, 0px -1px 0 0 #ffe8ec inset",
               })
               .to(
                 c(".projects-list-row__title, .projects-list-row__type"),
@@ -91,7 +92,8 @@ export default function ProjectsListRow({
               })
               .add("main")
               .to(ref.current, {
-                boxShadow: "0px 1px 0 0 #393435, 0px -1px 0 0 #393435",
+                boxShadow:
+                  "0px 1px 0 0 #393435 inset, 0px -1px 0 0 #393435 inset",
               })
               .to(
                 c(".projects-list-row__title, .projects-list-row__type"),
@@ -143,7 +145,11 @@ export default function ProjectsListRow({
       href={link ? link : "#"}
       target={link ? "_blank" : ""}
       ref={ref}
-      className={cn(className, "projects-list-row")}
+      className={cn(
+        className,
+        "projects-list-row",
+        link ? "projects-list-row--has-link" : ""
+      )}
     >
       <Image
         className="projects-list-row__icon projects-list-row__icon--left"
