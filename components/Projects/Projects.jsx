@@ -9,7 +9,11 @@ export default async function Projects() {
     process.cwd() + "/assets/json/projects.json",
     "utf8"
   )
-  const projects = JSON.parse(file)
+  let projects = JSON.parse(file)
+
+  projects = projects.sort(function (a, b) {
+    return a.year > b.year ? -1 : 1
+  })
 
   return (
     <>
