@@ -2,9 +2,12 @@
   {
     "id": 0,
     "title": "Le Metronum",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Salle de concerts",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2023",
     "link": "https://lemetronum.fr",
     "image": {
@@ -15,9 +18,12 @@
   {
     "id": 1,
     "title": "Circa",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Cirque",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2023",
     "link": "https://circa.auch.fr/",
     "image": {
@@ -28,9 +34,12 @@
   {
     "id": 2,
     "title": "At Home",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Coworking",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2022",
     "link": "https://athome-ecosysteme.fr/",
     "image": {
@@ -41,9 +50,12 @@
   {
     "id": 3,
     "title": "Rio Loco",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Festival de musique",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2022",
     "link": "https://rio-loco.org",
     "image": {
@@ -54,9 +66,12 @@
   {
     "id": 4,
     "title": "Amécoté",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Aide aux assurances",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2022",
     "link": "https://amecote.com/",
     "image": {
@@ -67,9 +82,12 @@
   {
     "id": 5,
     "title": "The Lords of Light",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Jeux de cartes NFT",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2022",
     "link": "https://rtlol.com/",
     "image": {
@@ -80,14 +98,65 @@
   {
     "id": 6,
     "title": "Lutherie Denat",
-    "team" : "Studio DOT",
+    "team": "Studio DOT",
     "type": "Lutherie à Montréal",
-    "tech": ["WordPress", "GSAP"],
+    "tech": [
+      "WordPress",
+      "GSAP"
+    ],
     "year": "2021",
     "link": "https://lutheriedenatmontreal.com/",
     "image": {
       "src": "/images/projects/lutheriedenat-header.png",
       "alt": "Lutherie Denat Montréal"
+    }
+  },
+  {
+    "id": 7,
+    "title": "KIME",
+    "team": "Digital Campus Paris",
+    "type": "Application de jeux pour enfants",
+    "tech": [
+      "Laravel",
+      "React"
+    ],
+    "year": "2020",
+    "link": "",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  },
+  {
+    "id": 8,
+    "title": "Sound",
+    "team": "Digital Campus Paris",
+    "type": "Clone de Spotify",
+    "tech": [
+      "Next.js",
+      "React"
+    ],
+    "year": "2021",
+    "link": "",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  },
+  {
+    "id": 9,
+    "title": "Pizza Gusto",
+    "team": "YNOV Toulouse",
+    "type": "Application de livraison",
+    "tech": [
+      "Next.js",
+      "React"
+    ],
+    "year": "2023",
+    "link": "",
+    "image": {
+      "src": "",
+      "alt": ""
     }
   }
 ]

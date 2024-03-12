@@ -37,13 +37,15 @@ function ProjectsList({ projects }) {
       <Container>
         <h2 className={`projects-list__title`}>Références</h2>
         <div className="projects-list__rows">
-          {projects.map((project, i) => (
-            <ProjectsListRow
-              className="projects-list__row"
-              key={i}
-              {...project}
-            ></ProjectsListRow>
-          ))}
+          {projects
+            .sort((a, b) => parseInt(a.year) > parseInt(b.year))
+            .map((project, i) => (
+              <ProjectsListRow
+                className="projects-list__row"
+                key={i}
+                {...project}
+              ></ProjectsListRow>
+            ))}
         </div>
       </Container>
     </section>

@@ -140,8 +140,8 @@ export default function ProjectsListRow({
 
   return (
     <a
-      href={link}
-      target="_blank"
+      href={link ? link : "#"}
+      target={link ? "_blank" : ""}
       ref={ref}
       className={cn(className, "projects-list-row")}
     >
@@ -162,16 +162,16 @@ export default function ProjectsListRow({
           </span>
         </div>
         <div className="projects-list-row__aside">
-          <span className="projects-list-row__cell projects-list-row__tech">
-            {tech.map((tech, i) => (
-              <span key={i}>{tech}</span>
-            ))}
-          </span>
           <span className="projects-list-row__cell projects-list-row__team">
             {team}
           </span>
           <span className="projects-list-row__cell projects-list-row__year">
             {year}
+          </span>
+          <span className="projects-list-row__cell projects-list-row__tech">
+            {tech.map((tech, i) => (
+              <span key={i}>{tech}</span>
+            ))}
           </span>
         </div>
       </div>
